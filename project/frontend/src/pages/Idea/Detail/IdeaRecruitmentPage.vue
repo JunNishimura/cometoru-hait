@@ -1,5 +1,5 @@
 <template>
-    <div id="idea-requirements" v-if="loadComplete">
+    <div id="idea-recruitment" v-if="loadComplete">
         <div class="edit-container">
             <BaseEditButton v-if="isMyIdea" @edit="edit" />
             <div class="edit-modal" v-if="modalState">
@@ -110,7 +110,7 @@ export default {
             
             this.loadComplete = true;
         }).catch( err => {
-            console.log("error to get idea data at IdeaRequirementsPage: ", err);
+            console.log("error to get idea data at IdeaRecruitmentPage: ", err);
         })
     },
     methods: {
@@ -138,7 +138,7 @@ export default {
             
             apiHelper.putDate(dateData, this.ideaId)
             .then( () => {
-                this.$router.go({ name: 'requirements', params: { ideaId: this.ideaId }});
+                // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
             }).catch( err => {
                 console.log("error to add date: ", err);
             })
@@ -153,7 +153,7 @@ export default {
 
                 Promise.all(promises)
                 .then(() => {
-                    this.$router.go({ name: 'requirements', params: { ideaId: this.ideaId }});
+                    // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
                 }).catch(err => {
                     console.log("error to add recruitments: ", err);
                 })
@@ -167,12 +167,12 @@ export default {
 
                     return Promise.all(promises)
                 }).then(() => {
-                    this.$router.go({ name: 'requirements', params: { ideaId: this.ideaId }});
+                    // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
                 }).catch(err => {
                     console.log("error to update recruitments: ", err);
                 })
             } else {
-                this.$router.go({ name: 'requirements', params: { ideaId: this.ideaId }});
+                // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
             }
         }
     },
@@ -184,7 +184,7 @@ export default {
 </script>
 
 <style scoped>
-#idea-requirements {
+#idea-recruitment {
     position: relative;
 }
 

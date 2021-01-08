@@ -112,6 +112,10 @@ export default {
     height: 7rem;
 }
 
+.recruitments span {
+    
+}
+
 .idea-footer {
     display: flex;
     justify-content: flex-start;
