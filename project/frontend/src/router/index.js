@@ -4,27 +4,27 @@ Vue.use(VueRouter);
 //---------- impport page components ----------//
 // Idea pages
 import HomePage from '@/pages/HomePage.vue';
-import IdeasPage from '@/pages/Idea/IdeasPage.vue';
-import NewIdeasPage from '@/pages/Idea/NewIdeasPage.vue';
-import TagIdeasPage from '@/pages/Idea/TagIdeasPage.vue';
-import RecommendIdeasPage from '@/pages/Idea/RecommendIdeasPage';
-import IdeaDetailPage from '@/pages/Idea/IdeaDetailPage.vue';
-import IdeaOverviewPage from '@/pages/Idea/IdeaOverviewPage.vue';
-import IdeaDetailInfoPage from '@/pages/Idea/IdeaDetailInfoPage.vue';
-import IdeaRequirementsPage from '@/pages/Idea/IdeaRequirementsPage.vue';
-import IdeaReputationPage from '@/pages/Idea/IdeaReputationPage.vue';
-import IdeaFeedbackPage from '@/pages/Idea/IdeaFeedbackPage.vue';
+import IdeasPage from '@/pages/Idea/List/IdeasPage.vue';
+import NewIdeasPage from '@/pages/Idea/List/NewIdeasPage.vue';
+import TagIdeasPage from '@/pages/Idea/List/TagIdeasPage.vue';
+import RecommendIdeasPage from '@/pages/Idea/List/RecommendIdeasPage';
+import IdeaDetailPage from '@/pages/Idea/Detail/IdeaDetailPage.vue';
+import IdeaOverviewPage from '@/pages/Idea/Detail/IdeaOverviewPage.vue';
+import IdeaDetailInfoPage from '@/pages/Idea/Detail/IdeaDetailInfoPage.vue';
+import IdeaRecruitmentPage from '@/pages/Idea/Detail/IdeaRecruitmentPage.vue';
+import IdeaReputationPage from '@/pages/Idea/Detail/IdeaReputationPage.vue';
+import IdeaFeedbackPage from '@/pages/Idea/Detail/IdeaFeedbackPage.vue';
 // Idea Post
-import IdeaPostPage from '@/pages/Idea/IdeaPostPage.vue';
-import PostNewIdeaPage from '@/pages/Idea/PostNewIdeaPage.vue';
-import EditIdeaPage from '@/pages/Idea/EditIdeaPage.vue';
+import IdeaPostPage from '@/pages/Idea/Post/IdeaPostPage.vue';
+import PostNewIdeaPage from '@/pages/Idea/Post/PostNewIdeaPage.vue';
+import EditIdeaPage from '@/pages/Idea/Post/EditIdeaPage.vue';
 // Auth pages
+import AuthPage from '@/pages/Auth/AuthPage.vue';
 import SignupPage from '@/pages/Auth/SignupPage.vue';
 import LoginPage from '@/pages/Auth/LoginPage.vue';
 // User Pages
 import UserProfilePage from '@/pages/User/UserProfilePage.vue';
 import SettingsPage from '@/pages/User/SettingsPage.vue';
-import UserSearchPage from '@/pages/User/UserSearchPage.vue';
 import PostIdeasPage from '@/pages/User/PostIdeasPage.vue';
 import DraftIdeasPage from '@/pages/User/DraftIdeasPage.vue';
 import StockEventsPage from '@/pages/User/StockEventsPage.vue';
@@ -48,7 +48,7 @@ const routes = [
     {
         path: '/',
         component: HomePage,
-        redirect: '/ideas',
+        redirect: { name: 'ideas' },
         children: [
             {
                 name: 'ideas',
@@ -56,39 +56,36 @@ const routes = [
                 component: IdeasPage,
                 redirect: { name: 'newIdeas' },
                 children: [
-                    { name: 'newIdeas',   path: 'new',   component: NewIdeasPage   },
-                    { name: 'tagIdeas',   path: 'tag',   component: TagIdeasPage   },
-                    { name: 'RecommendIdeasPage', path: 'recommend', component: RecommendIdeasPage },
+                    { name: 'newIdeas',       path: 'new',       component: NewIdeasPage       },
+                    { name: 'tagIdeas',       path: 'tag',       component: TagIdeasPage       },
+                    { name: 'recommendIdeas', path: 'recommend', component: RecommendIdeasPage },
                 ]
             },
             {
                 // アイデア詳細画面
                 name: 'ideaDetail',
-                path: 'ideas/:ideaId',
+                path: 'idea/:ideaId',
                 component: IdeaDetailPage,
                 redirect: { name: 'overview' },
                 props: true,
                 children: [
                     { name: 'overview',     path: 'overview',     component: IdeaOverviewPage },
                     { name: 'detailInfo',   path: 'detailInfo',   component: IdeaDetailInfoPage },
-                    { name: 'requirements', path: 'requirements', component: IdeaRequirementsPage },
+                    { name: 'recruitment', path: 'recruitment', component: IdeaRecruitmentPage },
                     { name: 'reputation',   path: 'reputation',   component: IdeaReputationPage },
                     { name: 'feedback', path: 'feedback', component: IdeaFeedbackPage },
                 ]
             },
             {
-                // サインアップ画面
-                name: 'signup',
-                path: 'signup',
-                component: SignupPage,
-                meta: { requiresUnAuth: true },
-            },
-            {
-                // ログイン画面
-                name: 'login',
-                path: 'login',
-                component: LoginPage,
-                meta: { requiresUnAuth: true },
+                // 認証関連（新規登録、ログイン）の画面
+                name: 'auth',
+                path: '/auth',
+                component: AuthPage,
+                redirect: { name: 'signup' },
+                children: [
+                    { name: 'signup', path: 'signup', component: SignupPage, meta: { requiresUnAuth: true }},
+                    { name: 'login',  path: 'login',  component: LoginPage,  meta: { requiresUnAuth: true }},
+                ]
             },
             {
                 // ユーザー画面
@@ -122,11 +119,6 @@ const routes = [
                 path: 'settings',
                 component: SettingsPage,
                 meta: { requiresAuth: true },
-            },
-            {
-                name: 'userSearch',
-                path: 'user/search',
-                component: UserSearchPage,
             },
             {
                 // イベント一覧画面

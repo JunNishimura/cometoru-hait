@@ -12,7 +12,6 @@
                 <div class="reputation-form">
                     <ReputationForm 
                         :ideaId="ideaId"
-                        :userId="ideaData.user_id"
                     ></ReputationForm>
                 </div>
             </div>

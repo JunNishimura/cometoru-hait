@@ -6,9 +6,8 @@
                 <FontAwesomeIcon class="icon" :icon="['fas', 'search']" size="lg" />
                 <div class="dropdown">
                     <ul>
-                        <li class="dropdown-link"><router-link to="/user/search">仲間</router-link></li>
-                        <li class="dropdown-link"><router-link to="/ideas">アイデア</router-link></li>
-                        <li class="dropdown-link"><router-link to="/events">イベント</router-link></li>
+                        <li class="dropdown-link"><router-link :to="ideasLink">アイデア</router-link></li>
+                        <li class="dropdown-link"><router-link :to="eventsLink">イベント</router-link></li>
                     </ul>
                 </div>
             </li>
@@ -16,8 +15,8 @@
                 <FontAwesomeIcon class="icon" :icon="['fas', 'sign-in-alt']" size="2x" />
                 <div class="dropdown">
                     <ul>
-                        <li class="dropdown-link"><router-link to="/signup">新規登録</router-link></li>
-                        <li class="dropdown-link"><router-link to="/login">ログイン</router-link></li>
+                        <li class="dropdown-link"><router-link :to="signupLink">新規登録</router-link></li>
+                        <li class="dropdown-link"><router-link :to="loginLink">ログイン</router-link></li>
                     </ul>
                 </div>
             </li>
@@ -51,11 +50,23 @@ export default {
         isLoggedIn() {
             return this.$store.getters['auth/isLoggedIn'];
         },
+        ideasLink() {
+            return { name: 'ideas' };
+        },
+        eventsLink() {
+            return { name: 'events' };
+        },
         userLink() {
             return { name: 'userprofile', params: { userId: this.userId } };
         },
         notificationLink() {
             return { name: 'notification', params: { userId: this.userId }};
+        },
+        signupLink() {
+            return { name: 'signup' };
+        },
+        loginLink() {
+            return { name: 'login' };
         },
         profileImage() {
             return this.user.prof_img;

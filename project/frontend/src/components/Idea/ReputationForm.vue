@@ -51,9 +51,6 @@ export default {
         ideaId: {
             required: true,
         },
-        userId: {
-            requried: true,
-        },
     },
     data() {
         return {
@@ -62,6 +59,11 @@ export default {
             novelty: 0,
             possibility: 0,
             reputationState: false,
+        }
+    },
+    computed: {
+        myUserId() {
+            return this.$store.getters['auth/userId'];
         }
     },
     watch: {
@@ -77,7 +79,7 @@ export default {
     },
     methods: {
         addReputation() {
-            apiHelper.addReputation(this.ideaId, this.userId, {
+            apiHelper.addReputation(this.ideaId, this.myUserId, {
                 interesting: this.interesting,
                 novelty: this.novelty,
                 possibility: this.possibility,
@@ -98,7 +100,7 @@ export default {
             })
         },
         updateReputation() {
-            apiHelper.updateReputation(this.reputationId, this.ideaId, this.userId, {
+            apiHelper.updateReputation(this.reputationId, this.ideaId, this.myUserId, {
                 interesting: this.interesting,
                 novelty: this.novelty,
                 possibility: this.possibility,
@@ -110,13 +112,13 @@ export default {
         },
         initReputation() {
             // 評価状態を確認（評価済み / 未評価）
-            apiHelper.getReputationState(this.ideaId, this.userId)
+            apiHelper.getReputationState(this.ideaId, this.myUserId)
             .then( res => {
                 this.reputationState = res;
                 
                 // 評価済みの場合
                 if (this.reputationState) {
-                    return apiHelper.loadReputation(this.ideaId, this.userId)
+                    return apiHelper.loadReputation(this.ideaId, this.myUserId)
                 }
             }).then( res => {
                 if (res != null) {
