@@ -40,22 +40,12 @@ class PostIdea(models.Model):
     # ターゲット
     target = models.CharField(max_length=100, blank=True, null=True,
                             verbose_name='ターゲット')
-    # 人材募集
-    offer = models.CharField(max_length=100, blank=True, null=True,
-                            verbose_name='人材募集')
     # 期日
     deadline = models.DateTimeField(blank=True, null=True,
                                 verbose_name='期日')
-    # feedbackの観点
-    feedback_point = models.TextField(max_length=100, blank=True, null=True,
-                                    verbose_name='フィードバック観点')
-    # イベント外部キー
-    event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True,
-                                verbose_name='イベント')
 
     def __str__(self):
         return "No. " + str(self.idea_id)
-
 
 class FeedbackQuestion(models.Model):
     feedback_question_id = models.AutoField(primary_key=True,

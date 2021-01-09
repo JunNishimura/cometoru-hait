@@ -48,7 +48,7 @@ class IdeaSerializer(serializers.ModelSerializer):
         model = PostIdea
         fields = ('idea_id', 'user_id', 'title', 'overview', 'value',
                 'background', 'passion', 'idea_image', 'idea_date', 'state',
-                'target', 'offer', 'deadline', 'feedback_point', 'event_id')
+                'target', 'deadline')
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
