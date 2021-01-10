@@ -109,7 +109,7 @@ export default {
     width: 35rem;
     background-color: #fff;
     padding: 1rem 1rem;
-    border-bottom: 1px solid #dddddd;
+    border: 1px solid #dddddd;
 }
 
 .idea__header {
