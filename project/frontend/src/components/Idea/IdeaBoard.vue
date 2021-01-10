@@ -11,10 +11,8 @@
                 :user_id="idea.user_id"
                 :title="idea.title"
                 :overview="idea.overview"
-                :background="idea.background"
-                :passion="idea.passion"
-                :idea_img="idea.idea_img"
                 :idea_date="idea.idea_date"
+                :deadline="idea.deadline"
             ></IdeaElement>
         </template>
     </BaseBoard>

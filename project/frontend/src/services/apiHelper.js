@@ -494,7 +494,7 @@ export default {
         return responseData.length > 0;
     },
 
-    // ------------------------------ Reputation Map ------------------------------ //
+    // ------------------------------ Messages ------------------------------ //
     // パラメーターとして渡したユーザーに届いたメッセージ一覧を取得
     async loadReceivedMessages(userId) {
         const url = '/messages/?user_to=' + userId;
