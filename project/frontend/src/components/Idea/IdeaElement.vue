@@ -108,7 +108,7 @@ export default {
 .idea {
     width: 35rem;
     background-color: #fff;
-    padding: 1rem 1rem;
+    padding: 1rem;
     border: 1px solid #dddddd;
 }
 

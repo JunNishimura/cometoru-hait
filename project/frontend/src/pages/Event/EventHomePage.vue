@@ -1,16 +1,18 @@
 <template>
-    <div id="event-home">
-        <section class="side">
-            <BaseTab title="イベント">
-                <template #links>
-                    <router-link :to="newEventLink">新着</router-link>
-                    <router-link :to="comingEventLink">開催間近</router-link>
-                </template>
-            </BaseTab>
-        </section>
-        <section class="content">
-            <router-view />
-        </section>
+    <div id="event__home-page">
+        <div class="event__display">
+            <section class="event__display-side">
+                <BaseTab title="イベント">
+                    <template #links>
+                        <router-link :to="newEventLink">新着</router-link>
+                        <router-link :to="comingEventLink">開催間近</router-link>
+                    </template>
+                </BaseTab>
+            </section>
+            <section class="event__display-content">
+                <router-view />
+            </section>
+        </div>
     </div>
 </template>
 
@@ -28,14 +30,15 @@ export default {
 </script>
 
 <style scoped>
-#event-home {
-    width: 80%;
-    margin: 2rem auto 0;
-    display: flex;
-    justify-content: flex-start;
+#event__home-page {
+    height: 100%;
 }
 
-.content {
-    width: 100%;
+.event__display {
+    width: 60%;
+    padding: 2rem 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 </style>

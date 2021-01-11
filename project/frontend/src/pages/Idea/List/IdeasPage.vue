@@ -1,7 +1,7 @@
 <template>
-    <div id="ideas-page">
-        <div class="ideas-display">
-            <section class="side">
+    <div id="ideas__page">
+        <div class="ideas__display">
+            <section class="ideas__display-side">
                 <BaseTab title="アイデア">
                     <template #links>
                         <router-link :to="newIdeasLink">新着</router-link>
@@ -10,7 +10,7 @@
                     </template>
                 </BaseTab>
             </section>
-            <section class="content"> 
+            <section class="ideas__display-content"> 
                 <router-view />
             </section>
         </div>
@@ -46,16 +46,15 @@ export default {
 </script>
 
 <style scoped>
-#ideas-page {
+#ideas__page {
     height: 100%;
 }
 
-.ideas-display {
-    /* background-color: #f00; */
+.ideas__display {
     width: 60%;
     padding: 2rem 0;
-    margin: 0 auto;  
+    margin: 0 auto;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 </style>
