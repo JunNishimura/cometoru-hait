@@ -1,15 +1,23 @@
 <template>
-    <div class="event-element">
-        <div class="header">
-            <a class="title" :href="url">{{ name }}</a>
-            <div class="stock">
+    <div class="event">
+        <div class="event__header">
+            <div class="event__stock">
                 <span class="hover-msg">{{ hoverMessage }}</span>
                 <span :class="stockColor" class="stock-icon" @click="stockEvent"><FontAwesomeIcon :icon="['fas', 'bookmark']" size="lg" /></span>
             </div>
-            <small class="location"><FontAwesomeIcon style="marginRight: .5rem" :icon="['fas', 'map-marker-alt']"/>{{ location }}</small>
-            <h3 class="date">{{ schedule }}</h3>
+            <div class="event__title">
+                <a :href="url">{{ name }}</a>
+            </div>
         </div>
-        <div class="content">
+        <div class="event__info">
+            <div class="event__location">
+                <div><FontAwesomeIcon class="icon" :icon="['fas', 'map-marker-alt']" /><span>{{ location }}</span></div>
+            </div>
+            <div class="event__date">
+                <div><FontAwesomeIcon class="icon" :icon="['fas', 'calendar-day']" /><span>{{ schedule }}</span></div>
+            </div>
+        </div>
+        <div class="event__detail">
             <p>{{ detail }}</p>
         </div>
     </div>
@@ -75,47 +83,41 @@ export default {
 </script>
 
 <style scoped>
-.event-element {
-    padding: 1rem 2rem;
-    height: 20rem;
+.event {
+    padding: 1rem;
+    width: 35rem;
     transition: all .5s ease-out;
-    border-bottom: 1px solid #dddddd;
+    background-color: #fff;
+    border: 1px solid #dddddd;
 }
 
-.header {
-    border-bottom: 1px solid #eeeeee;
+.event__header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
-.header a:hover {
-    color: #ffa600;
-}
-
-.title {
-    font-size: 28px;
-    font-weight: bold;
-    text-decoration: none;
+.event__title a {
     color: #000;
-    transition: all 0.3s ease;
+    display: block;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-.stock {
-    margin-left: 1rem;
-    margin-right: auto;
+.event__title a:hover {
+    border-bottom: 1px solid #000;
+}
+
+.event__stock {
+    margin-right: 1.0rem;
     cursor: pointer;
     position: relative;
 }
 
-.date {
-    margin-left: 1rem;
-    color: #ff4e4e;
-}
-
-.content {
-    padding-top: 0.5rem;
-    text-align: left;
+.event__stock:hover > .hover-msg {
+    opacity: 1;
+    transform: translate(-50%, -30px);
 }
 
 .hover-msg {
@@ -135,10 +137,43 @@ export default {
     transition: 0.5s;
 }
 
-.stock:hover > .hover-msg {
-    opacity: 1;
-    transform: translate(-50%, -30px);
+.event__info {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
 }
+
+.event__location {
+    margin-right: 1.5rem;
+}
+
+.event__location span {
+    color: #444;
+}
+
+.event__date span {
+    color: #e22;
+    font-weight: bold;
+}
+
+.event__location span,
+.event__date span {
+    font-size: 16px;
+}
+
+.event__location .icon,
+.event__date .icon {
+    margin-right: 0.5rem;
+}
+
+.event__detail {
+    /* background-color: #eee; */
+    border-top: 1px solid #eee;
+    padding: 1.5rem;
+    font-size: 16px;
+    text-align: left;
+}
+
 
 .filled {
     color: #ffbb3c;

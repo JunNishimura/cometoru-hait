@@ -18,11 +18,11 @@ import vuetify from './plugins/vuetify';
 
 //---------- Font Awesome ----------//
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faUserPlus, faUserMinus, faUsers, faMapMarkerAlt, faCheck, faEnvelope, faUniversity, faBookOpen, faTimes, faTag, faBolt, faBrain, faComments, faDollarSign, faHome, faBookmark, faSearch, faArrowLeft, faSignOutAlt, faSignInAlt, faBell, faLink, faPaperPlane, faSortUp, faSortDown, faEllipsisV, faTrash, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
+import { faUser, faUserPlus, faUserMinus, faUsers, faMapMarkerAlt, faCheck, faEnvelope, faUniversity, faBookOpen, faTimes, faTag, faBolt, faBrain, faComments, faDollarSign, faHome, faBookmark, faSearch, faArrowLeft, faSignOutAlt, faSignInAlt, faBell, faLink, faPaperPlane, faSortUp, faSortDown, faEllipsisV, faTrash, faPencilAlt, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
 import { faEdit, faLightbulb } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(faUser, faUserPlus, faUserMinus, faUsers, faMapMarkerAlt, faCheck, faEnvelope, faUniversity, faBookOpen, faTimes, faTag, faBolt, faBrain, faComments, faDollarSign, faHome, faBookmark, faSearch, faArrowLeft, faSignOutAlt, faSignInAlt, faBell, faLink, faPaperPlane, faSortUp, faSortDown, faEllipsisV, faTrash, faPencilAlt,
+library.add(faUser, faUserPlus, faUserMinus, faUsers, faMapMarkerAlt, faCheck, faEnvelope, faUniversity, faBookOpen, faTimes, faTag, faBolt, faBrain, faComments, faDollarSign, faHome, faBookmark, faSearch, faArrowLeft, faSignOutAlt, faSignInAlt, faBell, faLink, faPaperPlane, faSortUp, faSortDown, faEllipsisV, faTrash, faPencilAlt, faCalendarDay,
             faFacebookSquare, faTwitterSquare,
             faEdit, faLightbulb);
 Vue.component('FontAwesomeIcon', FontAwesomeIcon);

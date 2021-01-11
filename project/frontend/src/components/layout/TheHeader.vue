@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header class="header">
         <ul class="nav-links">
             <li class="nav-link title"><router-link to="/ideas">カムトル</router-link></li>
             <li class="nav-link search">
@@ -105,16 +105,17 @@ export default {
 </script>
 
 <style scoped>
-header {
+.header {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 5rem;
     color: #000;
     background-color: #fff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     font-weight: bold;
     letter-spacing: 4px;
+    z-index: 10;
 }
 
 ul {
@@ -138,10 +139,10 @@ li, a {
 .nav-link:not(:nth-child(1)):not(:nth-last-child(1)) {
     margin-right: 0.5rem;
 }
+
 .nav-link a {
     display: block;
-    line-height: 5rem;
-    height: 100%;
+    line-height: 4rem;
 }
 
 .title {

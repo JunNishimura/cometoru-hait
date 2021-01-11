@@ -19,7 +19,6 @@ export default {
 .tabs {
     width: 15rem;
     color: #000;
-    margin-right: 5rem;
 }
 
 .title {
