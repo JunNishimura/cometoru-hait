@@ -85,6 +85,14 @@ export default {
             }).catch( err => {
                 console.log("error to get userDetail at TheHeader: ", err);
             })
+        },
+        handleScroll() {
+            console.log(window.scrollY);
+        }
+    },
+    watch: {
+        userId() {
+            this.loadUserDetail();
         }
     },
     beforeMount () {
@@ -93,22 +101,20 @@ export default {
             this.loadUserDetail();
         }
     },
-    watch: {
-        userId() {
-            this.loadUserDetail();
-        }
-    }
 }
 </script>
 
 <style scoped>
 header {
     top: 0;
+    left: 0;
     width: 100%;
+    height: 5rem;
+    color: #000;
     background-color: #fff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    color: #000;
     font-weight: bold;
+    letter-spacing: 4px;
 }
 
 ul {
@@ -121,7 +127,7 @@ li, a {
 }
 
 .nav-links {
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
     display: flex;
     justify-content: flex-end;
@@ -132,7 +138,6 @@ li, a {
 .nav-link:not(:nth-child(1)):not(:nth-last-child(1)) {
     margin-right: 0.5rem;
 }
-
 .nav-link a {
     display: block;
     line-height: 5rem;

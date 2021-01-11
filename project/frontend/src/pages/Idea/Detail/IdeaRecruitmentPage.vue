@@ -153,7 +153,7 @@ export default {
 
                 Promise.all(promises)
                 .then(() => {
-                    // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
+                    this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
                 }).catch(err => {
                     console.log("error to add recruitments: ", err);
                 })
@@ -167,12 +167,12 @@ export default {
 
                     return Promise.all(promises)
                 }).then(() => {
-                    // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
+                    this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
                 }).catch(err => {
                     console.log("error to update recruitments: ", err);
                 })
             } else {
-                // this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
+                this.$router.go({ name: 'recruitment', params: { ideaId: this.ideaId }});
             }
         }
     },

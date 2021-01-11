@@ -51,14 +51,11 @@ export default {
 }
 
 .ideas-display {
-    width: 80%;
+    /* background-color: #f00; */
+    width: 60%;
     padding: 2rem 0;
     margin: 0 auto;  
     display: flex;
     justify-content: flex-start;
-}
-
-.content {
-    width: 100%;
 }
 </style>
