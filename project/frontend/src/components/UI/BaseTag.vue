@@ -26,7 +26,9 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ddd;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: #eee;
     border-radius: 4px;
     float: left;
     padding: 0.1rem 0.25rem;

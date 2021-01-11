@@ -3,8 +3,8 @@
         <section class="side">
             <BaseTab title="イベント">
                 <template #links>
-                    <router-link to="/events/new">新着</router-link>
-                    <router-link to="/events/coming">開催間近</router-link>
+                    <router-link :to="newEventLink">新着</router-link>
+                    <router-link :to="comingEventLink">開催間近</router-link>
                 </template>
             </BaseTab>
         </section>
@@ -13,6 +13,19 @@
         </section>
     </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        newEventLink() {
+            return { name: 'newEvents' };
+        },
+        comingEventLink() {
+            return { name: 'comingEvents' };
+        }
+    }
+}
+</script>
 
 <style scoped>
 #event-home {

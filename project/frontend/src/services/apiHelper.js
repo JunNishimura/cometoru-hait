@@ -226,12 +226,14 @@ export default {
     },
 
     // ------------------------------ Tags ------------------------------ //
-    async loadAllTags() {
+    // DBにて使用されている順にタグが既にソートされているため、先頭10個のアイデアを取得すればよい
+    async loadHitTags() {
         const url = '/tag/';
         const response = await api.get(url);
         const responseData = await response.data;
+        const top10tags = responseData.slice(0, 10);
 
-        return responseData;
+        return top10tags;
     },
     // tagの名前でタグを検索する
     async loadTagsByName(tagName) {
@@ -492,7 +494,7 @@ export default {
         return responseData.length > 0;
     },
 
-    // ------------------------------ Reputation Map ------------------------------ //
+    // ------------------------------ Messages ------------------------------ //
     // パラメーターとして渡したユーザーに届いたメッセージ一覧を取得
     async loadReceivedMessages(userId) {
         const url = '/messages/?user_to=' + userId;
@@ -565,5 +567,43 @@ export default {
         const responseData = await response.data;
         
         return responseData;
+    },
+
+    // ------------------------------ recruitment ------------------------------ //
+    async postRecruitment(ideaId, kind, number) {
+        const url = '/recruitments/';
+        const response = await api.post(url, {
+            idea: ideaId,
+            kind: kind,
+            number: number,
+        });
+        const responseData = await response.data;
+
+        return responseData;
+    },
+    async loadRecruitments(ideaId) {
+        const url = '/recruitments/?idea=' + ideaId;
+        const response = await api.get(url);
+        const responseData = await response.data;
+
+        return responseData;
+    },
+    async deleteAllRecruitments(ideaId) {
+        let url = '/recruitments/?idea=' + ideaId;
+        const response = await api.get(url);
+        const responseData = await response.data;
+        
+        if (responseData.length > 0) {
+            const recIds = responseData.map( rec => rec.recruitment_id);
+            const promises = [];
+            for (const recId of recIds) {
+                url = '/recruitments/' + recId + '/';
+                promises.push(api.delete(url));
+            }
+            Promise.all(promises)
+            .catch(err => {
+                console.log("error to delete recruitments: ", err);
+            })
+        }
     }
 }

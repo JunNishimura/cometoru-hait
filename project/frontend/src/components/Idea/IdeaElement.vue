@@ -1,23 +1,35 @@
 <template>
     <div class="idea" v-if="loadComplete">
-        <div class="idea-header">
-            <router-link :to="ideaLink">{{ title }}</router-link>
-        </div>
-        <div class="tags">
-            <BaseTag v-for="(tag, key) in tags" :key="key" :name="tag.tag_name" />
-        </div>
-        <div class="overview">
-            <p>{{ content }}</p>
-        </div>
-        <div class="idea-footer">
-            <div class="profile-image">
+        <div class="idea__header">
+            <div class="idea__title">
+                <router-link :to="ideaLink">{{ title }}</router-link>
+            </div>
+            <div class="idea__user-name">
+                <router-link :to="userLink">{{ userDetail.username }}</router-link>
+            </div>
+            <div class="idea__user-profile">
                 <img :src="profileImage" alt="profile">
             </div>
-            <div class="username">
-                <span><router-link :to="userLink">{{ userDetail.username }}</router-link></span>
+        </div>
+        <div class="idea__tag">
+            <BaseTag v-for="(tag, key) in tags" :key="key" :name="tag.tag_name" />
+        </div>
+        <div class="idea__overview">
+            <p>{{ overview }}</p>
+        </div>
+        <div class="idea__content">
+            <div class="idea__content-recruitment">
+                <h5>募集</h5>
+                <div class="recruitment__item" v-for="rec in recruitments"
+                    :key="rec.recruitment_id"
+                >
+                    <span class="recruitment__item-kind">{{ rec.kind }}</span>
+                    <span class="recruitment__item-number">{{ rec.number }}人</span>
+                </div>
             </div>
-            <div class="date">
-                <small>{{ idea_date }}</small>
+            <div class="idea__content-deadline">
+                <h5>〆切</h5>
+                <h4>{{ deadlineDisplay }}</h4>
             </div>
         </div>
     </div>
@@ -27,11 +39,14 @@
 import apiHelper from '@/services/apiHelper.js';
 
 export default {
-    props: ['idea_id', 'user_id', 'title', 'overview', 'background', 'passion', 'idea_img', 'idea_date'],
+    props: ['idea_id', 'user_id', 'title', 'overview', 'idea_date', 'deadline'],
     computed: {
         content() {
             // TODO overviewより文字数を制限して返す
             return this.overview;
+        },
+        deadlineDisplay() {
+            return this.deadline == null || this.deadline === '' ? '未定' : this.deadline;
         },
         ideaLink() {
             return { name: 'ideaDetail', params: { ideaId: this.idea_id } };
@@ -43,15 +58,19 @@ export default {
             return this.userDetail.prof_img === null ? require('@/assets/images/person.png') : this.userDetail.prof_img;
         },
         loadComplete() {
-            return this.loadTag && this.loadUser;
-        }
+            return this.load.tag && this.load.user && this.load.recruitments;
+        },
     },
     data() {
         return {
             userDetail: null,
             tags: [],
-            loadTag: false,
-            loadUser: false,
+            recruitments: [],
+            load: {
+                user: false,
+                tag: false,
+                recruitments: false,
+            }
         }
     },
     created() {
@@ -59,7 +78,7 @@ export default {
         apiHelper.loadUserDetail(this.user_id)
         .then( res => {
             this.userDetail = res;
-            this.loadUser = true;
+            this.load.user = true;
         }).catch( err => {
             console.log("error to load userDetail at IdeaElement: ", err);
         });
@@ -68,76 +87,67 @@ export default {
         apiHelper.loadIdeaTags(this.idea_id) 
         .then( res => {
             this.tags = res;
-            this.loadTag = true;
+            this.load.tag = true;
         }).catch( err => {
             console.log("error to load idea tags at IdeaElement: ", err);
         });
+
+        // idea_idよりrecruitmentsを取得
+        apiHelper.loadRecruitments(this.idea_id)
+        .then( res => {
+            this.recruitments = res;
+            this.load.recruitments = true;
+        }).catch( err => {
+            console.log("error to load recruitments at ideaElement: ", err);
+        })
     },
 }
 </script>
 
 <style scoped>
 .idea {
-    width: 100%;
+    width: 35rem;
     background-color: #fff;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #dddddd;
+    padding: 1rem 1rem;
+    border: 1px solid #dddddd;
 }
 
-.idea-header {
-    padding: 1rem 0;
+.idea__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.idea-header a {
+.idea__title a {
     color: #000;
     display: block;
     text-decoration: none;
     font-size: 22px;
     font-weight: bold;
-    border-bottom: 1px solid #cccccc;
 }
 
-.idea-header a:hover {
-    color: #ffa600;
+.idea__user-name {
+    margin-left: auto;
 }
 
-.tags::after {
-    content: "";
+.idea__user-name a {
     display: block;
-    clear: both;
-}
-
-.overview {
-    text-align: left;
-    height: 7rem;
-}
-
-.idea-footer {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.username {
-    margin-right: auto;
-}
-
-.username a {
     color: #000;
     text-decoration: none;
 }
 
-.username a:hover {
+.idea__title a:hover,
+.idea__user-name a:hover {
     border-bottom: 1px solid #000;
 }
 
-.profile-image {
+.idea__user-profile {
     position: relative;
-    height: 50px;
     width: 50px;
+    height: 50px;
 }
 
-.profile-image img {
+.idea__user-profile img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -146,5 +156,48 @@ export default {
     width: 36px;
     height: 36px;
     border-radius: 50%;
+}
+
+.idea__tag::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.idea__overview {
+    margin-top: 1.5rem;
+    text-align: left;
+    font-size: 14px;
+}
+
+.idea__content {
+    background-color: #eee;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.idea__content-recruitment,
+.idea__content-deadline {
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.idea__content-recruitment {
+    border-right: 1px solid #bbb;
+    width: 100%;
+}
+
+.recruitment__item {
+    margin: 0.1rem 1rem 0;
+    border-bottom: 1px solid #bbb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.idea__content-deadline {
+    width: 10rem;
 }
 </style>

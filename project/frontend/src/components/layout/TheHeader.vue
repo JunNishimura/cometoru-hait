@@ -6,9 +6,8 @@
                 <FontAwesomeIcon class="icon" :icon="['fas', 'search']" size="lg" />
                 <div class="dropdown">
                     <ul>
-                        <li class="dropdown-link"><router-link to="/user/search">仲間</router-link></li>
-                        <li class="dropdown-link"><router-link to="/ideas">アイデア</router-link></li>
-                        <li class="dropdown-link"><router-link to="/events">イベント</router-link></li>
+                        <li class="dropdown-link"><router-link :to="ideasLink">アイデア</router-link></li>
+                        <li class="dropdown-link"><router-link :to="eventsLink">イベント</router-link></li>
                     </ul>
                 </div>
             </li>
@@ -16,8 +15,8 @@
                 <FontAwesomeIcon class="icon" :icon="['fas', 'sign-in-alt']" size="2x" />
                 <div class="dropdown">
                     <ul>
-                        <li class="dropdown-link"><router-link to="/signup">新規登録</router-link></li>
-                        <li class="dropdown-link"><router-link to="/login">ログイン</router-link></li>
+                        <li class="dropdown-link"><router-link :to="signupLink">新規登録</router-link></li>
+                        <li class="dropdown-link"><router-link :to="loginLink">ログイン</router-link></li>
                     </ul>
                 </div>
             </li>
@@ -51,11 +50,23 @@ export default {
         isLoggedIn() {
             return this.$store.getters['auth/isLoggedIn'];
         },
+        ideasLink() {
+            return { name: 'ideas' };
+        },
+        eventsLink() {
+            return { name: 'events' };
+        },
         userLink() {
             return { name: 'userprofile', params: { userId: this.userId } };
         },
         notificationLink() {
             return { name: 'notification', params: { userId: this.userId }};
+        },
+        signupLink() {
+            return { name: 'signup' };
+        },
+        loginLink() {
+            return { name: 'login' };
         },
         profileImage() {
             return this.user.prof_img;
@@ -74,6 +85,14 @@ export default {
             }).catch( err => {
                 console.log("error to get userDetail at TheHeader: ", err);
             })
+        },
+        handleScroll() {
+            console.log(window.scrollY);
+        }
+    },
+    watch: {
+        userId() {
+            this.loadUserDetail();
         }
     },
     beforeMount () {
@@ -82,22 +101,20 @@ export default {
             this.loadUserDetail();
         }
     },
-    watch: {
-        userId() {
-            this.loadUserDetail();
-        }
-    }
 }
 </script>
 
 <style scoped>
 header {
     top: 0;
+    left: 0;
     width: 100%;
+    height: 5rem;
+    color: #000;
     background-color: #fff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    color: #000;
     font-weight: bold;
+    letter-spacing: 4px;
 }
 
 ul {
@@ -110,7 +127,7 @@ li, a {
 }
 
 .nav-links {
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
     display: flex;
     justify-content: flex-end;
@@ -121,7 +138,6 @@ li, a {
 .nav-link:not(:nth-child(1)):not(:nth-last-child(1)) {
     margin-right: 0.5rem;
 }
-
 .nav-link a {
     display: block;
     line-height: 5rem;

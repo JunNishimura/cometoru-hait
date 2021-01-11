@@ -21,7 +21,7 @@
                 <div class="container-title">
                     <h3>イメージ</h3>
                 </div>
-                <BaseEditButton  @edit="editImage" v-if="isMyIdea"/>
+                <BaseEditButton @edit="editImage" v-if="isMyIdea"/>
             </div>
             <div class="image-modal" v-if="modalState.image">
                 <BaseModal v-model="modalState.image">
@@ -42,10 +42,8 @@
 
 <script>
 import apiHelper from '@/services/apiHelper.js';
-import BaseEditButton from '../../components/UI/BaseEditButton.vue';
 
 export default {
-  components: { BaseEditButton },
     data() {
         return {
             isMyIdea: null,

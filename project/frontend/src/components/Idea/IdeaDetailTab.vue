@@ -2,7 +2,7 @@
     <ul>
         <li><router-link :to="overviewLink">概要</router-link></li>
         <li><router-link :to="detailInfoLink">詳細</router-link></li>
-        <li><router-link :to="requirementsLink">募集</router-link></li>
+        <li><router-link :to="recruitmentLink">募集</router-link></li>
         <li><router-link :to="reputationLink">評価</router-link></li>
         <li><router-link :to="feedbackLink">フィードバック</router-link></li>
     </ul>
@@ -17,8 +17,8 @@ export default {
         detailInfoLink() {
             return { name: 'detailInfo' };
         },
-        requirementsLink() {
-            return { name: 'requirements' };
+        recruitmentLink() {
+            return { name: 'recruitment' };
         },
         reputationLink() {
             return { name: 'reputation' };
