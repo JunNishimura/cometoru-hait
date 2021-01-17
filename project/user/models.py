@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager, PermissionsMixin
@@ -38,6 +40,18 @@ class UserManager(UserManager):
         return self._create_user(username, email, password, **extra_fields)
 
 
+def get_image_path(self, filename):
+    """カスタマイズした画像パスを取得する.
+
+    :param self: インスタンス (models.Model)
+    :param filename: 元ファイル名
+    :return: カスタマイズしたファイル名を含む画像パス
+    """
+    prefix = 'user/'
+    name = str(uuid.uuid4()).replace('-', '')
+    extension = os.path.splitext(filename)[-1]
+    return prefix + name + extension
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     # ユーザーのID
     user_id = models.AutoField(primary_key=True, verbose_name="ユーザーID")
@@ -47,7 +61,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # メールアドレス
     email = models.EmailField('メールアドレス')
     # プロフィール画像
-    prof_img = models.ImageField(upload_to='user/', verbose_name='プロフィール画像',
+    prof_img = models.ImageField(upload_to=get_image_path, verbose_name='プロフィール画像',
                                 null=True, blank=True, default='user/default.png')
     # 自己紹介文
     intro = models.TextField(verbose_name='自己紹介', max_length=300, null=True,

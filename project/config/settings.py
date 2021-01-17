@@ -26,7 +26,7 @@ SECRET_KEY = '+j6!&de!@z7@n&q-6)$q#2$k2zv05h_d!we#=j3a++mm6l1o$j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cometoru-env.eba-zng8m4pu.us-west-2.elasticbeanstalk.com', 'aws-tutorial-nao.work']
 
 
 # Application definition
