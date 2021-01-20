@@ -1,6 +1,6 @@
 <template>
-    <div class="feedback-question">
-        <div class="display" :class="{borderHighlight: isDropdownOpen}">
+    <div class="feedback__question">
+        <div class="feedback__question-display" :class="{borderHighlight: isDropdownOpen}">
             <h4>{{ question }}</h4>
             <FontAwesomeIcon @click="toggleFeedbacks" class="icon" :icon="['fas', 'sort-down']" size="sm" v-if="!isDropdownOpen" />
             <FontAwesomeIcon @click="toggleFeedbacks" class="icon" :icon="['fas', 'sort-up']" size="sm" v-if="isDropdownOpen" />
@@ -28,7 +28,7 @@
 
 <script>
 import apiHelper from '@/services/apiHelper.js'
-import FeedbackReply from '@/components/Idea/FeedbackReplyElement.vue';
+import FeedbackReply from '@/components/Idea/Detail/FeedbackReplyElement.vue';
 
 export default {
     props: {
@@ -108,7 +108,11 @@ export default {
 </script>
 
 <style scoped>
-.display {
+.feedback__question {
+    margin: 0 2rem;
+}
+
+.feedback__question-display {
     border-bottom: 1px solid #999;
     padding: 0.1rem;
     display: flex;
@@ -117,10 +121,9 @@ export default {
     line-height: 3rem;
 }
 
-.display h4 {
+.feedback__question-display h4 {
     text-align: center;
-    color: black;
-    background-color: #fff;
+    color: #000;
 }
 
 .icon {
@@ -136,7 +139,6 @@ form {
 form input {
     font-size: 18px;
     width: 100%;
-    background-color: #fff;
     outline: none;
     border-bottom: 1px solid #ddd;
 }

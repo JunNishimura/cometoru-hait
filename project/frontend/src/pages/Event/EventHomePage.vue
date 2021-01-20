@@ -39,6 +39,14 @@ export default {
     padding: 2rem 0;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.event__display-side {
+    position: fixed;
+}
+
+.event__display-content {
+    margin-left: auto;
 }
 </style>

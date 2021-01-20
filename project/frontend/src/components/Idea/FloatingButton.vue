@@ -1,6 +1,6 @@
 <template>
-    <div class="floating-button" :class="fixed">
-        <div class="bulb" :class="bgColor">
+    <div class="floating__button">
+        <div class="floating__button-icon" >
             <router-link :to="linkTo">
                 <slot name="icon"></slot>
             </router-link>
@@ -28,37 +28,31 @@ export default {
 </script>
 
 <style scoped>
-.fixed {
+.floating__button {
     position: fixed;
     bottom: 50px;
     right: 50px;
-}
-
-.floating-button .bulb {
     width: 80px;
     height: 80px;
-    border-radius: 80px;
-    display: block;
-    position: relative;
-}
-
-.orange {
+    border-radius: 50%;
+    cursor: pointer;
     background-color: #ffbb3c;
 }
 
-.gray {
-    background-color: #999;
+.floating__button-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.floating-button .bulb a {
+.floating__button-icon a {
+    display: block;
     color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.floating-button .bulb:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 50%;
+    text-align: center;
 }
 </style>

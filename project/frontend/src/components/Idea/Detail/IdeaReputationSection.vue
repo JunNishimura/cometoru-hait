@@ -1,22 +1,8 @@
 <template>
-<!-- NOT USE THIS SCRIPT -->
-
-    <div id="idea-reputation" v-if="loadComplete">
-        <div class="container">
-            <div class="container-title">
-                <h3>評価</h3>
-            </div>
-            <div class="content" v-if="readyDrawChart">
-                <div class="chart">
-                    <span>現在の評価数: {{ reputationCount }}</span>
-                    <Plotly :data="chartData" :layout="chartLayout" :display-mode-bar="false"></Plotly>
-                </div>
-                <div class="reputation-form">
-                    <ReputationForm 
-                        :ideaId="ideaId"
-                    ></ReputationForm>
-                </div>
-            </div>
+    <div id="idea__reputation-section">
+        <div class="chart">
+            <Plotly :data="chartData" :layout="chartLayout" :display-mode-bar="false"></Plotly>
+            <span>現在の評価数: {{ reputationCount }}</span>
         </div>
     </div>
 </template>
@@ -25,17 +11,16 @@
 import apiHelper from '@/services/apiHelper.js';
 import utils from '@/services/utils.js';
 import { Plotly } from 'vue-plotly'
-import ReputationForm from '@/components/Idea/Detail/ReputationForm.vue';
+// import ReputationForm from '@/components/Idea/Detail/ReputationForm.vue';
 
 export default {
     components: {
         Plotly,
-        ReputationForm,
+        // ReputationForm,
     },
+    props: ['ideaId'],
     data() {
         return {
-            ideaId: null,
-            ideaData: null,
             loadComplete: false,
             reputationData: { // 各要素は配列を格納している
                 interesting: [],
@@ -89,22 +74,24 @@ export default {
                         range: [0, 5]
                     }
                 },
-                showlegend: false
+                autosize: false,
+                width: 350,
+                height: 350,
+                margin: {
+                    pad: 0,
+                },
+                showlegend: false,
+                // paper_bgcolor: '#fff',
+                paper_bgcolor: '#f9f2e9',
             }
 
             this.readyDrawChart = true;
         },
     },
     created() {
-        this.ideaId = this.$route.params['ideaId'];
-
-        apiHelper.loadIdeaDetail(this.ideaId)
+        // アイデアの評価全て読み込む
+        apiHelper.loadIdeaReputations(this.ideaId)
         .then( res => {
-            this.ideaData = res;
-            
-            // アイデアの評価全て読み込む
-            return apiHelper.loadIdeaReputations(this.ideaId)
-        }).then( res => {
             this.reputationData.interesting = res.map( rep => rep.interesting );
             this.reputationData.novelty = res.map( rep => rep.novelty );
             this.reputationData.possibility = res.map( rep => rep.possibility );
@@ -120,34 +107,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
-    width: 100%;
-    padding: 1rem;
-}
-
-.container-title {
-    display: inline-block;
-    background-color: #ffe0a7;
-    padding: 0.1rem 0.5rem;
-    border-radius: 4px;
-}
-
-.content {
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.chart {
-    width: 30rem;
-}
-
-.reputation-form {
-    width: 20rem;
-}
-
-.content p {
-    font-size: 18px;
-    text-align: left;
+#idea__reputation-section {
+    background-color: #f7f2e9;
 }
 </style>

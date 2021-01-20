@@ -2,14 +2,16 @@ import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-// axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;   
 
 const api = axios.create({
     baseURL: 'http://localhost:8000/api/v1/',
+    // baseURL: 'https://aws-tutorial-nao.work/api/v1/',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
+        // 'Access-Control-Allow-Origin': '*',
     }
 });
 

@@ -105,6 +105,7 @@ export default {
 </script>
 
 <style scoped>
+/* height: 4rem */
 .header {
     position: fixed;
     top: 0;

@@ -1,5 +1,5 @@
 <template>
-    <div class="search-tag">
+    <div class="search__tag">
         <div class="hit-tags">
             <span>人気のあるタグ</span>
             <BaseTag v-for="(tag, index) in hitTags"
@@ -94,6 +94,10 @@ export default {
 </script>
 
 <style scoped>
+.search__tag {
+    width: 35rem;
+}
+
 .hit-tags { 
     padding: 1rem;
     background-color: #fff;
