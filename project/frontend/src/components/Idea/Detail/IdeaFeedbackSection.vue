@@ -1,8 +1,12 @@
 <template>
-<!-- NOT USE THIS SCRIPT -->
-
-    <div id="idea-feedback">
-        <FeedbackBoard :questions="questions" />
+    <div id="idea__feedback-section">
+        <div class="idea__feedback-container">
+            <FeedbackBoard 
+                :questions="questions" 
+                :ideaId="ideaId" 
+                :isMyIdea="isMyIdea"    
+            />
+        </div>
     </div>
 </template>
 
@@ -14,16 +18,14 @@ export default {
     components: {
         FeedbackBoard,
     },
+    props: ['ideaId', 'isMyIdea'],
     data() {
         return {
-            ideaId: null,
             questions: [],
             loadComplete: false,
         }
     },
     created() {
-        this.ideaId = this.$route.params['ideaId'];
-
         apiHelper.loadFeedbackQuestions(this.ideaId)
         .then( res => {
             this.questions = res;
@@ -35,3 +37,15 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#idea__feedback-section {
+    background-color: #d0c5b1;
+}
+
+.idea__feedback-container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+</style>

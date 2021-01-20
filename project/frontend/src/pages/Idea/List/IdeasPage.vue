@@ -14,7 +14,7 @@
                 <router-view />
             </section>
         </div>
-        <FloatingButton linkTo="/post" bgColor="orange">
+        <FloatingButton linkTo="/post">
             <template #icon>
                 <FontAwesomeIcon :icon="['far', 'lightbulb']" size="4x" />
             </template>
@@ -55,6 +55,14 @@ export default {
     padding: 2rem 0;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.ideas__display-side {
+    position: fixed;
+}
+
+.ideas__display-content {
+    margin-left: auto;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+<!-- NOT USE THIS SCRIPT -->
     <div id="idea-detail-info" v-if="loadComplete">
         <div class="container">
             <div class="container-title">

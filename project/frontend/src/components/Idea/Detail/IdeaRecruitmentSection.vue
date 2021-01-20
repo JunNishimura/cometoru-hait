@@ -1,56 +1,51 @@
 <template>
-<!-- NOT USE THIS SCRIPT -->
-
-    <div id="idea-recruitment" v-if="loadComplete">
-        <div class="edit-container">
-            <BaseEditButton v-if="isMyIdea" @edit="edit" />
-            <div class="edit-modal" v-if="modalState">
-                <BaseModal v-model="modalState">
-                    <template #card>
-                        <BaseForm title="募集に関する情報">
-                            <div class="form-control">
-                                <span>期限 / 締め切り</span>
-                                <input type="datetime-local" id="date" name="date" v-model="dateInput" >
-                            </div>
-                            <div class="form-control">
-                                <div class="recruit-title">
-                                    <span>募集人材</span>
-                                    <input type="button" @click="addRecruitInput" value="+" class="add__btn">
+    <div id="idea__recruitment-section" v-if="loadComplete">
+        <div class="idea__recruitment-container">
+            <div class="edit-container">
+                <BaseEditButton v-if="isMyIdea" @edit="edit" />
+                <div class="edit-modal" v-if="modalState">
+                    <BaseModal v-model="modalState">
+                        <template #card>
+                            <BaseForm title="募集に関する情報">
+                                <div class="form-control">
+                                    <span>期限 / 締め切り</span>
+                                    <input type="datetime-local" id="date" name="date" v-model="dateInput" >
                                 </div>
-                                <RecruitInput 
-                                    v-for="(rec, index) in recruitments"
-                                    :key="index"
-                                    :index="index"
-                                    :recruit="rec"
-                                    @delRecruitInput="delRecruitInput"
-                                />
-                            </div>
-                            <BaseModalButton @clickModalBtn="updateData" />
-                        </BaseForm>
-                    </template>
-                </BaseModal>
-            </div>
-        </div>
-        
-        <div class="container">
-            <div class="container-title">
-                <h3>期限 / 締め切り</h3>
-            </div>
-            <div class="content">
-                <p>{{ ideaData.deadline }}</p>
-            </div>
-        </div>
-        <div class="container">
-            <div class="container-title">
-                <h3>募集人材</h3>
-            </div>
-            <div class="content">
-                <div v-for="(rec, index) in recruitmentsSaved"
-                    :key="index"
-                >
-                    <span>{{ rec.kind }} / {{ rec.number }}人</span>
+                                <div class="form-control">
+                                    <div class="recruit-title">
+                                        <span>募集人材</span>
+                                        <input type="button" @click="addRecruitInput" value="+" class="add__btn">
+                                    </div>
+                                    <RecruitInput 
+                                        v-for="(rec, index) in recruitments"
+                                        :key="index"
+                                        :index="index"
+                                        :recruit="rec"
+                                        @delRecruitInput="delRecruitInput"
+                                    />
+                                </div>
+                                <BaseModalButton @clickModalBtn="updateData" />
+                            </BaseForm>
+                        </template>
+                    </BaseModal>
                 </div>
             </div>
+            <IdeaPropertyContainer title="期限 / 締め切り">
+                <template #content>
+                    <p>{{ deadline }}</p>
+                </template>
+            </IdeaPropertyContainer>
+            <IdeaPropertyContainer title="募集人材">
+                <template #content>
+                    <div>
+                        <div v-for="(rec, index) in recruitmentsSaved"
+                            :key="index"
+                        >
+                            <span>{{ rec.kind }} / {{ rec.number }}人</span>
+                        </div>
+                    </div>
+                </template>
+            </IdeaPropertyContainer>
         </div>
     </div>
 </template>
@@ -59,17 +54,17 @@
 import utils from '@/services/utils.js';
 import apiHelper from '@/services/apiHelper.js';
 import RecruitInput from '@/components/Idea/Detail/RecruitInput.vue';
+import IdeaPropertyContainer from '@/components/Idea/Detail/IdeaPropertyContainer.vue';
 
 export default {
     components: {
         RecruitInput,
+        IdeaPropertyContainer,
     },
+    props: ['ideaId', 'isMyIdea', 'deadline', 'title', 'state'],
     data() {
         return {
-            ideaId: null,
-            ideaData: null,
             loadComplete: false,
-            isMyIdea: false,
             dateInput: null,
             // ----- 仮 ----- //
             modalState: false,
@@ -86,18 +81,8 @@ export default {
         }
     },
     created() {
-        this.ideaId = this.$route.params['ideaId'];
-
-        apiHelper.loadIdeaDetail(this.ideaId)
-        .then( res => {
-            this.ideaData = res;
-
-            if (this.ideaData.user_id == this.myUserId) {
-                this.isMyIdea = true;
-            }
-
-            return apiHelper.loadRecruitments(this.ideaId)
-        }).then (res => {
+        apiHelper.loadRecruitments(this.ideaId)
+        .then (res => {
             if (res != null) {
                 for (const item of res) {
                     const kind = item.kind;
@@ -133,8 +118,8 @@ export default {
         addDate() {
             const dateData = {
                 user_id: this.myUserId,
-                title: this.ideaData.title,
-                state: this.ideaData.state,
+                title: this.title,
+                state: this.state,
                 deadline: this.dateInput,
             }
             
@@ -186,8 +171,14 @@ export default {
 </script>
 
 <style scoped>
-#idea-recruitment {
+#idea__recruitment-section {
+    background-color: #fff;
     position: relative;
+}
+
+.idea__recruitment-container {
+    width: 60%;
+    margin: 0 auto;
 }
 
 .container {
@@ -248,14 +239,5 @@ export default {
 
 .recruit-title .add__btn:hover {
     background-color: #eee;
-}
-
-.content {
-    padding: 1rem;
-}
-
-.content p {
-    font-size: 18px;
-    text-align: left;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
+<!-- NOT USE THIS SCRIPT -->
+
     <div id="idea-overview" v-if="loadComplete">
         <div class="container">
             <div class="container-title">
-                <h3>概要</h3>
+                <h3><span class="hightlight">概</span>要</h3>
             </div>
             <div class="content">
                 <p>{{ ideaData.overview }}</p>
@@ -123,14 +125,13 @@ export default {
 </script>
 
 <style scoped>
-.container {
+/* .container {
     width: 100%;
     padding: 1rem;
-}
+} */
 
 .container-title {
     display: inline-block;
-    background-color: #ffe0a7;
     padding: 0.1rem 0.5rem;
     border-radius: 4px;
 }

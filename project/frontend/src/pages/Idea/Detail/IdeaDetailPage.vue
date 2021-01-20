@@ -1,12 +1,12 @@
 <template>
-    <div id="idea-detail">
-        <div class="idea" v-if="loadComplete">
-            <main>
-                <section class="container idea-header">
-                    <div class="title">
-                        <h1>{{ ideaDetail.title }}</h1>
-                    </div>
-                    <div class="operation" v-if="this.isMyIdea">
+    <div id="idea__detail" v-if="loadComplete">
+        <section class="idea__header">
+            <div class="idea__header-container idea__title">
+                <h1>{{ ideaDetail.title }}</h1>
+            </div>
+            <div class="idea__header-align">
+                <div class="idea__header-left">
+                    <div class="idea__header-container operation" v-if="this.isMyIdea">
                         <div class="publish" v-if="this.ideaDetail.state === 'draft'">
                             <button @click="publishIdea">公開する</button>
                         </div>
@@ -18,9 +18,8 @@
                         </div>
                     </div>
 
-                    <div class="tags">
+                    <div class="idea__header-container tags">
                         <div class="tag__header">
-                            <h3>関連タグ</h3>
                             <BaseEditButton v-if="isMyIdea" @edit="editTag" />
                         </div>
                         <div class="tag-modal" v-if="modalState.tag">
@@ -37,50 +36,66 @@
                             <BaseTag v-for="(tag, key) in tags" :key="key" :name="tag" />
                         </div>
                     </div>
-                </section>
 
-                <section class="idea-body">
-                    <IdeaDetailTab />
-                    <router-view />
-                </section>
-            </main>
-            <section class="right-sidebar">
-                <div class="content">
-                    <div class="profile">
-                        <div class="profile-image">
-                            <router-link :to="userLink"><img :src="userDetail.prof_img"></router-link>
+                    <div class="idea__header-container">
+                        <div class="idea__header-subcontainer">
+                            <span class="subcontainer__icon"><FontAwesomeIcon :icon="['far', 'clock']" size="lg" /></span>
+                            <h4>〆切</h4>
                         </div>
-                        <h1>{{ userDetail.username }}</h1>
-                        <div class="intro">
-                            <p>{{ userDetail.intro }}</p>
+                        <div class="deadline__info">
+                            <h3> {{ displayDeadline }}</h3>
                         </div>
                     </div>
-                    <div class="message" v-if="!isMyIdea">
-                        <MessageButton @showMessageModal="showMessageModal" />
-                        <div class="message-modal" v-if="modalState.message">
-                            <MessageModal v-model="modalState.message" :userTo="userDetail.user_id" />
-                        </div>
+                    <div class="idea__header-container">
+                        <RecruitmentDisplay :ideaId="ideaId" />
                     </div>
                 </div>
-            </section>
-        </div>
+                <!-- <div class="idea__header-right">
+                    <IdeaReputationSection
+                        :ideaId="ideaId"
+                    />
+                </div> -->
+            </div>
+        </section>
+
+        <section class="idea__body">
+            <IdeaDetailTab />
+            <IdeaOverviewSection 
+                :overview="ideaDetail.overview"
+                :target="ideaDetail.target"
+                :background="ideaDetail.background"
+                :value="ideaDetail.value"
+                :passion="ideaDetail.passion"
+            />
+            <!-- <IdeaReputationSection
+                :ideaId="ideaId"
+            /> -->
+            <IdeaFeedbackSection
+                :ideaId="ideaId"
+                :isMyIdea="isMyIdea"
+            />
+        </section>
     </div>
 </template>
 
 <script>
 import utils from '@/services/utils.js';
 import apiHelper from '@/services/apiHelper.js';
-import IdeaDetailTab from '@/components/Idea/IdeaDetailTab.vue';
+import IdeaDetailTab from '@/components/Idea/Detail/IdeaDetailTab.vue';
 import InputTag from '@/components/Tag/InputTag.vue';
-import MessageModal from '@/components/Message/MessageModal.vue';
-import MessageButton from '@/components/Message/MessageButton.vue';
+import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vue';
+// import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
+import RecruitmentDisplay from '@/components/Idea/Detail/RecruitmentDisplay.vue';
+import IdeaFeedbackSection from '@/components/Idea/Detail/IdeaFeedbackSection.vue';
 
 export default {
     components: {
         IdeaDetailTab,
         InputTag,
-        MessageModal,
-        MessageButton,
+        IdeaOverviewSection,
+        // IdeaReputationSection,
+        RecruitmentDisplay,
+        IdeaFeedbackSection,
     },
     data() {
         return {
@@ -112,6 +127,10 @@ export default {
         myUserId() {
             return this.$store.getters['auth/userId'];
         },
+        displayDeadline() {
+            return this.ideaDetail.deadline == null || this.ideaDetail.deadline.length === 0
+                ? '未定' : this.ideaDetail.deadline;
+        }
     },
     methods: {
         editTag() {
@@ -225,44 +244,62 @@ export default {
 </script>
 
 <style scoped>
-.idea {
-    width: 80%;
-    margin: 0 auto;
-    padding: 2rem 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-main {
+.idea__detail {
     width: 100%;
 }
 
-.container {
-    padding: 1rem;
-}
-
-.idea-header {
-    margin-bottom: 1rem;
+.idea__header {
+    width: 60%;
+    padding: 3rem 0 0;
+    margin: 0 auto;
     text-align: left;
     color: #000;
 }
 
-.idea-header .title {
-    font-size: 26px;
-    margin-bottom: 0.5rem;
+.idea__header-container {
+    margin-bottom: 1rem;
 }
+/* 
+.idea__header-align {
+    display: flex;
+    justify-content: space-between;
+} */
 
-.idea-header .edit {
-    margin: 1rem 0;
-}
-
-.idea-header .operation {
+.idea__header-subcontainer {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.idea-header button {
+.subcontainer__icon {
+    width: 2rem;
+    text-align: center;
+}
+
+.deadline__info {
+    margin: 0.5rem 0 0 1rem;
+}
+
+.deadline__info h3 {
+    color: #fa2e27;
+}
+
+.idea__title {
+    font-size: 26px;
+    letter-spacing: 5px;
+}
+
+.idea__header .edit {
+    margin: 1rem 0;
+}
+
+.idea__header .operation {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.idea__header button {
     font-size: 18px;
     font-weight: bold;
     color: #fff;
@@ -271,27 +308,27 @@ main {
     margin-right: 1rem;
 }
 
-.idea-header .publish button {
+.idea__header .publish button {
     background-color: #ffbb3c;
 }
 
-.idea-header .publish button:hover {
+.idea__header .publish button:hover {
     background-color: #d89e32;
 }
 
-.idea-header .edit button {
+.idea__header .edit button {
     background-color: #12da00;
 }
 
-.idea-header .edit button:hover {
+.idea__header .edit button:hover {
     background-color: #0fb800;
 }
 
-.idea-header .delete button {
+.idea__header .delete button {
     background-color: #da0000;
 }
 
-.idea-header .delete button:hover {
+.idea__header .delete button:hover {
     background-color: #b80000;
 }
 
@@ -306,59 +343,14 @@ main {
     margin-right: 0.5rem;
 }
 
-.tags .display-tag::after {
+.display-tag::after {
     content: "";
     display: block;
     clear: both;
 }
  
-.tags .base-tag {
+.display-tag .base-tag {
+    font-size: 16px;
     background-color: #fff;
-}
-
-.idea-body {
-    background-color: #fff;
-}
-
-.right-sidebar {
-    width: 20rem;
-    padding: 1rem;
-    margin-left: 2rem;
-    text-align: center;
-}
-
-.right-sidebar .content {
-    background-color: #fff;
-    padding: 1rem;
-}
-
-.right-sidebar .profile-image {
-    width: 100%;
-    height: 7rem;
-    position: relative;
-}
-
-.right-sidebar .profile-image img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-}
-
-.right-sidebar .profile h1 {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.right-sidebar .profile .intro {
-    text-align: left;
-    margin-top: 1rem;
-}
-
-.right-sidebar .message {
-    margin-top: 1.5rem;
 }
 </style>

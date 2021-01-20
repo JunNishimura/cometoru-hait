@@ -185,7 +185,7 @@ router.beforeEach((to, from, next) => {
 // ログインページに強制送還するための関数
 function forceToLoginPage(to, _, next) {
     next({
-        path: '/login',
+        path: { name: 'login'},
         query: { next: to.fullPath },
     });
 }

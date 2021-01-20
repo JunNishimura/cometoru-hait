@@ -1,5 +1,5 @@
 <template>
-    <ul>
+    <ul id="idea__detail-tab" ref="detailTab" :class="{fixed: scrollPosY > originalPosY}">
         <li><router-link :to="overviewLink">概要</router-link></li>
         <li><router-link :to="detailInfoLink">詳細</router-link></li>
         <li><router-link :to="recruitmentLink">募集</router-link></li>
@@ -25,6 +25,24 @@ export default {
         },
         feedbackLink() {
             return { name: 'feedback' };
+        }
+    },
+    data() {
+        return {
+            originalPosY: 0,
+            scrollPosY: 0,
+        }
+    },
+    mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+
+        // 初期状態のy軸上の位置を保存
+        this.originalPosY = this.$refs.detailTab.offsetTop;
+    },
+    methods: {
+        handleScroll() {
+            // 4rem = 64px
+            this.scrollPosY = window.scrollY + 64;
         }
     }
 }
@@ -56,5 +74,14 @@ li:hover {
 
 .router-link-active {
     border-bottom: 2px solid #ffbb3c;
+}
+
+.fixed {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    background-color: #f7f2e9;
+    z-index: 3;
 }
 </style>
