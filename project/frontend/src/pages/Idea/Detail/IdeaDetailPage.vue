@@ -1,8 +1,17 @@
 <template>
     <div id="idea__detail" v-if="loadComplete">
         <section class="idea__header">
-            <div class="idea__header-container idea__title">
+            <div class="idea__title">
                 <h1>{{ ideaDetail.title }}</h1>
+            </div>
+            <div class="idea__post-user">
+                <span class="ideas__by">Ideas By: </span>
+                <div class="user__profile-box">
+                    <img :src="userDetail.prof_img">
+                </div>
+                <div class="user__profile-name">
+                    <router-link :to="userLink">{{ userDetail.username }}</router-link>
+                </div>
             </div>
             <div class="idea__header-align">
                 <div class="idea__header-left">
@@ -264,6 +273,46 @@ export default {
     display: flex;
     justify-content: space-between;
 } */
+
+.idea__title {
+    border-bottom: 1px solid #ccc;
+}
+
+.idea__post-user {
+    display: flex;
+    align-items: center;
+}
+
+.ideas__by {
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.user__profile-box {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-right: 0.5rem;
+}
+
+.user__profile-box img {
+    width: 35px;
+    height: 35px;    
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.user__profile-name a {
+    text-decoration: none;
+    color: #000;
+}
+
+.user__profile-name a:hover {
+    border-bottom: 1px solid #000;
+}
 
 .idea__header-subcontainer {
     display: flex;
