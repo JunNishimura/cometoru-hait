@@ -9,11 +9,11 @@ import NewIdeasPage from '@/pages/Idea/List/NewIdeasPage.vue';
 import TagIdeasPage from '@/pages/Idea/List/TagIdeasPage.vue';
 import RecommendIdeasPage from '@/pages/Idea/List/RecommendIdeasPage';
 import IdeaDetailPage from '@/pages/Idea/Detail/IdeaDetailPage.vue';
-import IdeaOverviewPage from '@/pages/Idea/Detail/IdeaOverviewPage.vue';
-import IdeaDetailInfoPage from '@/pages/Idea/Detail/IdeaDetailInfoPage.vue';
-import IdeaRecruitmentPage from '@/pages/Idea/Detail/IdeaRecruitmentPage.vue';
-import IdeaReputationPage from '@/pages/Idea/Detail/IdeaReputationPage.vue';
-import IdeaFeedbackPage from '@/pages/Idea/Detail/IdeaFeedbackPage.vue';
+// import IdeaOverviewPage from '@/pages/Idea/Detail/IdeaOverviewPage.vue';
+// import IdeaDetailInfoPage from '@/pages/Idea/Detail/IdeaDetailInfoPage.vue';
+// import IdeaRecruitmentPage from '@/pages/Idea/Detail/IdeaRecruitmentPage.vue';
+// import IdeaReputationPage from '@/pages/Idea/Detail/IdeaReputationPage.vue';
+// import IdeaFeedbackPage from '@/pages/Idea/Detail/IdeaFeedbackPage.vue';
 // Idea Post
 import IdeaPostPage from '@/pages/Idea/Post/IdeaPostPage.vue';
 import PostNewIdeaPage from '@/pages/Idea/Post/PostNewIdeaPage.vue';
@@ -66,15 +66,15 @@ const routes = [
                 name: 'ideaDetail',
                 path: 'idea/:ideaId',
                 component: IdeaDetailPage,
-                redirect: { name: 'overview' },
                 props: true,
-                children: [
-                    { name: 'overview',     path: 'overview',     component: IdeaOverviewPage },
-                    { name: 'detailInfo',   path: 'detailInfo',   component: IdeaDetailInfoPage },
-                    { name: 'recruitment', path: 'recruitment', component: IdeaRecruitmentPage },
-                    { name: 'reputation',   path: 'reputation',   component: IdeaReputationPage },
-                    { name: 'feedback', path: 'feedback', component: IdeaFeedbackPage },
-                ]
+                // redirect: { name: 'overview' },
+                // children: [
+                //     { name: 'overview',     path: 'overview',     component: IdeaOverviewPage },
+                //     { name: 'detailInfo',   path: 'detailInfo',   component: IdeaDetailInfoPage },
+                //     { name: 'recruitment', path: 'recruitment', component: IdeaRecruitmentPage },
+                //     { name: 'reputation',   path: 'reputation',   component: IdeaReputationPage },
+                //     { name: 'feedback', path: 'feedback', component: IdeaFeedbackPage },
+                // ]
             },
             {
                 // 認証関連（新規登録、ログイン）の画面
