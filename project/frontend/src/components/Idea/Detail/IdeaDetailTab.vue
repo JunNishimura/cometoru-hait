@@ -1,32 +1,13 @@
 <template>
     <ul id="idea__detail-tab" ref="detailTab" :class="{fixed: scrollPosY > originalPosY}">
-        <li><router-link :to="overviewLink">概要</router-link></li>
-        <li><router-link :to="detailInfoLink">詳細</router-link></li>
-        <li><router-link :to="recruitmentLink">募集</router-link></li>
-        <li><router-link :to="reputationLink">評価</router-link></li>
-        <li><router-link :to="feedbackLink">フィードバック</router-link></li>
+        <li><a href="#idea__detail">トップ</a></li>
+        <li><a href="#idea__overview-mark">概要</a></li>
+        <li><a href="#idea__feedback-section">質問</a></li>
     </ul>
 </template>
 
 <script>
 export default {
-    computed: {
-        overviewLink() {
-            return { name: 'overview' };
-        },
-        detailInfoLink() {
-            return { name: 'detailInfo' };
-        },
-        recruitmentLink() {
-            return { name: 'recruitment' };
-        },
-        reputationLink() {
-            return { name: 'reputation' };
-        },
-        feedbackLink() {
-            return { name: 'feedback' };
-        }
-    },
     data() {
         return {
             originalPosY: 0,
@@ -42,7 +23,7 @@ export default {
     methods: {
         handleScroll() {
             // 4rem = 64px
-            this.scrollPosY = window.scrollY + 64;
+            this.scrollPosY = window.scrollY + 60;
         }
     }
 }

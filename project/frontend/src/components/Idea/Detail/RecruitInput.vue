@@ -1,8 +1,8 @@
 <template>
     <div class="recruit__input">
-        <input type="text" id="recruit-type" placeholder="機械学習エンジニア" v-model="recruit.kind">
+        <input type="text" id="recruit-type" placeholder="ex) プログラマ" v-model="recruit.kind">
         <input type="number" min="1" id="recruit-number" v-model="recruit.number">
-        <input type="button" @click="$emit('delRecruitInput', index)" value="-" class="del__btn">
+        <input type="button" @click="$emit('removeInput', index)" value="-" class="del__btn">
     </div>
 </template>
 

@@ -19,6 +19,7 @@ export default {
 
 html {
     font-family: 'Noto Serif JP', serif;
+    scroll-behavior: smooth;
     /* font-family: 'Kosugi Maru', sans-serif; */
 }
 

@@ -22,7 +22,7 @@
                                     :key="index"
                                     :index="index"
                                     :recruit="rec"
-                                    @delRecruitInput="delRecruitInput"
+                                    @removeInput="delRecruitInput"
                                 />
                             </div>
                             <BaseModalButton @clickModalBtn="updateData" />
