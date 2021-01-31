@@ -1,5 +1,5 @@
 <template>
-    <div class="input-tag">
+    <div class="input__tag-comp">
         <label for="tag">
             {{ tagLabel }}
             <span v-if="!isTagValid" class="invalid">タグはこれ以上追加できません</span>
@@ -71,7 +71,7 @@ export default {
 
 <style scoped>
 
-.input-tag label {
+.input__tag-comp label {
     font-size: 17px;
     font-weight: bold;
     display: block;
@@ -79,7 +79,7 @@ export default {
     margin-bottom: 0.25rem;
 }
 
-.input-tag input {
+.input__tag-comp input {
     font-size: 18px;
     line-height: 2rem;
     padding-left: 0.5rem;
@@ -89,7 +89,7 @@ export default {
     border: 1px solid #e5e5e5;
 }
 
-.input-tag input:focus {
+.input__tag-comp input:focus {
     border: 1px solid #444;
 }
 

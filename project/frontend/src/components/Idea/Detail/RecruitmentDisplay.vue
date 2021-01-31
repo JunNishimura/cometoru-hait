@@ -5,7 +5,7 @@
             <h4>募集人材</h4>
         </div>
         <div class="recruitment__info">
-            <div v-for="(rec, index) in recruitmentsSaved" :key="index">
+            <div v-for="(rec, index) in currentRecruitments" :key="index">
                 <h3 class="sentence">{{ rec.kind }} / {{ rec.number }}人</h3>
             </div>
         </div>
@@ -13,35 +13,9 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
 
 export default {
-    data() {
-        return {
-            loadComplete: false,
-            recruitmentsSaved: [], // 現在DBで格納されているrecruitment情報
-        }
-    },
-    props: ['ideaId'],
-    created() {
-        apiHelper.loadRecruitments(this.ideaId)
-        .then (res => {
-            if (res != null) {
-                for (const item of res) {
-                    const kind = item.kind;
-                    const number = item.number;
-                    this.recruitmentsSaved.push({
-                        kind: kind,
-                        number: number,
-                    });
-                }
-            }
-            
-            this.loadComplete = true;
-        }).catch( err => {
-            console.log("error to get idea data at IdeaRecruitmentPage: ", err);
-        })
-    },
+    props: ['currentRecruitments'],
 }
 </script>
 

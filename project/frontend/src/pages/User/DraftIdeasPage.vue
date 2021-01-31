@@ -1,33 +1,26 @@
 <template>
-    <BaseProfileContent v-if="loadComplete">
-        <template #contentHeaderLinks>
-            <IdeaEventHeader :isMyProfile="isMyProfile" />
-        </template>
-        <template #contentBody>
-            <IdeaElement
-                v-for="idea in draftIdeas"
-                :key="idea.idea_id"
-                :idea_id="idea.idea_id"
-                :user_id="idea.user_id"
-                :title="idea.title"
-                :overview="idea.overview"
-                :background="idea.background"
-                :passion="idea.passion"
-                :idea_img="idea.idea_img"
-                :idea_date="idea.idea_date"
-            ></IdeaElement>
-        </template>
-    </BaseProfileContent>
+    <div id="draft__ideas-page">
+        <IdeaElement
+            v-for="idea in draftIdeas"
+            :key="idea.idea_id"
+            :idea_id="idea.idea_id"
+            :user_id="idea.user_id"
+            :title="idea.title"
+            :overview="idea.overview"
+            :background="idea.background"
+            :passion="idea.passion"
+            :idea_img="idea.idea_img"
+            :idea_date="idea.idea_date"
+        ></IdeaElement>
+    </div>
 </template>
 
 <script>
 import apiHelper from '@/services/apiHelper.js';
-import IdeaEventHeader from '@/components/User/IdeaEventHeader.vue';
 import IdeaElement from '@/components/Idea/IdeaElement.vue';
 
 export default {
     components: {
-        IdeaEventHeader,
         IdeaElement,
     },
     data() {
@@ -59,3 +52,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#draft__ideas-page .idea {
+    margin: 1rem auto;;
+}
+</style>

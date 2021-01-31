@@ -1,7 +1,7 @@
 <template>
     <div id="idea__overview-section">
         <div class="idea__overview-container">
-            <IdeaPropertyContainer title="概要">
+            <IdeaPropertyContainer id="idea__overview-mark" title="概要">
                 <template #content>
                     <p>{{ overview }}</p>
                 </template>
@@ -49,6 +49,6 @@ export default {
 .idea__overview-container {
     width: 60%;
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 5rem 0;
 }
 </style>

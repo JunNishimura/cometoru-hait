@@ -1,7 +1,7 @@
 <template>
     <div class="base-modal">
-        <div class="modal-overlay" @click="$emit('input', false)" />
-        <div class="card">
+        <div class="modal__overlay" @click="$emit('input', false)" />
+        <div class="modal__card">
             <FontAwesomeIcon @click="$emit('input', false)" class="close__btn" :icon="['fas', 'times']" size="sm" />
             <slot name="card"></slot>
         </div>
@@ -19,7 +19,7 @@ export default {
     position: relative;
 }
 
-.modal-overlay {
+.modal__overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -30,7 +30,7 @@ export default {
     cursor: pointer;
 }
 
-.card {
+.modal__card {
     z-index: 99;
     position: fixed;
     top: 50%;

@@ -1,9 +1,8 @@
 <template>
     <div class="feedback__board">
-        <BaseEditButton v-if="isMyIdea" @edit="editQuestion" />
         <IdeaPropertyContainer title="投稿者からの質問">
             <template #content>
-                <div class="question-modal" v-if="modalState.question">
+                <!-- <div class="question-modal" v-if="modalState.question">
                     <BaseModal v-model="modalState.question">
                         <template #card>
                             <BaseForm title="質問投稿">
@@ -12,7 +11,7 @@
                             </BaseForm>
                         </template>
                     </BaseModal>
-                </div>
+                </div> -->
                 <div class="questions">
                     <FeedbackQuestionElement
                         v-for="(question, index) in questions"

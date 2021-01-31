@@ -1,6 +1,6 @@
 <template>
     <div class="edit__btn" @click="edit">
-        <FontAwesomeIcon class="icon" :icon="['fas', 'pencil-alt']" size="lg" />
+        <FontAwesomeIcon class="icon" :icon="['fas', 'cog']" />
     </div>
 </template>
 
@@ -18,8 +18,8 @@ export default {
 .edit__btn {
     width: 30px;
     height: 30px;
-    background-color: #ccc;
-    border-radius: 4px;
+    background-color: #bbb;
+    border-radius: 50%;
     position: relative;
     cursor: pointer;
 }
