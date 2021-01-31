@@ -1,37 +1,52 @@
 <template>
     <div id="profile-page" v-if="loadComplete">
-        <section class="side">
-            <div class="profile">
-                <div class="main-info">
-                    <div class="profile-image">
-                        <img :src="userDetail.prof_img" alt="profile">
+        <div class="profile__header">
+            <div class="profile__header-left">
+                <div class="profile__image-box">
+                    <img :src="userDetail.prof_img" alt="profile">
+                </div>
+                <div class="profile__btns" v-if="!isMyProfile">
+                    <div class="btn__outer">
+                        <button class="profile__follow-btn" @click="follow">
+                            {{ followLabel }}
+                            <FontAwesomeIcon class="icon" v-if="!isFollowing" :icon="['fas', 'user-plus']"  />
+                            <FontAwesomeIcon class="icon" v-if="isFollowing"  :icon="['fas', 'user-minus']" />
+                        </button>
                     </div>
-                    <h1>{{ userDetail.username }}</h1>
-                    <div class="intro">
-                        <p>{{ userDetail.intro }}</p>
-                    </div>
-                    <div class="tag">
-                        <BaseTag v-for="(tag, key) in tags" :key="key" :name="tag.tag_name" />
-                    </div>
-                    <div class="follow">
-                        <div class="follow-display">
-                            <router-link :to="followersLink">フォロワー {{ followerCount }}人</router-link>
-                            <router-link :to="followingLink">フォロー中 {{ followingCount }}人</router-link>
-                        </div>
-                        <div class="follow__btn" v-if="!isMyProfile" @click="follow">
-                            <span>{{ followLabel }}</span>
-                            <FontAwesomeIcon class="icon" v-if="!isFollowing" :icon="['fas', 'user-plus']" size="lg" />
-                            <FontAwesomeIcon class="icon" v-if="isFollowing" :icon="['fas', 'user-minus']" size="lg" />
-                        </div>
-                    </div>
-                    <div class="message" v-if="!isMyProfile">
-                        <MessageButton @showMessageModal="showMessageModal" />
+                    <div class="btn__outer">
+                        <button  @click="showMessageModal" class="profile__message-btn">
+                            メッセージを送る 
+                            <FontAwesomeIcon class="icon" :icon="['fas', 'paper-plane']" />
+                        </button>
                         <div class="message-modal" v-if="modalState.message">
                             <MessageModal v-model="modalState.message" :userTo="userDetail.user_id" />
                         </div>
                     </div>
                 </div>
-                <div class="sub-info">
+                <div class="edit-profile" v-if="isMyProfile">   
+                    <router-link to="/settings">
+                        <span>Edit Profile</span>
+                        <FontAwesomeIcon :icon="['far', 'edit']" />
+                    </router-link>
+                </div>
+            </div>
+            <div class="profile__header-right">
+                <div class="profile__name">
+                    <h2 class>{{ userDetail.username }}</h2>
+                </div>
+                <div class="profile__tag">
+                    <BaseTag v-for="(tag, key) in tags" :key="key" :name="tag.tag_name" />
+                </div>
+                <div class="profile__intro">
+                    <p>{{ userDetail.intro }}</p>
+                </div>
+                <div class="profile__follow">
+                    <div class="profile__follow-links">
+                        <router-link :to="followersLink">フォロワー {{ followerCount }}人</router-link>
+                        <router-link :to="followingLink">フォロー中 {{ followingCount }}人</router-link>
+                    </div>
+                </div>
+                <div class="profile__sub-info">
                     <div class="info-row">
                         <span><FontAwesomeIcon :icon="['fas', 'envelope']" size="lg"/></span>
                         <span><a :href="mailAddress">{{ userDetail.email }}</a></span>
@@ -48,20 +63,13 @@
                         <span><FontAwesomeIcon :icon="['fas', 'link']" size="lg" /></span>
                         <span><a :href="userDetail.portfolio">{{ userDetail.portfolio }}</a></span>
                     </div>
-                    <div class="edit-profile" v-if="isMyProfile">   
-                        <router-link to="/settings">
-                            <span>Edit Profile</span>
-                            <FontAwesomeIcon :icon="['far', 'edit']" size="lg" />
-                        </router-link>
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="content"> 
-            <div>
-                <router-view />
-            </div>
+        <section class="profile__content"> 
+            <UserTab :isMyProfile="isMyProfile" />
+            <router-view />
         </section>
     </div>
 </template>
@@ -69,12 +77,12 @@
 <script>
 import apiHelper from '@/services/apiHelper.js'
 import MessageModal from '@/components/Message/MessageModal.vue';
-import MessageButton from '@/components/Message/MessageButton.vue';
+import UserTab from '@/components/User/UserTab.vue';
 
 export default {
     components: {
         MessageModal,
-        MessageButton,
+        UserTab
     },
     data() {
         return {
@@ -214,118 +222,117 @@ export default {
     width: 60%;
     margin: 0 auto;
     padding: 2rem 0;
+}
+
+.profile__header {
+    margin: 5rem 0;
     display: flex;
     justify-content: flex-start;
 }
 
-.side {
-    width: 30rem;
-    /* height: 100%; */
+.profile__header-left {
+    /* background-color: #f00; */
     text-align: center;
+    margin-right: 2rem;
 }
 
-.main-info,
-.sub-info {
-    padding: 1rem;
-    margin-bottom: 2rem;
-    background-color: #fff;
-}
-
-.profile-image {
-    /* TODO 画像のリサイズ */
+.profile__image-box {
     margin: 0 auto;
-    width: 260px;
-    height: 260px;
-    border-radius: 260px;
-    background-color: #eee;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
     position: relative;
 }
 
-.profile-image img {
+.profile__image-box img {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 256px;
-    height: 256px;
-    border-radius: 256px; 
+    width: 190px;
+    height: 190px;
+    border-radius: 50%; 
 }
 
-.side .profile h1 {
-    font-size: 28px;
+.profile__follow-btn,
+.profile__message-btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    outline: none;
+    border-radius: 4px;
 }
 
-.side .profile .intro {
-    text-align: left;
-    margin: 1rem 0;
-    border-bottom: 1px solid #eee;
+.profile__follow-btn:hover,
+.profile__message-btn:hover {
+    background-color: #eee  ;
 }
 
-.side .profile p {
-    padding-bottom: 0.5rem;
-}
-
-.side .tag {
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #eee;
-}
-
-.side .tag::after {
+.profile__tag::after {
     content: "";
     display: block;
     clear: both;
 }
 
-.follow-display {
+.profile__name {
+    margin-bottom: 1rem;
+}
+
+.profile__tag .base-tag {
+    background-color: #fff;
+    font-size: 16px;
+}
+
+.profile__follow-links {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;   
 }
 
-.follow-display a {
+.profile__follow-links a {
     text-decoration: none;
     color: #000;
+    font-weight: 700;
+    margin: 1rem 1rem 0 0;
 }
 
-.follow-display a:hover {
+.profile__follow-links a:hover {
     border-bottom: 1px solid #000;
 }
 
-.follow__btn,
+.profile__sub-info {
+    width: 20rem;
+    margin-top: 1rem;
+}
+
+.profile__sub-info .info-row {   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+.profile__sub-info .info-row a {
+    text-decoration: none;
+    color: #555;
+}
+
 .edit-profile {
     margin-top: 3rem;
 }
 
-.edit-profile a,
-.follow__btn {
-    font-size: 16px;
-    width: 100%;
-    line-height: 2.5rem;
-}
-
-.edit-profile span,
-.follow__btn span {
+.edit-profile span {
     margin-right: 1rem;
 }
 
-.follow__btn {
-    cursor: pointer;
-    background-color: #ffe0a7;
-}
-
-.follow__btn:hover {
-    background-color: #ffbb3c;
-}
-
-.follow__btn:focus {
-    background-color: #c7912d;
-}
-
-.message {
-    margin-top: 0.5rem
-}
-
 .edit-profile a {
+    font-size: 16px;
+    width: 100%;
+    line-height: 2.5rem;
     display: block;
     text-decoration: none;
     color: #000;
@@ -334,26 +341,5 @@ export default {
 
 .edit-profile a:hover {
     background-color: #62c44a;
-}
-
-.edit-profile a:focus {
-    background-color: #478d36;
-}
-
-.sub-info .info-row {   
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-}
-
-.sub-info .info-row a {
-    text-decoration: none;
-    color: #000;
-}
-
-.content {
-    width: 100%;
 }
 </style>

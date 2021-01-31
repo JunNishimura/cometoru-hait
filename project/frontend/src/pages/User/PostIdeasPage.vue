@@ -1,9 +1,6 @@
 <template>
-    <BaseProfileContent v-if="loadComplete">
-        <template #contentHeaderLinks>
-            <IdeaEventHeader :isMyProfile="isMyProfile" />
-        </template>
-        <template #contentBody>
+    <div id="post__ideas-page" v-if="loadComplete">
+        <div class="post__ideas">
             <IdeaElement
                 v-for="idea in postIdeas"
                 :key="idea.idea_id"
@@ -16,18 +13,16 @@
                 :idea_img="idea.idea_img"
                 :idea_date="idea.idea_date"
             ></IdeaElement>
-        </template>
-    </BaseProfileContent>
+        </div>
+    </div>
 </template>
 
 <script>
 import apiHelper from '@/services/apiHelper.js';
-import IdeaEventHeader from '@/components/User/IdeaEventHeader.vue';
 import IdeaElement from '@/components/Idea/IdeaElement.vue';
 
 export default {
     components: {
-        IdeaEventHeader,
         IdeaElement,
     },
     data() {
@@ -59,3 +54,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.post__ideas .idea {
+    margin: 1rem auto;;
+}
+</style>

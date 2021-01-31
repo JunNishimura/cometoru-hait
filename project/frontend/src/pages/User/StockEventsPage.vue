@@ -1,31 +1,24 @@
 <template>
-    <BaseProfileContent v-if="loadComplete">
-        <template #contentHeaderLinks>
-            <IdeaEventHeader :isMyProfile="isMyProfile" />
-        </template>
-        <template #contentBody>
-            <EventElement
-                v-for="event in events"
-                :key="event.event_id"
-                :eventId="event.event_id"
-                :name="event.event_name"
-                :detail="event.event_detail"
-                :schedule="event.event_schedule"
-                :location="event.event_location"
-                :url="event.event_url"
-            ></EventElement>
-        </template>
-    </BaseProfileContent>
+    <div id="stock__events-page">
+        <EventElement
+            v-for="event in events"
+            :key="event.event_id"
+            :eventId="event.event_id"
+            :name="event.event_name"
+            :detail="event.event_detail"
+            :schedule="event.event_schedule"
+            :location="event.event_location"
+            :url="event.event_url"
+        ></EventElement>
+    </div>
 </template>
 
 <script>
 import apiHelper from '@/services/apiHelper.js';
-import IdeaEventHeader from '@/components/User/IdeaEventHeader.vue';
 import EventElement from '@/components/Event/EventElement.vue';
 
 export default {
     components: {
-        IdeaEventHeader,
         EventElement,
     },
     data() {
