@@ -1,42 +1,44 @@
 <template>
     <div id="settings">
-        <BaseCard>
-            <form @submit.prevent="updateProfile" v-if="loadComplete">
-                <h1>プロフィール編集</h1>
-                <div class="form-control profile-image">
-                    <img :src="previewImage" alt="profile">
-                    <input class="image-input" type="file" @change="imageSelect" accept="image/*">
-                </div>
-                <div class="form-control" :class="{invalid: !formData.username.isValid}">
-                    <label for="username">ユーザー名</label>
-                    <p v-if="!formData.username.isValid">ユーザー名は必須項目です</p>
-                    <input type="text" id="username" name="username" v-model.trim="formData.username.val" @blur="clearValidity('username')">
-                </div>
-                <div class="form-control">
-                    <label for="univ">大学</label>
-                    <input type="text" id="univ" name="univ" v-model.trim="formData.univ">
-                </div>
-                <div class="form-control">
-                    <label for="major">学部・専攻</label>
-                    <input type="text" id="major" name="major" v-model.trim="formData.major">
-                </div>
-                <div class="form-control">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" v-model.trim="formData.email">
-                </div>
-                <div class="form-control">
-                    <label for="intro">一言</label>
-                    <ResizableTextarea idea="intro" v-model="formData.intro"/>
-                </div>
-                <div class="form-control">
-                    <label for="portfolio">ポートフォリオ</label>
-                    <input type="url" id="portfolio" name="portfolio" placeholder="https://example.com" pattern="https://.*" size="30" v-model="formData.portfolio">
-                </div>
-                <div class="form-control">
-                    <InputTag tagLabel="タグ" :tags="inputTags" :maximum="5"/>
-                </div>
-                <BaseButton class="submit-btn">更新</BaseButton>
-            </form>
+        <BaseCard v-if="loadComplete">
+            <BaseForm @submitFunc="updateProfile" headerTitle="プロフィール編集">
+                <template #form-header>
+                    <div class="form-control profile-image">
+                        <img :src="previewImage" alt="profile">
+                        <input class="image-input" type="file" @change="imageSelect" accept="image/*">
+                    </div>
+                </template>
+                <template #form-content>
+                    <div class="form-control" :class="{invalid: !formData.username.isValid}">
+                        <label for="username">ユーザー名</label>
+                        <p v-if="!formData.username.isValid">ユーザー名は必須項目です</p>
+                        <input type="text" id="username" name="username" v-model.trim="formData.username.val" @blur="clearValidity('username')">
+                    </div>
+                    <div class="form-control">
+                        <label for="univ">大学</label>
+                        <input type="text" id="univ" name="univ" v-model.trim="formData.univ">
+                    </div>
+                    <div class="form-control">
+                        <label for="major">学部・専攻</label>
+                        <input type="text" id="major" name="major" v-model.trim="formData.major">
+                    </div>
+                    <div class="form-control">
+                        <label for="email">メールアドレス</label>
+                        <input type="email" id="email" name="email" v-model.trim="formData.email">
+                    </div>
+                    <div class="form-control">
+                        <label for="intro">一言</label>
+                        <ResizableTextarea idea="intro" v-model="formData.intro"/>
+                    </div>
+                    <div class="form-control">
+                        <label for="portfolio">ポートフォリオ</label>
+                        <input type="url" id="portfolio" name="portfolio" placeholder="https://example.com" pattern="https://.*" size="30" v-model="formData.portfolio">
+                    </div>
+                    <div class="form-control">
+                        <InputTag tagLabel="タグ" :tags="inputTags" :maximum="5"/>
+                    </div>
+                </template>
+            </BaseForm>
         </BaseCard>
     </div>
 </template>
@@ -45,7 +47,7 @@
 import utils from '@/services/utils.js';
 import apiHelper from '@/services/apiHelper.js';
 import InputTag from '@/components/Tag/InputTag.vue';
-import ResizableTextarea from '@/components/Idea/ResizableTextarea.vue';
+import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
 
 export default {
     components: {
@@ -211,20 +213,6 @@ export default {
     padding: 2rem
 }
 
-form h1 { 
-    font-size: 28px;
-    margin-bottom: 2rem;
-}
-
-.form-control {
-    margin-bottom: 1.25rem;
-}
-
-.form-control p {
-    text-align: left;
-    font-size: 14px;
-}
-
 .profile-image {
     margin: 2rem 0;
 }
@@ -238,56 +226,5 @@ form h1 {
 .profile-image input {
     margin: 0 auto;
     display: block;
-}
-
-.form-control label { 
-    font-size: 17px;
-    font-weight: bold;
-    text-align: left;
-    display: block;
-    margin-bottom: 0.25rem
-}
-
-.form-control input:not(.image-input) {
-    font-size: 16px;
-    width: 100%;
-    line-height: 1.5rem;
-    padding-left: 0.5rem;
-    outline: none;
-    border-bottom: 1px solid #aaa;
-}
-
-.form-control input:focus:not(.image-input) {
-    border-bottom: 2px solid #ffb01e;
-}
-
-.form-control textarea {
-    font-size: 16px;
-    width: 100%;
-    border-color: #aaa;
-}
-
-.form-control textarea:focus {
-    border-color: #ffb01e;
-    border-bottom-width: 2px;
-}
-
-.submit-btn {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 4rem;
-    background-color: #ffeece;
-}
-
-.submit-btn:hover {
-    background-color: #ffe0a7;
-}
-
-.invalid p {
-    color: #ff4a4a;
-}
-
-.invalid input {
-    border-color: #ff3535;
 }
 </style>

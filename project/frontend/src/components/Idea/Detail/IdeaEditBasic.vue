@@ -1,36 +1,35 @@
 <template>
-    <div class="header__modal-card">
-        <div class="form-control idea__edit-title">
-            <h3 class="input__title">タイトル</h3>
-            <input id="edit-title" name="edit-title" v-model="inputData.title">
-        </div>
-        <div class="form-control idea__edit-tag">
-            <h3 class="input__title">タグ</h3>
-            <InputTag :tags="inputData.tags" :maximum="5" />
-        </div>
-        <div class="form-control idea__edit-deadline">   
-            <h3 class="input__title">期限 / 締め切り</h3>
-            <input type="datetime-local" id="date" name="date" v-model="inputData.deadline">
-        </div>
-        <div class="form-control idea__edit-recruitment">
-            <div class="recruit__input-header">
-                <h3 class="input__title">募集人材</h3>
-                <span @click="addRecruitInput" class="add__recruit-btn">+</span>
+    <BaseForm @submitFunc="updateHeaderInfo">
+        <template #form-content>
+            <div class="form-control idea__edit-title">
+                <h3 class="input__title">タイトル</h3>
+                <input type="text" id="edit-title" name="edit-title" v-model="inputData.title">
             </div>
-            <div class="recruit__input-list">
-                <RecruitInput 
-                    v-for="(rec, index) in inputData.recruitments"
-                    :key="index"
-                    :index="index"
-                    :recruit="rec"
-                    @removeInput="removeRecruitInput"
-                />
+            <div class="form-control idea__edit-tag">
+                <h3 class="input__title">タグ</h3>
+                <InputTag :tags="inputData.tags" :maximum="5" />
             </div>
-        </div>
-        <div class="update__btn">
-            <button @click="updateHeaderInfo">UPDATE</button>
-        </div>
-    </div>
+            <div class="form-control idea__edit-deadline">   
+                <h3 class="input__title">期限 / 締め切り</h3>
+                <input type="datetime-local" id="date" name="date" v-model="inputData.deadline">
+            </div>
+            <div class="form-control idea__edit-recruitment">
+                <div class="recruit__input-header">
+                    <h3 class="input__title">募集人材</h3>
+                    <span @click="addRecruitInput" class="add__recruit-btn">+</span>
+                </div>
+                <div class="recruit__input-list">
+                    <RecruitInput 
+                        v-for="(rec, index) in inputData.recruitments"
+                        :key="index"
+                        :index="index"
+                        :recruit="rec"
+                        @removeInput="removeRecruitInput"
+                    />
+                </div>
+            </div>
+        </template>
+    </BaseForm>
 </template>
 
 <script>
@@ -61,7 +60,7 @@ export default {
             type: String,
         },
         currentDeadline: {
-            type: Date
+            type: Date,
         },
         currentRecruitments: {
             type: Array,
@@ -185,29 +184,6 @@ export default {
 </script>
 
 <style scoped>
-.header__modal-card {
-    padding: 2rem;
-    width: 50rem;
-}
-
-.form-control {
-    margin: 2rem;
-}
-
-.idea__edit-title input {
-    font-size: 18px;
-    line-height: 2rem;
-    padding-left: 0.5rem;
-    width: 100%;
-    outline: none;
-    background-color: #e5e5e5;
-    border: 1px solid #e5e5e5;
-}
-
-.idea__edit-title input:focus {
-    border: 1px solid #444;
-}
-
 .recruit__input-header {
     display: flex;
     justify-content: flex-start;
@@ -216,14 +192,5 @@ export default {
 
 .add__recruit-btn {
     cursor: pointer;
-}
-
-.update__btn {
-    text-align: center;
-}
-.update__btn button {
-    background-color: #ffe0a7;
-    font-weight: 700;
-    padding: 0.75rem 2rem;
 }
 </style>

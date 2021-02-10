@@ -38,9 +38,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #idea__feedback-section {
-    background-color: #d0c5b1;
+    background-color: $bg-color-quaternary;
 }
 
 .idea__feedback-container {

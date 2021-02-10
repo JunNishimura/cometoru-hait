@@ -1,9 +1,15 @@
 <template>
-    <ul id="user__detail-tab" ref="userTab" :class="{fixed: scrollPosY > originalPosY}">
-        <li><router-link :to="postPageLink">投稿済み</router-link></li>
-        <li v-if="isMyProfile"><router-link :to="draftPageLink">下書き</router-link></li>
-        <li v-if="isMyProfile"><router-link :to="stockPageLink">ストック</router-link></li>
-    </ul>
+    <BaseHorizontalTab id="user__detail-tab" 
+        :class="{fixed: scrollPosY > originalPosY}" 
+        :isBorderBottom="true"
+        justifyContentType="center"
+    >
+        <template #horizontal-tab>
+            <li ref="userTabItem"><router-link :to="postPageLink">投稿済み</router-link></li>
+            <li v-if="isMyProfile"><router-link :to="draftPageLink">下書き</router-link></li>
+            <li v-if="isMyProfile"><router-link :to="stockPageLink">ストック</router-link></li>
+        </template>
+    </BaseHorizontalTab>
 </template>
 
 <script>
@@ -35,7 +41,7 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
 
         // 初期状態のy軸上の位置を保存
-        this.originalPosY = this.$refs.userTab.offsetTop;
+        this.originalPosY = this.$refs.userTabItem.offsetTop;
     },
     methods: {
         handleScroll() {
@@ -46,16 +52,7 @@ export default {
 }
 </script>
 
-<style scoped>
-ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
+<style lang="scss" scoped>
 a {
     padding: 0 1rem;
     line-height: 4rem;
@@ -67,11 +64,11 @@ a {
 }
 
 li:hover {
-    background-color: #ffefd1;
+    background-color: $color-secondary;
 }
 
 .router-link-active {
-    border-bottom: 2px solid #ffbb3c;
+    border-bottom: 2px solid $color-primary;
 }
 
 .fixed {

@@ -4,31 +4,31 @@
             <li class="nav-link title"><router-link to="/ideas">カムトル</router-link></li>
             <li class="nav-link search">
                 <FontAwesomeIcon class="icon" :icon="['fas', 'search']" size="lg" />
-                <div class="dropdown">
-                    <ul>
+                <BaseVerticalDropdown>
+                    <template #dropdown-item>
                         <li class="dropdown-link"><router-link :to="ideasLink">アイデア</router-link></li>
                         <li class="dropdown-link"><router-link :to="eventsLink">イベント</router-link></li>
-                    </ul>
-                </div>
+                    </template>
+                </BaseVerticalDropdown>
             </li>
             <li class="nav-link auth" v-if="!isLoggedIn">
                 <FontAwesomeIcon class="icon" :icon="['fas', 'sign-in-alt']" size="2x" />
-                <div class="dropdown">
-                    <ul>
+                <BaseVerticalDropdown>
+                    <template #dropdown-item>
                         <li class="dropdown-link"><router-link :to="signupLink">新規登録</router-link></li>
                         <li class="dropdown-link"><router-link :to="loginLink">ログイン</router-link></li>
-                    </ul>
-                </div>
+                    </template>
+                </BaseVerticalDropdown>
             </li>
             <li class="nav-link profile" v-if="isLoggedIn && loadComplete">
                 <img :src="profileImage" alt="profile">
-                <div class="dropdown">
-                    <ul>
+                <BaseVerticalDropdown>
+                    <template #dropdown-item>
                         <li class="dropdown-link"><FontAwesomeIcon class="icon" :icon="['fas', 'user']" /><router-link :to="userLink">マイページ</router-link></li>
                         <li class="dropdown-link"><FontAwesomeIcon class="icon" :icon="['fas', 'bell']" /><router-link :to="notificationLink">通知</router-link></li>
                         <li class="dropdown-link"><FontAwesomeIcon class="icon" :icon="['fas', 'sign-out-alt']" /><a href="#" @click="logout">ログアウト</a></li>
-                    </ul>
-                </div>
+                    </template>
+                </BaseVerticalDropdown>
             </li>
         </ul>
     </header>
@@ -104,7 +104,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /* height: 4rem */
 .header {
     position: fixed;
@@ -116,7 +116,7 @@ export default {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     font-weight: bold;
     letter-spacing: 4px;
-    z-index: 10;
+    z-index: 100;
 }
 
 ul {
@@ -172,10 +172,7 @@ li, a {
     cursor: pointer;
 }
 
-.nav-link .dropdown {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-    width: 10rem;
+.nav-link .vertical__dropdown {
     position: absolute;
     top: 100%;
     right: 0;
@@ -183,10 +180,9 @@ li, a {
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease-out;
-    z-index: 100;
 }
 
-.nav-link:hover > .dropdown {
+.nav-link:hover > .vertical__dropdown {
     transform: translate(0, 0);
     opacity: 1;
     pointer-events: auto;
@@ -214,6 +210,6 @@ li, a {
 }
 
 .dropdown-link:hover {
-    background-color: #ffe0a7;
+    background-color: $color-secondary;
 }
 </style>

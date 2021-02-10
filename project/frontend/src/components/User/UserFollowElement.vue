@@ -47,9 +47,6 @@ export default {
         }
     },
     created() {
-        // プロフィールページ主のIdを取得する
-        this.paramUserId = this.$route.params['userId'];
-
         // ユーザーの詳細情報の読み込み
         apiHelper.loadUserDetail(this.userId)
         .then( res => {

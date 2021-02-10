@@ -14,13 +14,13 @@
                 </div>
             </form>
             <div class="feedbacks" v-if="loadComplete">
-                <FeedbackReply
+                <FeedbackReplyElement
                     v-for="(feedback, key) in feedbacks"
                     :key="key"
                     :userId="feedback.user_id"
                     :feedbackId="feedback.feedback_id"
                     :feedback="feedback.feedback"
-                ></FeedbackReply>
+                ></FeedbackReplyElement>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
 
 <script>
 import apiHelper from '@/services/apiHelper.js'
-import FeedbackReply from '@/components/Idea/Detail/FeedbackReplyElement.vue';
+import FeedbackReplyElement from '@/components/Idea/Detail/FeedbackReplyElement.vue';
 
 export default {
     props: {
@@ -41,7 +41,7 @@ export default {
         },
     },
     components: {
-        FeedbackReply,
+        FeedbackReplyElement,
     },
     data() {
         return {
@@ -107,7 +107,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .feedback__question {
     margin: 0 2rem;
 }
@@ -133,14 +133,16 @@ export default {
 
 form {
     padding: 1.5rem 2rem;
-    border-bottom: 1px solid #ddd;
+    background-color: #fff;
 }
 
 form input {
     font-size: 18px;
     width: 100%;
+    background-color: transparent;
     outline: none;
-    border-bottom: 1px solid #ddd;
+    border: none;
+    border-bottom: 1px solid #333;
 }
 
 .form__btn {
@@ -151,17 +153,18 @@ form input {
 form button {
     width: 5rem;
     height: 2rem;
-    background-color: #ffe0a7;
+    background-color: $color-secondary;
     border-radius: 4px;
     outline: none;
+    border: none;
 }
 
 form input:focus {
-    border-color: #ffbb3c;
+    border-color: $color-primary;
 }
 
 form button:hover {
-    background-color: #ffbb3c;
+    background-color: $color-primary;
 }
 
 .invalid span {
@@ -169,7 +172,7 @@ form button:hover {
 }
 
 .borderHighlight {
-    border-color: #ffbb3c;
+    border-color: $color-secondary;
     border-width: 1.2px;
 }
 </style>

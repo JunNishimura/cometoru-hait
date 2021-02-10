@@ -1,9 +1,11 @@
 <template>
-    <ul id="idea__detail-tab" ref="detailTab" :class="{fixed: scrollPosY > originalPosY}">
-        <li><a href="#idea__detail">トップ</a></li>
-        <li><a href="#idea__overview-mark">概要</a></li>
-        <li><a href="#idea__feedback-section">質問</a></li>
-    </ul>
+    <BaseHorizontalTab id="idea__detail-tab" :class="{fixed: scrollPosY > originalPosY}" justifyContentType="center">
+        <template #horizontal-tab>
+            <li ref="detailTabItem"><a href="#idea__detail">トップ</a></li>
+            <li><a href="#idea__overview-mark">概要</a></li>
+            <li><a href="#idea__feedback-section">質問</a></li>
+        </template>
+    </BaseHorizontalTab>
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
 
         // 初期状態のy軸上の位置を保存
-        this.originalPosY = this.$refs.detailTab.offsetTop;
+        this.originalPosY = this.$refs.detailTabItem.offsetTop;
     },
     methods: {
         handleScroll() {
@@ -29,13 +31,8 @@ export default {
 }
 </script>
 
-<style scoped>
-ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    text-align: center;
+<style lang="scss" scoped>
+.horizontal__tab-list {
     border-bottom: 1px solid #ddd;
 }
 
@@ -50,11 +47,7 @@ a {
 }
 
 li:hover {
-    background-color: #ffefd1;
-}
-
-.router-link-active {
-    border-bottom: 2px solid #ffbb3c;
+    background-color: $color-secondary;
 }
 
 .fixed {

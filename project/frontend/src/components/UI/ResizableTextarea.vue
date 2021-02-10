@@ -30,11 +30,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 textarea {
     font-size: 20px;
     width: 30rem;
+    resize: vertical;
+    background-color: transparent;
     outline: none;
+    border: none;
     border-bottom: 1px solid #000;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -45,6 +48,6 @@ textarea::-webkit-scrollbar {
 }
 
 textarea:focus {
-    border-bottom: 2px solid #ffa600;
+    border-bottom: 2px solid $color-primary;
 }
 </style>
