@@ -6,33 +6,30 @@
                     <FontAwesomeIcon class="icon" :icon="['fas', 'cog']" size="lg" />
                     <FontAwesomeIcon class="icon" :icon="['fas', 'caret-down']" size="lg" />
                 </div>
-                <div class="setting__dropdown" v-if="isDropdownOn">
-                    <ul>
-                        <li v-if="this.ideaDetail.state === 'draft'"><button @click="publishIdea">公開する</button></li>
-                        <li><button @click="showModal">編集する</button></li>
-                        <li><button @click="deleteIdea">削除する</button></li>
-                    </ul>
-                </div>
-                <div class="setting__modal" v-if="modalState">
-                    <BaseModal v-model="modalState">
-                        <template #card>
-                            <HeaderModalCard 
-                                :myUserId="myUserId"
-                                :ideaId="ideaId"
-                                :currentTitle="ideaDetail.title"
-                                :currentTags="currentTags"
-                                :currentState="ideaDetail.state"
-                                :currentDeadline="ideaDetail.deadline"
-                                :currentRecruitments="currentRecruitments"
-                            />
-                            <!-- <BaseForm title="タグの更新">
-                                <InputTag :tags="inputTags" :maximum="5" />
-                                <BaseModalButton @clickModalBtn="updateTag" />
-                            </BaseForm> -->
-                        </template>
-                    </BaseModal>
-                </div>
+                <BaseVerticalDropdown v-if="isDropdownOn">
+                    <template #dropdown-item>
+                        <li v-if="ideaDetail.state === 'draft'"><div class="dropdown__btn" @click="publishIdea">公開する</div></li>
+                        <li><div class="dropdown__btn" @click="showModal">編集する</div></li>
+                        <li><div class="dropdown__btn" @click="deleteIdea">削除する</div></li>
+                    </template>
+                </BaseVerticalDropdown>
+                <!-- setting modal -->
+                <BaseModal v-model="modalState" v-if="modalState">
+                    <template #card>
+                        <IdeaDetailModal
+                            :outerModalState="modalState"
+                            :isMyIdea="isMyIdea"
+                            :myUserId="myUserId"
+                            :ideaId="ideaId"
+                            :ideaDetail="ideaDetail"
+                            :deadline="new Date(ideaDetail.deadline)"
+                            :currentTags="currentTags"
+                            :currentRecruitments="currentRecruitments"
+                        />
+                    </template>
+                </BaseModal>
             </div>
+
             <div class="idea__title">
                 <h1>{{ ideaDetail.title }}</h1>
             </div>
@@ -62,11 +59,6 @@
             <div class="idea__header-container">
                 <RecruitmentDisplay :currentRecruitments="currentRecruitments" />
             </div>
-            <!-- <div class="idea__header-right">
-                <IdeaReputationSection
-                    :ideaId="ideaId"
-                />
-            </div> -->
         </section>
 
         <section class="idea__body">
@@ -81,9 +73,11 @@
             <!-- <IdeaReputationSection
                 :ideaId="ideaId"
             /> -->
+            <IdeaImageSection
+                :image="ideaDetail.idea_image"
+            />
             <IdeaFeedbackSection
                 :ideaId="ideaId"
-                :isMyIdea="isMyIdea"
             />
         </section>
     </div>
@@ -95,9 +89,10 @@ import IdeaDetailTab from '@/components/Idea/Detail/IdeaDetailTab.vue';
 // import InputTag from '@/components/Tag/InputTag.vue';
 import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vue';
 // import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
+import IdeaImageSection from '@/components/Idea/Detail/IdeaImageSection.vue'
 import RecruitmentDisplay from '@/components/Idea/Detail/RecruitmentDisplay.vue';
 import IdeaFeedbackSection from '@/components/Idea/Detail/IdeaFeedbackSection.vue';
-import HeaderModalCard from '@/components/Idea/Detail/HeaderModalCard.vue';
+import IdeaDetailModal from '@/components/Idea/Detail/IdeaDetailModal.vue';
 
 export default {
     components: {
@@ -105,9 +100,10 @@ export default {
         // InputTag,
         IdeaOverviewSection,
         // IdeaReputationSection,
+        IdeaImageSection,
         RecruitmentDisplay,
         IdeaFeedbackSection,
-        HeaderModalCard,
+        IdeaDetailModal,
     },
     data() {
         return {
@@ -169,6 +165,7 @@ export default {
             this.isDropdownOn = false;
         },
         clearModalState() {
+            // modalを画面から消す
             this.modalState = false;
         }
     },
@@ -219,13 +216,14 @@ export default {
     },
     beforeRouteLeave(to, from, next) {
         // 他のページに遷移する前にmodalを全てfalseにする
+        // でないとstateが残ってしまう
         this.clearModalState();
         next();
     }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .idea__detail {
     width: 100%;
 }
@@ -245,7 +243,7 @@ export default {
 .idea__settings {
     display: flex;
     align-items: center;
-    position: relative;
+    position: relative; // dropdown's position is relative to this setting
 }
 
 .setting__btn {
@@ -253,30 +251,22 @@ export default {
     cursor: pointer;
 }
 
-.setting__dropdown {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-    width: 10rem;
+.vertical__dropdown {
+    padding: 0;
+    position: absolute;
     top: 100%;
     right: 0;
     z-index: 90;
-    position: absolute;
 }
 
-.setting__dropdown ul {
-    list-style: none;
-    text-align: center;
+.dropdown__btn {
+    line-height: 3rem;
+    color: #000;
+    cursor: pointer;
 }
 
-.setting__dropdown button {
-    font-size: 14px;
-    width: 100%;
-    height: 2rem;
-    outline: none;
-}
-
-.setting__dropdown button:hover {
-    background-color: #ffe0a7;
+.dropdown__btn:hover {
+    background-color: $color-secondary;
 }
 
 .idea__title {

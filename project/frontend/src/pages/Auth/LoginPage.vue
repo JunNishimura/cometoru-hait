@@ -2,28 +2,28 @@
     <div id="login-page">
         <AuthModel mode="login">
             <template #form>
-                <form @submit.prevent="login">
-                    <h1>ログイン</h1>
-                    <div class="form-control" :class="{invalid: !username.isValid}">
-                        <label for="username">ユーザー名 <span class="necessary">[必須]</span></label>
-                        <p v-if="!username.isValid">ユーザー名は必須項目です</p>
-                        <input type="text" id="username" name="username" v-model.trim="username.val" @blur="clearValidity('username')">
-                    </div>
-                    <div class="form-control" :class="{invalid: !email.isValid}">
-                        <label for="email">メールアドレス <span class="necessary">[必須]</span></label>
-                        <p v-if="!email.isValid">メールアドレスは必須項目です</p>
-                        <input type="email" id="email" name="email" v-model.trim="email.val" @blur="clearValidity('email')">
-                    </div>
-                    <div class="form-control" :class="{invalid: !password.isValid}">
-                        <label for="password">パスワード <span class="necessary">[必須]</span></label>
-                        <p v-if="!password.isValid">パスワードは必須項目です</p>
-                        <input type="password" id="password" name="password" v-model="password.val" @blur="clearValidity('password')">
-                    </div>
-                    <div class="form-control forget">
-                        <a href="#">パスワードを忘れましたか?</a>
-                    </div>
-                    <BaseButton class="submit">送信</BaseButton>
-                </form>
+                <BaseForm @submitFunc="login" headerTitle="ログイン">
+                    <template #form-content>
+                        <div class="form-control" :class="{invalid: !username.isValid}">
+                            <label for="username">ユーザー名 <span class="necessary">[必須]</span></label>
+                            <p v-if="!username.isValid">ユーザー名は必須項目です</p>
+                            <input type="text" id="username" name="username" v-model.trim="username.val" @blur="clearValidity('username')">
+                        </div>
+                        <div class="form-control" :class="{invalid: !email.isValid}">
+                            <label for="email">メールアドレス <span class="necessary">[必須]</span></label>
+                            <p v-if="!email.isValid">メールアドレスは必須項目です</p>
+                            <input type="email" id="email" name="email" v-model.trim="email.val" @blur="clearValidity('email')">
+                        </div>
+                        <div class="form-control" :class="{invalid: !password.isValid}">
+                            <label for="password">パスワード <span class="necessary">[必須]</span></label>
+                            <p v-if="!password.isValid">パスワードは必須項目です</p>
+                            <input type="password" id="password" name="password" v-model="password.val" @blur="clearValidity('password')">
+                        </div>
+                        <div class="form-control forget">
+                            <a href="#">パスワードを忘れましたか?</a>
+                        </div>
+                    </template>
+                </BaseForm>
             </template>
         </AuthModel>
     </div>
@@ -112,67 +112,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-form h1 {
-    font-size: 28px;
-    margin-bottom: 2rem;
-}
-
-.form-control {
-    margin-bottom: 1.25rem;
-}
-
-.form-control p {
-    text-align: left;
-    font-size: 14px;
-}
-
-.form-control label {
-    font-size: 17px;
-    font-weight: bold;
-    text-align: left;
-    display: block;
-    margin-bottom: 0.25rem;
-}
-
-.form-control input {
-    font-size: 16px;
-    width: 100%;
-    line-height: 1.5rem;
-    padding-left: 0.5rem;
-    border-bottom: 1px solid #aaaaaa;
-    outline: none;
-}
-
-.form-control input:focus {
-    border-bottom: 2px solid #ffb01e;
-}
-
-.submit {
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #ffeece;
-}
-
-.submit:hover {
-    background-color: #ffe0a7;
-}
-
-.forget a {
-    color: #ff3535;
-}
-
-.necessary {
-    font-size: 14px;
-    color: #ff3535;
-}
-
-.invalid p {
-    color: #ff3535;
-}
-
-.invalid input {
-    border-color: #ff3535;
-}
-</style>

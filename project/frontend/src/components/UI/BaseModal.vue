@@ -25,18 +25,20 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 98;
+    z-index: 101;
     background-color: #0004;
     cursor: pointer;
 }
 
 .modal__card {
-    z-index: 99;
+    padding: 3rem;
+    z-index: 102;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #000;
+    border-radius: 16px;
     background-color: #fff;
 }
 

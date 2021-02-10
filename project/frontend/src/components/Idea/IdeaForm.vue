@@ -82,7 +82,7 @@
 
 <script>
 import apiHelper from '@/services/apiHelper.js'
-import ResizableTextarea from '@/components/Idea/ResizableTextarea.vue';
+import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
 
 export default {
     components: {

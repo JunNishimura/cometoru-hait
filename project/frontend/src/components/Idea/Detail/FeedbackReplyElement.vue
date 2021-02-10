@@ -6,12 +6,9 @@
         <div class="username">
             <h5>From: <span><router-link :to="userLink">{{ user.username }}</router-link></span></h5>
             <div class="icon__box" v-if="isMyFeedback">
-                <FontAwesomeIcon class="icon" :icon="['fas', 'ellipsis-v']" size="sm" />
-                <div class="popup">
-                    <div class="delete" @click="deleteFeedback">
-                        <span>削除</span>
-                        <FontAwesomeIcon :icon="['fas', 'trash']" size="sm" />
-                    </div>
+                <FontAwesomeIcon class="icon" @click="showPopup" :icon="['fas', 'trash']" size="sm" />
+                <div class="popup" v-if="isPopup" @click="deleteFeedback">
+                    <h5>削除</h5>
                 </div>
             </div>
         </div>
@@ -30,6 +27,7 @@ export default {
     data() {
         return {
             user: null,
+            isPopup: false,
             loadComplete: null,
         }
     },
@@ -57,6 +55,9 @@ export default {
                 console.log("error to delete feedback: ", err);
             })
         },
+        showPopup() {
+            this.isPopup = !this.isPopup;
+        }
     },
     created() {
         apiHelper.loadUserDetail(this.userId)
@@ -106,7 +107,6 @@ export default {
     width: 20px;
     height: 20px;
     border-radius: 50%;;
-    background-color: #ddd;
     position: relative;
     cursor: pointer;
     margin-left: 0.75rem;
@@ -121,34 +121,13 @@ export default {
 
 .popup {
     position: absolute;
-    top: -30px;
+    top: -40px;
     right: 0;
-    transform: translateY(10px);
-    width: 4rem;
+    width: 5rem;
+    text-align: center;
     line-height: 2rem;
-    background-color: #ff3535e9;
-    border-radius: 4px;
-    transition: all 0.25s ease-in;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 100;
-}
-
-.icon__box:hover > .popup {
-    transform: translate(0, 0);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.delete {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     color: #fff;
-}
-
-.delete:hover {
-    border-radius: 4px;
-    background-color: #e93232e9;
+    background-color: #ff3535e9;
+    z-index: 90;
 }
 </style>

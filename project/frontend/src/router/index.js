@@ -9,15 +9,8 @@ import NewIdeasPage from '@/pages/Idea/List/NewIdeasPage.vue';
 import TagIdeasPage from '@/pages/Idea/List/TagIdeasPage.vue';
 import RecommendIdeasPage from '@/pages/Idea/List/RecommendIdeasPage';
 import IdeaDetailPage from '@/pages/Idea/Detail/IdeaDetailPage.vue';
-// import IdeaOverviewPage from '@/pages/Idea/Detail/IdeaOverviewPage.vue';
-// import IdeaDetailInfoPage from '@/pages/Idea/Detail/IdeaDetailInfoPage.vue';
-// import IdeaRecruitmentPage from '@/pages/Idea/Detail/IdeaRecruitmentPage.vue';
-// import IdeaReputationPage from '@/pages/Idea/Detail/IdeaReputationPage.vue';
-// import IdeaFeedbackPage from '@/pages/Idea/Detail/IdeaFeedbackPage.vue';
 // Idea Post
 import IdeaPostPage from '@/pages/Idea/Post/IdeaPostPage.vue';
-import PostNewIdeaPage from '@/pages/Idea/Post/PostNewIdeaPage.vue';
-import EditIdeaPage from '@/pages/Idea/Post/EditIdeaPage.vue';
 // Auth pages
 import AuthPage from '@/pages/Auth/AuthPage.vue';
 import SignupPage from '@/pages/Auth/SignupPage.vue';
@@ -28,8 +21,6 @@ import SettingsPage from '@/pages/User/SettingsPage.vue';
 import PostIdeasPage from '@/pages/User/PostIdeasPage.vue';
 import DraftIdeasPage from '@/pages/User/DraftIdeasPage.vue';
 import StockEventsPage from '@/pages/User/StockEventsPage.vue';
-import FollowersPage from '@/pages/User/FollowersPage.vue';
-import FollowingPage from '@/pages/User/FollowingPage.vue';
 import NotificationPage from '@/pages/User/NotificationPage.vue';
 import MessageDisplayPage from '@/pages/User/MessageDisplayPage.vue';
 // Event pages
@@ -67,14 +58,6 @@ const routes = [
                 path: 'idea/:ideaId',
                 component: IdeaDetailPage,
                 props: true,
-                // redirect: { name: 'overview' },
-                // children: [
-                //     { name: 'overview',     path: 'overview',     component: IdeaOverviewPage },
-                //     { name: 'detailInfo',   path: 'detailInfo',   component: IdeaDetailInfoPage },
-                //     { name: 'recruitment', path: 'recruitment', component: IdeaRecruitmentPage },
-                //     { name: 'reputation',   path: 'reputation',   component: IdeaReputationPage },
-                //     { name: 'feedback', path: 'feedback', component: IdeaFeedbackPage },
-                // ]
             },
             {
                 // 認証関連（新規登録、ログイン）の画面
@@ -99,8 +82,6 @@ const routes = [
                     { name: 'postIdeas',    path: 'post',         component: PostIdeasPage    },
                     { name: 'draftIdeas',   path: 'draft',        component: DraftIdeasPage   },
                     { name: 'stockEvents',  path: 'events/stock', component: StockEventsPage  },
-                    { name: 'followers',    path: 'followers',    component: FollowersPage    },
-                    { name: 'following',    path: 'following',    component: FollowingPage    },
                     {
                         name: 'notification',
                         path: 'notification',
@@ -139,11 +120,6 @@ const routes = [
         path: '/post',
         component: IdeaPostPage,
         meta: { requiresAuth: true },
-        redirect: { name: 'postNewIdea' },
-        children: [
-            { name: 'postNewIdea',  path: 'new',          component: PostNewIdeaPage },
-            { name: 'editIdea',     path: 'edit/:ideaId', component: EditIdeaPage    },
-        ]
     },
     {
         // それ以外はホーム画面に遷移

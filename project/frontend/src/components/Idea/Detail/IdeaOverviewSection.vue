@@ -41,9 +41,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #idea__overview-section {
-    background-color: #fff;
+    background-color: $bg-color-secondary;
 }
 
 .idea__overview-container {

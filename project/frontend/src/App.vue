@@ -18,12 +18,26 @@ export default {
 }
 
 html {
-    font-family: 'Noto Serif JP', serif;
     scroll-behavior: smooth;
-    /* font-family: 'Kosugi Maru', sans-serif; */
 }
 
 body {
+    font-family: 'Noto Serif JP', serif;
+    margin: 0;
+    padding: 0;
+}
+
+button, input, textarea {
+    font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    padding: 0;
     margin: 0;
 }
 </style>

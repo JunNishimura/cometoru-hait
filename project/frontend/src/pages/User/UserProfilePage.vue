@@ -14,7 +14,7 @@
                         </button>
                     </div>
                     <div class="btn__outer">
-                        <button  @click="showMessageModal" class="profile__message-btn">
+                        <button  @click="showModal('message')" class="profile__message-btn">
                             メッセージを送る 
                             <FontAwesomeIcon class="icon" :icon="['fas', 'paper-plane']" />
                         </button>
@@ -41,9 +41,9 @@
                     <p>{{ userDetail.intro }}</p>
                 </div>
                 <div class="profile__follow">
-                    <div class="profile__follow-links">
-                        <router-link :to="followersLink">フォロワー {{ followerCount }}人</router-link>
-                        <router-link :to="followingLink">フォロー中 {{ followingCount }}人</router-link>
+                    <div class="profile__follow-buttons">
+                        <div class="follower-btn" @click="showModal('follower')">フォロワー {{ followerCount }}人</div>
+                        <div class="following-btn" @click="showModal('following')">フォロー中 {{ followingCount }}人</div>
                     </div>
                 </div>
                 <div class="profile__sub-info">
@@ -67,6 +67,28 @@
             </div>
         </div>
 
+        <!-- modal -->
+        <div class="follow__modal" v-if="modalState.follow">
+            <BaseModal v-model="modalState.follow">
+                <template #card>
+                    <div class="follower-list" v-if="modalState.follower && modalState.follow">
+                        <UserFollowElement
+                            v-for="(ud, index) in followIds.follower"
+                            :key="index"
+                            :userId="ud"
+                        ></UserFollowElement>
+                    </div>
+                    <div class="following-list" v-if="modalState.following && modalState.follow">
+                        <UserFollowElement
+                            v-for="(ud, index) in followIds.following"
+                            :key="index"
+                            :userId="ud"
+                        ></UserFollowElement>
+                    </div>
+                </template>
+            </BaseModal>
+        </div>
+
         <section class="profile__content"> 
             <UserTab :isMyProfile="isMyProfile" />
             <router-view />
@@ -78,11 +100,13 @@
 import apiHelper from '@/services/apiHelper.js'
 import MessageModal from '@/components/Message/MessageModal.vue';
 import UserTab from '@/components/User/UserTab.vue';
+import UserFollowElement from '@/components/User/UserFollowElement.vue';
 
 export default {
     components: {
         MessageModal,
-        UserTab
+        UserTab,
+        UserFollowElement
     },
     data() {
         return {
@@ -93,8 +117,15 @@ export default {
             tags: [],
             followerCount: 0,
             followingCount: 0,
+            followIds: {
+                follower: [],   // フォローされているユーザーのidのリスト
+                following: [],  // フォローしているユーザーのidのリスト
+            },
             isFollowing: false,
             modalState : {
+                follow: false,
+                follower: false,
+                following: false,
                 message: false,
             }
         }
@@ -109,19 +140,21 @@ export default {
         paramUserId() {
             return this.$route.params['userId'];
         },
-        followersLink() {
-            return { name: 'followers' };
-        },
-        followingLink() {
-            return { name: 'following' };
-        },
         followLabel() {
             return this.isFollowing ? 'フォロー解除' : 'フォロー';
         },
     },
     methods: {
-        showMessageModal() {
-            this.modalState.message = true;
+        showModal(type) {
+            if (type === 'message') {
+                this.modalState.message = true;
+            } else if(type === 'follower') {
+                this.modalState.follow = this.modalState.follower = true;
+                this.modalState.following = false;
+            } else if (type === 'following') {
+                this.modalState.follow = this.modalState.following = true;
+                this.modalState.follower = false;
+            }
         },
         loadUserData() {
             apiHelper.loadUserDetail(this.paramUserId) 
@@ -138,6 +171,14 @@ export default {
             }).then ( res => {
                 this.postIdeas = res;
 
+                return apiHelper.loadFollowers(this.paramUserId)
+            }).then( res => {
+                this.followIds.follower = res.map((data) => data.user_id);
+            
+                return apiHelper.loadFollowingUsers(this.paramUserId)
+            }).then( res => {
+                this.followIds.following = res.map((data) => data.following_user_id);
+                
                 // ロード完了
                 this.loadComplete = true;
             }).catch ( err => {
@@ -205,6 +246,9 @@ export default {
         this.pageLoad();
     },
     beforeRouteLeave(to, from, next) {
+        this.modalState.follow  = false;
+        this.modalState.follower = false;
+        this.modalState.following = false;
         this.modalState.message = false;
         next();
     }, 
@@ -285,20 +329,22 @@ export default {
     font-size: 16px;
 }
 
-.profile__follow-links {
+.profile__follow-buttons {
     display: flex;
     justify-content: flex-start;
     align-items: center;   
 }
 
-.profile__follow-links a {
-    text-decoration: none;
+.follower-btn,
+.following-btn {
     color: #000;
     font-weight: 700;
+    cursor: pointer;
     margin: 1rem 1rem 0 0;
 }
 
-.profile__follow-links a:hover {
+.follower-btn:hover,
+.following-btn:hover {
     border-bottom: 1px solid #000;
 }
 

@@ -1,8 +1,8 @@
 <template>
-    <div class="auth">
+    <div class="auth__model">
         <BaseCard>
             <slot name="form"></slot>
-            <div class="line"></div>
+            <!-- <div class="line"></div>
             <div class="or">
                 <p>OR</p>
             </div>
@@ -13,7 +13,7 @@
             <BaseButton class="twitter" @buttonEvent="twitterSign">
                 <span class="btn-title">{{ twitterButtonTitle }}</span>
                 <FontAwesomeIcon :icon="['fab', 'twitter-square']" size="lg"/>
-            </BaseButton>
+            </BaseButton> -->
         </BaseCard>
     </div>
 </template>
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style scoped>
-.auth {
+.auth__model {
     padding: 2rem 0;
 }
 

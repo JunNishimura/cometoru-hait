@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .floating__button {
     position: fixed;
     bottom: 50px;
@@ -36,7 +36,7 @@ export default {
     height: 80px;
     border-radius: 50%;
     cursor: pointer;
-    background-color: #ffbb3c;
+    background-color: $color-primary;
 }
 
 .floating__button-icon {

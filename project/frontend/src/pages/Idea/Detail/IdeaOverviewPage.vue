@@ -125,11 +125,6 @@ export default {
 </script>
 
 <style scoped>
-/* .container {
-    width: 100%;
-    padding: 1rem;
-} */
-
 .container-title {
     display: inline-block;
     padding: 0.1rem 0.5rem;

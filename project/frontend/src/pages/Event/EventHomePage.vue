@@ -2,12 +2,7 @@
     <div id="event__home-page">
         <div class="event__display">
             <section class="event__display-side">
-                <BaseTab title="イベント">
-                    <template #links>
-                        <router-link :to="newEventLink">新着</router-link>
-                        <router-link :to="comingEventLink">開催間近</router-link>
-                    </template>
-                </BaseTab>
+                <EventVerticalTab />
             </section>
             <section class="event__display-content">
                 <router-view />
@@ -17,14 +12,11 @@
 </template>
 
 <script>
+import EventVerticalTab from '@/components/Event/EventVerticalTab.vue';
+
 export default {
-    computed: {
-        newEventLink() {
-            return { name: 'newEvents' };
-        },
-        comingEventLink() {
-            return { name: 'comingEvents' };
-        }
+    components: {
+        EventVerticalTab,
     }
 }
 </script>
