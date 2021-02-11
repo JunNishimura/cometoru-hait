@@ -193,7 +193,7 @@ export default {
 
         return responseData;            
     },
-    async publishIdea(ideaData, ideaId) {
+    async publishIdea(ideaData, ideaId, state) {
         const url = '/ideas/' + ideaId + '/';
         const formData = new FormData();
         formData.append('user_id', ideaData.user_id);
@@ -201,7 +201,7 @@ export default {
         formData.append('overview', ideaData.overview);
         formData.append('background', ideaData.background);
         formData.append('passion', ideaData.passion);
-        formData.append('state', 'post');
+        formData.append('state', state);
         formData.append('offer', ideaData.offer );
         
         if(ideaData.idea_image !== null) {

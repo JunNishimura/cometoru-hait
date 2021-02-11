@@ -52,7 +52,7 @@ export default {
             
             apiHelper.putImage(data, this.ideaId)
             .then( () => {
-                this.$router.go({ name: 'overview', params: { ideaId: this.ideaId }});
+                this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId }});
             }).catch( err => {
                 console.log("error to update image: ", err);
             })
