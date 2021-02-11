@@ -9,14 +9,15 @@
                 <BaseVerticalDropdown v-if="isDropdownOn">
                     <template #dropdown-item>
                         <li v-if="ideaDetail.state === 'draft'"><div class="dropdown__btn" @click="publishIdea">公開する</div></li>
-                        <li><div class="dropdown__btn" @click="showModal">編集する</div></li>
-                        <li><div class="dropdown__btn" @click="deleteIdea">削除する</div></li>
+                        <li v-if="ideaDetail.state === 'post'"><div class="dropdown__btn" @click="unPublishIdea">非公開にする</div></li>
+                        <li><div class="dropdown__btn" @click="showModal('edit')">編集する</div></li>
+                        <li><div class="dropdown__btn" @click="showModal('delete')">削除する</div></li>
                     </template>
                 </BaseVerticalDropdown>
                 <!-- setting modal -->
                 <BaseModal v-model="modalState" v-if="modalState">
                     <template #card>
-                        <IdeaDetailModal
+                        <IdeaEditModal v-if="modalType === 'edit'"
                             :outerModalState="modalState"
                             :isMyIdea="isMyIdea"
                             :myUserId="myUserId"
@@ -25,6 +26,9 @@
                             :deadline="new Date(ideaDetail.deadline)"
                             :currentTags="currentTags"
                             :currentRecruitments="currentRecruitments"
+                        />
+                        <IdeaDeleteModal v-else-if="modalType === 'delete'"
+                            :ideaId="ideaId"
                         />
                     </template>
                 </BaseModal>
@@ -92,7 +96,8 @@ import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vu
 import IdeaImageSection from '@/components/Idea/Detail/IdeaImageSection.vue'
 import RecruitmentDisplay from '@/components/Idea/Detail/RecruitmentDisplay.vue';
 import IdeaFeedbackSection from '@/components/Idea/Detail/IdeaFeedbackSection.vue';
-import IdeaDetailModal from '@/components/Idea/Detail/IdeaDetailModal.vue';
+import IdeaEditModal from '@/components/Idea/Detail/IdeaEditModal.vue';
+import IdeaDeleteModal from '@/components/Idea/Detail/IdeaDeleteModal.vue';
 
 export default {
     components: {
@@ -103,7 +108,8 @@ export default {
         IdeaImageSection,
         RecruitmentDisplay,
         IdeaFeedbackSection,
-        IdeaDetailModal,
+        IdeaEditModal,
+        IdeaDeleteModal,
     },
     data() {
         return {
@@ -121,6 +127,7 @@ export default {
             currentRecruitments: [], // 現時点でDBに格納されているrecruitments
             // modal
             modalState: false,
+            modalType: '', // 'edit' or 'delete'
         };
     },
     computed: {
@@ -139,27 +146,27 @@ export default {
         settingBtnPressed() {
             this.isDropdownOn = !this.isDropdownOn;
         },
-        showModal() {
+        showModal(_modalType) {
+            this.modalType = _modalType;
             this.modalState = true;
             this.isDropdownOn = false;
         },
         publishIdea() {
-            apiHelper.publishIdea(this.ideaDetail, this.ideaId)
+            apiHelper.publishIdea(this.ideaDetail, this.ideaId, 'post')
             .then(() => {
-                this.$router.replace('/');
+                this.$router.go({name: 'ideas', params: {ideaId: this.ideaId}});
             }).catch( err => {
                 console.log("error to publish idea: ", err);
             })
 
             this.isDropdownOn = false;
         },
-        deleteIdea() {
-            apiHelper.deleteIdea(this.ideaId)
+        unPublishIdea() {
+            apiHelper.publishIdea(this.ideaDetail, this.ideaId, 'draft')
             .then(() => {
-                // 削除後はideasページに遷移
-                this.$router.replace({ name: 'ideas' });
+                this.$router.go({name: 'ideaDetail', params: {ideaId: this.ideaId}});
             }).catch( err => {
-                console.log("error to delete idea: ", err);
+                console.log("error to publish idea: ", err);
             })
 
             this.isDropdownOn = false;

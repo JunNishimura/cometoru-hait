@@ -1,6 +1,6 @@
 <template>
     <div class="feedback__question">
-        <div class="feedback__question-display" :class="{borderHighlight: isDropdownOpen}">
+        <div class="feedback__question-display">
             <h4>{{ question }}</h4>
             <FontAwesomeIcon @click="toggleFeedbacks" class="icon" :icon="['fas', 'sort-down']" size="sm" v-if="!isDropdownOpen" />
             <FontAwesomeIcon @click="toggleFeedbacks" class="icon" :icon="['fas', 'sort-up']" size="sm" v-if="isDropdownOpen" />
@@ -169,10 +169,5 @@ form button:hover {
 
 .invalid span {
     color: #ff3535;
-}
-
-.borderHighlight {
-    border-color: $color-secondary;
-    border-width: 1.2px;
 }
 </style>
