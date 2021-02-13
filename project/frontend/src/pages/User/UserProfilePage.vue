@@ -261,7 +261,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #profile-page {
     width: 60%;
     margin: 0 auto;
@@ -275,7 +275,6 @@ export default {
 }
 
 .profile__header-left {
-    /* background-color: #f00; */
     text-align: center;
     margin-right: 2rem;
 }
@@ -286,16 +285,16 @@ export default {
     height: 200px;
     border-radius: 50%;
     position: relative;
-}
 
-.profile__image-box img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 190px;
-    height: 190px;
-    border-radius: 50%; 
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 190px;
+        height: 190px;
+        border-radius: 50%; 
+    }
 }
 
 .profile__follow-btn,
@@ -314,19 +313,17 @@ export default {
     background-color: #eee  ;
 }
 
-.profile__tag::after {
-    content: "";
-    display: block;
-    clear: both;
+.profile__tag {
+    @include clear-float;
+
+    .base-tag {
+        background-color: #fff;
+        font-size: 16px;
+    }
 }
 
 .profile__name {
     margin-bottom: 1rem;
-}
-
-.profile__tag .base-tag {
-    background-color: #fff;
-    font-size: 16px;
 }
 
 .profile__follow-buttons {
@@ -351,41 +348,41 @@ export default {
 .profile__sub-info {
     width: 20rem;
     margin-top: 1rem;
-}
 
-.profile__sub-info .info-row {   
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-    color: #555;
-}
+    .info-row {   
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid #eee;
+        color: #555;
 
-.profile__sub-info .info-row a {
-    text-decoration: none;
-    color: #555;
+        a {
+            text-decoration: none;
+            color: #555;
+        }
+    }
 }
 
 .edit-profile {
     margin-top: 3rem;
-}
 
-.edit-profile span {
-    margin-right: 1rem;
-}
+    span {
+        margin-right: 1rem;
+    }
 
-.edit-profile a {
-    font-size: 16px;
-    width: 100%;
-    line-height: 2.5rem;
-    display: block;
-    text-decoration: none;
-    color: #000;
-    background-color: #6cdb51;
-}
+    a {
+        font-size: 16px;
+        width: 100%;
+        line-height: 2.5rem;
+        display: block;
+        text-decoration: none;
+        color: #000;
+        background-color: #6cdb51;
 
-.edit-profile a:hover {
-    background-color: #62c44a;
+        &:hover {
+            background-color: #62c44a;
+        }
+    }
 }
 </style>

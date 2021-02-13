@@ -104,7 +104,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .idea {
     width: 35rem;
     background-color: #fff;
@@ -118,50 +118,61 @@ export default {
     align-items: center;
 }
 
-.idea__title a {
+@mixin a-tag-styling {
     color: #000;
     display: block;
     text-decoration: none;
-    font-size: 22px;
-    font-weight: bold;
+}
+
+%a-tag-styling-hover {
+    border-bottom: 1px solid #000;
+}
+
+.idea__title {
+    a {
+        @include a-tag-styling();
+        font-size: 22px;
+        font-weight: bold;
+
+        &:hover {
+            @extend %a-tag-styling-hover;
+        }
+    }
 }
 
 .idea__user-name {
     margin-left: auto;
 }
 
-.idea__user-name a {
-    display: block;
-    color: #000;
-    text-decoration: none;
-}
+.idea__user-name {
+    a {
+        @include a-tag-styling();
 
-.idea__title a:hover,
-.idea__user-name a:hover {
-    border-bottom: 1px solid #000;
+        &:hover {
+            @extend %a-tag-styling-hover;
+        }
+    }
 }
 
 .idea__user-profile {
     position: relative;
     width: 50px;
     height: 50px;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+    }
 }
 
-.idea__user-profile img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-}
-
-.idea__tag::after {
-    content: "";
-    display: block;
-    clear: both;
+.idea__tag {
+    @include clear-float();
 }
 
 .idea__overview {

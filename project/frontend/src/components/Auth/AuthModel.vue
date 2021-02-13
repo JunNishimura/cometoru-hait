@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .auth__model {
     padding: 2rem 0;
 }
@@ -67,20 +67,20 @@ export default {
     color: #eeeeee;
     background-color: #3A559F;
     margin-bottom: .5rem;
-}
-
-.facebook:hover {
-    transition: all .25s ease-in;
-    background-color: #163896;
+    
+    &:hover {
+        transition: all .25s ease-in;
+        background-color: #163896;
+    }
 }
 
 .twitter {
     color: #eeeeee;
     background-color: #50ABF1;
-}
-
-.twitter:hover {
-    transition: all .25s ease-in;
-    background-color: #3297e4;
+    
+    &:hover {
+        transition: all .25s ease-in;
+        background-color: #3297e4;
+    }
 }
 </style>

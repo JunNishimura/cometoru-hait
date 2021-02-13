@@ -270,10 +270,10 @@ export default {
     line-height: 3rem;
     color: #000;
     cursor: pointer;
-}
 
-.dropdown__btn:hover {
-    background-color: $color-secondary;
+    &:hover {
+        background-color: $color-secondary;
+    }
 }
 
 .idea__title {
@@ -297,25 +297,27 @@ export default {
     height: 40px;
     margin-right: 0.5rem;
     position: relative;
+
+    img {
+        width: 35px;
+        height: 35px;    
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
-.user__profile-box img {
-    width: 35px;
-    height: 35px;    
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+.user__profile-name {
+    a {
+        text-decoration: none;
+        color: #000;
 
-.user__profile-name a {
-    text-decoration: none;
-    color: #000;
-}
-
-.user__profile-name a:hover {
-    border-bottom: 1px solid #000;
+        &:hover {
+            border-bottom: 1px solid #000;
+        }
+    }
 }
 
 .idea__header-subcontainer {
@@ -331,10 +333,10 @@ export default {
 
 .deadline__info {
     margin: 0.5rem 0 0 1rem;
-}
 
-.deadline__info h3 {
-    color: #fa2e27;
+    h3 {
+        color: #fa2e27;
+    }
 }
 
 .tag__header {
@@ -342,16 +344,19 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1rem;
+
+    h3 {
+        margin-right: 0.5rem;
+    }
 }
 
-.tag__header h3 {
-    margin-right: 0.5rem;
-}
+.display-tag {
+    @include clear-float;
 
-.display-tag::after {
-    content: "";
-    display: block;
-    clear: both;
+    .base-tag {
+        font-size: 16px;
+        background-color: #fff;
+    }
 }
  
 .display-tag .base-tag {

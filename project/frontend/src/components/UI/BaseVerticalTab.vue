@@ -19,15 +19,17 @@ export default {
 .vertical__tab {
     width: 15rem;
     color: #000;
-}
 
-.vertical__tab ul {
-    list-style: none;
-}
+    ul {
+        list-style: none;
+    }
 
-.vertical__tab a:hover {
-    color: #182b3e;
-    background-color: $color-secondary;
+    a {
+        &:hover {
+            color: #182b3e;
+            background-color: $color-secondary;
+        }
+    }
 }
 
 .vertical__tab-title {

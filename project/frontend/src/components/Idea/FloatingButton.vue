@@ -45,14 +45,14 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-.floating__button-icon a {
-    display: block;
-    color: #fff;
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 50%;
-    text-align: center;
+    a {
+        display: block;
+        color: #fff;
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 50%;
+        text-align: center;
+    }
 }
 </style>

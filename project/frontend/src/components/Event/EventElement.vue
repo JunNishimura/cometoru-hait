@@ -82,7 +82,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .event {
     padding: 1rem;
     width: 35rem;
@@ -97,27 +97,31 @@ export default {
     align-items: center;
 }
 
-.event__title a {
-    color: #000;
-    display: block;
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: bold;
-}
+.event__title {
+    a {
+        color: #000;
+        display: block;
+        text-decoration: none;
+        font-size: 22px;
+        font-weight: bold;
 
-.event__title a:hover {
-    border-bottom: 1px solid #000;
+        &:hover {
+            border-bottom: 1px solid #000;
+        }
+    }
 }
 
 .event__stock {
     margin-right: 1.0rem;
     cursor: pointer;
     position: relative;
-}
 
-.event__stock:hover > .hover-msg {
-    opacity: 1;
-    transform: translate(-50%, -30px);
+    &:hover {
+        .hover-msg {
+            opacity: 1;
+            transform: translate(-50%, -30px);
+        }
+    }
 }
 
 .hover-msg {
@@ -145,38 +149,43 @@ export default {
 
 .event__location {
     margin-right: 1.5rem;
+    
+    span {
+        color: #444;
+    }
 }
 
-.event__location span {
-    color: #444;
+.event__date {
+    span {
+        font-size: 16px;
+        color: #e22;
+        font-weight: bold;
+    }
+
+    .icon {
+        margin-right: 0.5rem;
+    }
 }
 
-.event__date span {
-    color: #e22;
-    font-weight: bold;
-}
+.event__location {
+    span {
+        font-size: 16px;
+    }
 
-.event__location span,
-.event__date span {
-    font-size: 16px;
-}
-
-.event__location .icon,
-.event__date .icon {
-    margin-right: 0.5rem;
+    .icon {
+        margin-right: 0.5rem;
+    }
 }
 
 .event__detail {
-    /* background-color: #eee; */
     border-top: 1px solid #eee;
     padding: 1.5rem;
     font-size: 16px;
     text-align: left;
 }
 
-
 .filled {
-    color: #ffbb3c;
+    color: $color-primary;
 }
 
 .empty {

@@ -4,12 +4,9 @@ import router from './router'
 import store from './store'
 
 //---------- Base Components ----------//
-import BaseBoard from '@/components/UI/BaseBoard.vue';
 import BaseCard from '@/components/UI/BaseCard.vue';
 import BaseProfileContent from '@/components/UI/BaseProfileContent.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
-import BaseEditButton from '@/components/UI/BaseEditButton.vue';
-import BaseModalButton from '@/components/UI/BaseModalButton.vue';
 import BaseTag from '@/components/UI/BaseTag.vue';
 import BaseHorizontalTab from '@/components/UI/BaseHorizontalTab.vue';
 import BaseModal from '@/components/UI/BaseModal.vue';
@@ -30,12 +27,9 @@ Vue.component('FontAwesomeIcon', FontAwesomeIcon);
 
 Vue.config.productionTip = false
 // add base components
-Vue.component('BaseBoard', BaseBoard);
 Vue.component('BaseCard', BaseCard);
 Vue.component('BaseProfileContent', BaseProfileContent);
 Vue.component('BaseButton', BaseButton);
-Vue.component('BaseEditButton', BaseEditButton);
-Vue.component('BaseModalButton', BaseModalButton);
 Vue.component('BaseTag', BaseTag);
 Vue.component('BaseHorizontalTab', BaseHorizontalTab);
 Vue.component('BaseModal', BaseModal);

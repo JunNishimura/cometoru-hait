@@ -87,7 +87,7 @@ export default {
         },
         reload() {
             // プロフィール主のプロフィールページへと遷移する
-            this.$router.replace({ name: 'userprofile', params: { userId: this.paramUserId }});
+            this.$router.go({ name: 'userprofile', params: { userId: this.paramUserId }});
         },
         follow() {
             if (this.isFollowing) {
@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .user-follow-element {
     padding: 1rem 0;  
     border-bottom: 1px solid #aaa;
@@ -139,13 +139,13 @@ export default {
 .profile__img {
     width: 5rem;
     text-align: right;
-}
 
-.profile__img img {
-    width: 50px;
-    height: 50px;
-    border-radius: 64px;
-    cursor: pointer;
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 64px;
+        cursor: pointer;
+    }
 }
 
 .name {
@@ -153,22 +153,24 @@ export default {
     font-weight: bold;
 }
 
-.tags::after {
-    content: "";
-    display: block;
-    clear: both;
+.tags {
+    @include clear-float();
 }
 
-.follow__btn button {
-    font-size: 16px;
-    width: 7rem;
-    border-radius: 4px;
-    line-height: 40px;
-    background-color: #ffe0a7;
-}
+.follow__btn {
+    button {
+        font-size: 16px;
+        border-radius: 4px;
+        line-height: 35px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background-color: $color-secondary;
 
-.follow__btn button:hover {
-    background-color: #ffbb3c;
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
 }
 
 .user-follow-element p {

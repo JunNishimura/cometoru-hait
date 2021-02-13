@@ -71,33 +71,33 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .message {
     padding: 0.25rem 0;
     display: flex;
     justify-content: flex-start;
     background-color: #fff;
     border-bottom: 1px solid #aaa;
-}
 
-.message:hover {
-    background-color: #ffefd1;
+    &:hover {
+        background-color: $color-secondary;
+    }
 }
 
 .profile {
     width: 100px;
     height: 100px;
     position: relative;
-}
 
-.profile img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .message-body {
@@ -122,13 +122,13 @@ export default {
     font-size: 20px;
     font-weight: bold;
     height: 100%;
-}
 
-.message-title a {
-    color: #000;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    height: 100%;
+    a {
+        color: #000;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 }
 </style>

@@ -49,17 +49,17 @@ form {
 
 .form-control {
     margin-bottom: 1.25rem;
-}
 
-.form-control p {
-    font-size: 14px;
-}
-
-.form-control label {
-    font-size: 17px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.25rem;
+    p {
+        font-size: 14px;
+    }
+    
+    label {
+        font-size: 17px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
 }
 
 .form__content .form-control input[type="text"],
@@ -96,10 +96,10 @@ form {
     font-size: 18px;
     font-weight: bold;
     background-color: $color-tertiary;
-}
-
-.submit-button:hover {
-    background-color: $color-secondary;
+    
+    &:hover {
+        background-color: $color-secondary;
+    }
 }
 
 .necessary,

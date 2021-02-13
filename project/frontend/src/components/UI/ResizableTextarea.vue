@@ -41,13 +41,13 @@ textarea {
     border-bottom: 1px solid #000;
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
-textarea::-webkit-scrollbar {
-    display: none;
-}
-
-textarea:focus {
-    border-bottom: 2px solid $color-primary;
+    &:focus {
+        border-bottom: 2px solid $color-primary;
+    }
 }
 </style>

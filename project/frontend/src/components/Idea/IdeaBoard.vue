@@ -24,8 +24,10 @@ export default {
 }
 </script>
 
-<style scoped>
-.idea__board .idea:not(:nth-last-child(1)) {
-    margin-bottom: 1.5rem;
+<style lang="scss" scoped>
+.idea__board .idea {
+    &:not(:nth-last-child(1)) {
+        margin-bottom: 1.5rem;
+    }
 }
 </style>
