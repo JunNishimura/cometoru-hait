@@ -34,20 +34,22 @@ export default {
 <style lang="scss" scoped>
 .horizontal__tab-list {
     border-bottom: 1px solid #ddd;
-}
 
-a {
-    padding: 0 1rem;
-    line-height: 4rem;
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
-}
-
-li:hover {
-    background-color: $color-secondary;
+    li {
+        a {
+            padding: 0 1rem;
+            line-height: 4rem;
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+        }
+        
+        &:hover {
+            background-color: $color-secondary;
+        }
+    }
 }
 
 .fixed {

@@ -41,10 +41,10 @@ export default {
 
 .idea__image-box {
     text-align: center;
-}
-
-.idea__image-box img {
-    max-width: 800px;
-    max-height: 600px;
+    
+    img {
+        max-width: 800px;
+        max-height: 600px;
+    }
 }
 </style>

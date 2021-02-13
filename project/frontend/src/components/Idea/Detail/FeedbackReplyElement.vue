@@ -72,7 +72,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .feedback-reply {
     text-align: right;
     padding: 0.2rem 1rem 0.2rem 0;
@@ -87,20 +87,16 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-}
+    
+    a {
+        font-size: 14px;
+        color: #333;
+        text-decoration: none;
 
-.username,
-.username a {
-    font-size: 14px;
-    color: #333;
-}
-
-.username a {
-    text-decoration: none;
-}
-
-.username a:hover {
-    border-bottom: 1px solid #333;
+        &:hover {
+            border-bottom: 1px solid #333;
+        }
+    }
 }
 
 .icon__box {
@@ -110,13 +106,13 @@ export default {
     position: relative;
     cursor: pointer;
     margin-left: 0.75rem;
-}
 
-.icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .popup {
