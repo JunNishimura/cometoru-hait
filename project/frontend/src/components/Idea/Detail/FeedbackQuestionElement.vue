@@ -119,11 +119,11 @@ export default {
     justify-content: flex-end;
     align-items: center;
     line-height: 3rem;
-}
-
-.feedback__question-display h4 {
-    text-align: center;
-    color: #000;
+    
+    h4 {
+        text-align: center;
+        color: #000;
+    }
 }
 
 .icon {
@@ -134,37 +134,37 @@ export default {
 form {
     padding: 1.5rem 2rem;
     background-color: #fff;
-}
+    
+    input {
+        font-size: 18px;
+        width: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #333;
 
-form input {
-    font-size: 18px;
-    width: 100%;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #333;
+        &:focus {
+            border-color: $color-primary;
+        }
+    }
+
+    button {
+        width: 5rem;
+        height: 2rem;
+        background-color: $color-secondary;
+        border-radius: 4px;
+        outline: none;
+        border: none;
+
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
 }
 
 .form__btn {
     margin-top: 0.5rem;
     text-align: right;
-}
-
-form button {
-    width: 5rem;
-    height: 2rem;
-    background-color: $color-secondary;
-    border-radius: 4px;
-    outline: none;
-    border: none;
-}
-
-form input:focus {
-    border-color: $color-primary;
-}
-
-form button:hover {
-    background-color: $color-primary;
 }
 
 .invalid span {

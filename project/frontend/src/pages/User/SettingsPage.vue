@@ -203,7 +203,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #settings {
     padding: 2rem 0;
 }
@@ -215,16 +215,16 @@ export default {
 
 .profile-image {
     margin: 2rem 0;
-}
 
-.profile-image img {
-    width: 128px;
-    height: 128px;
-    border-radius: 128px;
-}
+    img {
+        width: 128px;
+        height: 128px;
+        border-radius: 128px;
+    }
 
-.profile-image input {
-    margin: 0 auto;
-    display: block;
+    input {
+        margin: 0 auto;
+        display: block;
+    }
 }
 </style>

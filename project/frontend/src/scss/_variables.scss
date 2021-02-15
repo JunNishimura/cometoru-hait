@@ -8,3 +8,12 @@ $bg-color-primary:   #f7f2e9;
 $bg-color-secondary: #fdfaf4;
 $bg-color-tertiary:  #e1ddd5;
 $bg-color-quaternary:#d0c5b1;
+
+// floatの後ろが回り込むのを修正
+@mixin clear-float {
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}

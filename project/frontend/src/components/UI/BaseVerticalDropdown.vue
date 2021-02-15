@@ -7,16 +7,15 @@
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .vertical__dropdown {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     width: 10rem;
     z-index: 90;
     text-align: center;
-}
-
-.vertical__dropdown ul {
-    list-style: none;
+    ul {
+        list-style: none;
+    }
 }
 </style>

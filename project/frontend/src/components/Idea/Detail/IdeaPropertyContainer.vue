@@ -23,19 +23,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .idea__property-container {
     padding: 1rem 0;
 }
 
 .header {
     margin-bottom: 0.5rem;
-}
-
-.header h3 {
-    display: inline-block;
-    border-bottom: 1px solid #000;
-    letter-spacing: 10px;
+    
+    h3 {
+        display: inline-block;
+        border-bottom: 1px solid #000;
+        letter-spacing: 10px;
+    }
 }
 
 .header__highlight {

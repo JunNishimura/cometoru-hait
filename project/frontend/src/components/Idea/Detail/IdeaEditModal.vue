@@ -96,24 +96,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .edit__content {
     min-width: 50rem;
     max-height: 30rem;
     overflow-y: scroll;
-}
 
-.edit__content::-webkit-scrollbar {
-    background-color: #fff;
-    width: 10px;
-}
+    &::-webkit-scrollbar {
+        background-color: #fff;
+        width: 10px;
+    }
 
-.edit__content::-webkit-scrollbar-thumb {
-    background-color: #ddd;
-    border-radius: 5px;
-}
+    &::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
 
-.edit__content::-webkit-scrollbar-button {
-    display: none;
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
 }
 </style>

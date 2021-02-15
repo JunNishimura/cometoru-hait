@@ -48,7 +48,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('メールアドレス')
     # プロフィール画像
     prof_img = models.ImageField(upload_to='user/', verbose_name='プロフィール画像',
-                                null=True, blank=True, default='user/default.png')
+                                null=True, blank=True)
     # 自己紹介文
     intro = models.TextField(verbose_name='自己紹介', max_length=300, null=True,
                             blank=True)

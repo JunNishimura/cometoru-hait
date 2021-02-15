@@ -14,13 +14,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .horizontal__tab {
     width: 100%;
-}
-
-.horizontal__tab ul {
-    list-style: none;
+    
+    ul {
+        list-style: none;
+    }
 }
 
 .horizontal__tab-list {

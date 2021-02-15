@@ -93,27 +93,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .search__tag {
     width: 35rem;
 }
 
 .hit-tags { 
+    @include clear-float();
     padding: 1rem;
     background-color: #fff;
     margin-bottom: 1rem;
-}
 
-.hit-tags span {
-    font-size: 20px;
-    font-weight: bold;
-    display: block;
-}
-
-.hit-tags::after {
-    content: "";
-    display: block;
-    clear: both;
+    span {
+        font-size: 20px;
+        font-weight: bold;
+        display: block;
+    }
 }
 
 .search {
@@ -142,33 +137,31 @@ export default {
     outline: none;
 }
 
-.added-tags .tag {
-    float: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 6rem;
-    padding: 0.5rem;
-    margin: 0.5rem;
-    border-radius: 4px;
-    color: #333;
-    background-color: #ddd;
-}
+.added-tags {
+    @include clear-float();
+    
+    .tag {
+        float: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 6rem;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        border-radius: 4px;
+        color: #333;
+        background-color: #ddd;
+        
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: .5rem;
+        }
 
-.added-tags .tag .name {
-    font-size: 18px;
-    font-weight: bold;
-    margin-right: .5rem;
-}
-
-.added-tags .tag .delete {
-    cursor: pointer;
-}
-
-.added-tags::after {
-    content: "";
-    display: block;
-    clear: both;
+        .delete {
+            cursor: pointer;
+        }
+    }
 }
 
 .invalid {

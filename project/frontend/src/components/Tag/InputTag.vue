@@ -70,58 +70,54 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.input__tag-comp {
+    label {
+        font-size: 17px;
+        font-weight: bold;
+        display: block;
+        text-align: left;
+        margin-bottom: 0.25rem;
+    }
 
-.input__tag-comp label {
-    font-size: 17px;
-    font-weight: bold;
-    display: block;
-    text-align: left;
-    margin-bottom: 0.25rem;
-}
+    input {
+        font-size: 16px;
+        width: 100%;
+        line-height: 1.5rem;
+        padding-left: 0.5rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #aaaaaa;
 
-.input__tag-comp input {
-    font-size: 16px;
-    width: 100%;
-    line-height: 1.5rem;
-    padding-left: 0.5rem;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #aaaaaa;
-}
-
-.input__tag-comp input:focus {
-    border-bottom: 2px solid $color-primary;
+        &:focus {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
 }
 
 .added-tags {
     margin-top: 0.5rem;
-}
+    @include clear-float();
 
-.added-tags .tag {
-    min-width: 4rem;
-    float: left;
-    background-color: #eee;
-    padding: 0.1rem 0.2rem;
-    margin: 0.2rem;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .tag {
+        min-width: 4rem;
+        float: left;
+        background-color: #eee;
+        padding: 0.1rem 0.2rem;
+        margin: 0.2rem;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-.added-tags .tag .name {
-    font-weight: bold;
-    margin-right: .5rem;
-}
+        .name {
+            font-weight: bold;
+            margin-right: .5rem;
+        }
 
-.added-tags .tag .delete {
-    cursor: pointer;
-}
-
-.added-tags::after {
-    content: "";
-    display: block;
-    clear: both;
+        .delete {
+            cursor: pointer;
+        }
+    }
 }
 
 .invalid {

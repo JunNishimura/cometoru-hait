@@ -196,7 +196,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .idea-form {
     overflow: hidden;
 }
@@ -217,8 +217,7 @@ export default {
     justify-content: space-between;
 }
 
-.image-wrapper,
-.form-wrapper {
+@mixin wrapper-style {
     width: 50%;
     height: 100%;
     text-align: center;
@@ -228,84 +227,114 @@ export default {
     align-items: center;
 }
 
+.form-wrapper {
+    @include wrapper-style();
+}
+
 .image-wrapper {
+    @include wrapper-style();
     background-size: 30rem;
     background-position: center;
     position: relative;
 }
 
-.title,
-.target,
-.value,
-.end {
+%gradient-to-left {
     background: linear-gradient(to left, #fff, #ffeece);
 }
 
-.overview,
-.background,
-.passion {
+%gradient-to-right {
     background: linear-gradient(to right, #fff, #ffeece);
 }
 
-.title > .image-wrapper {
-    background-image: url("~@/assets/images/title_bg.svg");
+.title { 
+    @extend %gradient-to-left;
+
+    .image-wrapper {
+        background-image: url("~@/assets/images/title_bg.svg");
+    }
 }
 
-.overview > .image-wrapper {
-    background-image: url("~@/assets/images/overview.svg");
+.overview {
+    @extend %gradient-to-right;
+
+    .image-wrapper {
+       background-image: url("~@/assets/images/overview.svg");
+    }
 }
 
-.target > .image-wrapper {
-    background-image: url("~@/assets/images/target.svg");
+.target { 
+    @extend %gradient-to-left;
+
+    .image-wrapper {
+        background-image: url("~@/assets/images/target.svg");
+    }
 }
 
-.background > .image-wrapper {
-    background-image: url("~@/assets/images/background.svg");
+.background {
+    @extend %gradient-to-right;
+    
+    .image-wrapper {
+        background-image: url("~@/assets/images/background.svg");
+    }
 }
 
-.value > .image-wrapper {
-    background-image: url("~@/assets/images/value.svg");
+.value {
+    @extend %gradient-to-left;
+
+    .image-wrapper {
+        background-image: url("~@/assets/images/value.svg");
+    }
 }
 
-.passion > .image-wrapper {
-    background-image: url("~@/assets/images/passion.svg");
+.passion {
+    @extend %gradient-to-right; 
+
+    .image-wrapper {
+        background-image: url("~@/assets/images/passion.svg");
+    }
 }
 
-.end > .image-wrapper {
-    background-image: url("~@/assets/images/end.svg");
+.end {
+    @extend %gradient-to-left;
+    
+    .image-wrapper {
+        background-image: url("~@/assets/images/end.svg");
+    }
 }
 
 .sentence {
     width: 30rem;
     text-align: left;
     transform: translateY(-5rem);
+
+    h1 {
+        color: #333;
+        font-weight: bold;
+        font-size: 38px;
+    }
+
+    h2 {
+        color: #888;
+        font-size: 26px;
+    }
+
+    h3 {
+        color: #888;
+    }
 }
 
-.sentence h1 {
-    color: #333;
-    font-weight: bold;
-    font-size: 38px;
-}
+.form-wrapper {
+    input[type="text"] {
+        font-size: 25px;
+        width: 30rem;
+        line-height: 25px;
+        outline: none;
+        border-bottom: 1px solid #000;
 
-.sentence h2 {
-    color: #888;
-    font-size: 26px;
-}
-
-.sentence h3 {
-    color: #888;
-}
-
-.form-wrapper input[type="text"] {
-    font-size: 25px;
-    width: 30rem;
-    line-height: 25px;
-    outline: none;
-    border-bottom: 1px solid #000;
-}
-
-.form-wrapper input[type="text"]:focus {
-    border-bottom: 2px solid #ffa600;
+        &:focus {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
 }
 
 .closing {
@@ -323,44 +352,50 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-}
 
-.form__btns button {
-    height: 3.5rem;
-    min-width: 7rem;
-    font-size: 18px;
-    font-weight: bold;
-    outline: none;
-    border: none;
+    button {
+        height: 3.5rem;
+        min-width: 7rem;
+        font-size: 18px;
+        font-weight: bold;
+        outline: none;
+        border: none;
+    }
 }
 
 .post__btn {
-    background-color: #ffb01e;
+    background-color: $color-secondary;
     margin-right: 0.5rem;
-}
 
-.post__btn:hover,
-.post__btn:active { 
-    background-color: #ffa600;
+    &:hover {
+        background-color: $color-primary;
+    }
+
+    &:active {
+        background-color: darken($color-primary, 15%);
+    }
 }
 
 .savedraft__btn {
     background-color: #ddd;
     margin-right: auto;
-}
 
-.savedraft__btn:hover,
-.savedraft__btn:active { 
-    background-color: #ccc;
+    &:hover {
+        background-color: #ccc;
+    }
+
+    &:active {
+        background-color: darken(#ccc, 15%);
+    }
 }
 
 .notsave__btn {
     color: red;
-}
 
-.notsave__btn:hover {
-    color: #fff;
-    background-color: red;
+    &:hover {
+        color: #fff;
+        background-color: red;
+    }
 }
 
 .invalid { 

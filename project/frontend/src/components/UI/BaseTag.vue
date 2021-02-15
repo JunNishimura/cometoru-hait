@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .base-tag {
     display: flex;
     justify-content: space-between;
@@ -33,19 +33,19 @@ export default {
     float: left;
     padding: 0.1rem 0.25rem;
     margin: 0 0.5rem 0.5rem 0;
-}
-
-.base-tag .tag-icon {
-    margin-right: 0.5rem;
+    
+    .tag-icon {
+        margin-right: 0.5rem;
+    }
 }
 
 .clickable:hover {
-    background-color: #ffe0a7;
+    background-color: $color-secondary;
     cursor: pointer;
 }
 
 .clickable:active {
-    background-color: #ffbb3c;
+    background-color: $color-primary;
 }
 
 </style>

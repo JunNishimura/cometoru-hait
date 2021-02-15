@@ -24,9 +24,24 @@
                 <img :src="profileImage" alt="profile">
                 <BaseVerticalDropdown>
                     <template #dropdown-item>
-                        <li class="dropdown-link"><FontAwesomeIcon class="icon" :icon="['fas', 'user']" /><router-link :to="userLink">マイページ</router-link></li>
-                        <li class="dropdown-link"><FontAwesomeIcon class="icon" :icon="['fas', 'bell']" /><router-link :to="notificationLink">通知</router-link></li>
-                        <li class="dropdown-link"><FontAwesomeIcon class="icon" :icon="['fas', 'sign-out-alt']" /><a href="#" @click="logout">ログアウト</a></li>
+                        <li class="dropdown-link">
+                            <router-link :to="userLink" class="icon-title-align">
+                                <FontAwesomeIcon class="icon" :icon="['fas', 'user']" />
+                                <span>マイページ</span>
+                            </router-link>
+                        </li>
+                        <!-- <li class="dropdown-link">
+                            <router-link :to="notificationLink" class="icon-title-align">
+                                <FontAwesomeIcon class="icon" :icon="['fas', 'bell']" />
+                                <span>通知</span>
+                            </router-link>
+                        </li> -->
+                        <li class="dropdown-link">
+                            <a href="#" @click="logout" class="icon-title-align">
+                                <FontAwesomeIcon class="icon" :icon="['fas', 'sign-out-alt']" />
+                                <span>ログアウト</span>
+                            </a>
+                        </li>
                     </template>
                 </BaseVerticalDropdown>
             </li>
@@ -59,9 +74,9 @@ export default {
         userLink() {
             return { name: 'userprofile', params: { userId: this.userId } };
         },
-        notificationLink() {
-            return { name: 'notification', params: { userId: this.userId }};
-        },
+        // notificationLink() {
+        //     return { name: 'notification', params: { userId: this.userId }};
+        // },
         signupLink() {
             return { name: 'signup' };
         },
@@ -121,11 +136,12 @@ export default {
 
 ul {
     list-style: none;
-}
-
-li, a {
-    color: #000;
-    text-decoration: none;
+    li {
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+    }
 }
 
 .nav-links {
@@ -137,31 +153,13 @@ li, a {
     border: none;
 }
 
-.nav-link:not(:nth-child(1)):not(:nth-last-child(1)) {
-    margin-right: 0.5rem;
-}
-
-.nav-link a {
-    display: block;
-    line-height: 4rem;
-}
-
-.title {
-    font-size: 28px;
-    margin-right: auto;
-}
-
-.nav-links .search,
-.nav-links .auth,
-.nav-links .profile {
+%header-icon-parent {
     position: relative;
     width: 50px;
     height: 50px;
 }
 
-.nav-links .search .icon,
-.nav-links .auth .icon,
-.nav-links .profile img {
+%header-icon {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -172,44 +170,91 @@ li, a {
     cursor: pointer;
 }
 
-.nav-link .vertical__dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    transform: translateY(10px);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease-out;
+.nav-links {
+    .search {
+        @extend %header-icon-parent;
+
+        .icon {
+            @extend %header-icon;
+        }
+    }
+    
+    .auth {
+        @extend %header-icon-parent;
+
+        .icon {
+            @extend %header-icon;
+        }
+    }
+
+    .profile {
+        @extend %header-icon-parent;
+
+        img {
+            @extend %header-icon;
+        }
+    }
 }
 
-.nav-link:hover > .vertical__dropdown {
-    transform: translate(0, 0);
-    opacity: 1;
-    pointer-events: auto;
+.title {
+    font-size: 28px;
+    margin-right: auto;
 }
 
-.dropdown-link {    
+.nav-link {
+    a {
+        display: block;
+        line-height: 4rem;
+    }
+
+    .vertical__dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        transform: translateY(10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease-out;
+    }
+
+    &:hover {
+        .vertical__dropdown {
+            transform: translate(0, 0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    &:not(:nth-child(1)):not(:nth-last-child(1)) {
+        margin-right: 0.5rem;
+    }
+}
+
+.profile { 
+    .icon-title-align {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .icon {
+            width: 3rem;
+        }
+    }
+}
+
+.dropdown-link {
     text-align: center;
-}
 
-.profile .dropdown-link {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
+    a {
+        width: 100%;
+        display: block;
+        line-height: 3rem;
+        color: #000;
+        cursor: pointer;
+    }
 
-.profile .dropdown-link .icon {
-    width: 3rem;
-}
-
-.dropdown-link a {
-    display: block;
-    line-height: 3rem;
-    color: #000;
-    cursor: pointer;
-}
-
-.dropdown-link:hover {
-    background-color: $color-secondary;
+    &:hover {
+        background-color: $color-secondary;
+    }
 }
 </style>

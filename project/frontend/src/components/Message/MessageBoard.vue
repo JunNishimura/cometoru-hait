@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .message-board {
     height: 100%;
     display: flex;
@@ -65,20 +65,20 @@ export default {
     background-color: #ddd;
     border-right: 0.5px solid #333;
     overflow: scroll;
-}
 
-.message-list::-webkit-scrollbar {
-    background-color: #fff;
-    width: 10px;
-}
+    &::-webkit-scrollbar {
+        background-color: #fff;
+        width: 10px;
+    }
 
-.message-list::-webkit-scrollbar-thumb {
-    background-color: #eaeaea;
-    border-radius: 8px;
-}
+    &::-webkit-scrollbar-thumb {
+        background-color: #eaeaea;
+        border-radius: 8px;
+    }
 
-.message-list::-webkit-scrollbar-button {
-    display: none;
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
 }
 
 .message-display {

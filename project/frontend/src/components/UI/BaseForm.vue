@@ -49,42 +49,40 @@ form {
 
 .form-control {
     margin-bottom: 1.25rem;
-}
 
-.form-control p {
-    font-size: 14px;
-}
+    p {
+        font-size: 14px;
+    }
+    
+    label {
+        font-size: 17px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
 
-.form-control label {
-    font-size: 17px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.25rem;
-}
+    input:not([type="file"]) {
+        font-size: 16px;
+        width: 100%;
+        line-height: 1.5rem;
+        padding-left: 0.5rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #aaaaaa;
 
-.form__content .form-control input[type="text"],
-.form__content .form-control input[type="email"],
-.form__content .form-control input[type="url"],
-.form__content .form-control textarea {
-    font-size: 16px;
-    width: 100%;
-}
+        &:focus {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
 
-.form__content .form-control input[type="text"],
-.form__content .form-control input[type="email"],
-.form__content .form-control input[type="url"] {
-    line-height: 1.5rem;
-    padding-left: 0.5rem;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #aaaaaa;
-}
+    textarea {
+        font-size: 16px;
+        width: 100%;
 
-.form__content .form-control textarea:focus,
-.form__content .form-control input[type="text"]:focus
-.form__content .form-control input[type="email"]:focus,
-.form__content .form-control input[type="url"]:focus {
-    border-bottom: 2px solid $color-primary;
+        &:focus {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
 }
 
 .form__submit {
@@ -96,10 +94,10 @@ form {
     font-size: 18px;
     font-weight: bold;
     background-color: $color-tertiary;
-}
-
-.submit-button:hover {
-    background-color: $color-secondary;
+    
+    &:hover {
+        background-color: $color-secondary;
+    }
 }
 
 .necessary,

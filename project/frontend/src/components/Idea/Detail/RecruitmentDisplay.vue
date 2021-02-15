@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .idea__header-subcontainer {
     display: flex;
     justify-content: flex-start;
@@ -33,9 +33,9 @@ export default {
 
 .recruitment__info {
     margin: 0.5rem 0 0 1rem;
-}
-
-.recruitment__info h3 {
-    color: #fa2e27;
+    
+    h3 {
+        color: #fa2e27;
+    }
 }
 </style>

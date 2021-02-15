@@ -34,27 +34,48 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .delete__choice {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 2rem;
+
+    div {
+        margin: 0 1rem;
+        font-size: 20px;
+        cursor: pointer;
+    }
 }
 
-.delete__choice div {
-    margin: 0 1rem;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.delete__yes, 
-.delete__no {
+$color-delete: #ff3535;
+$color-no-delete: #eee;
+%delete-btn-padding {
     padding: 0.7rem 1.2rem;
 }
 
-.delete__yes:hover {
-    color: #fff;
-    background-color: #ff3535;
+.delete__yes {
+    @extend %delete-btn-padding;
+
+    &:hover {
+        color: #fff;
+        background-color: $color-delete;
+    }
+
+    &:active {
+        background-color: darken($color-delete, 15%);
+    }
+}
+
+.delete__no {
+    @extend %delete-btn-padding;
+
+    &:hover {
+        background-color: $color-no-delete;
+    }
+
+    &:active {
+        background-color: darken($color-no-delete, 15%);
+    }
 }
 </style>
