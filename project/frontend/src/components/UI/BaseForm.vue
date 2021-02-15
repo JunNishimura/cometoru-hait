@@ -60,31 +60,29 @@ form {
         display: block;
         margin-bottom: 0.25rem;
     }
-}
 
-.form__content .form-control input[type="text"],
-.form__content .form-control input[type="email"],
-.form__content .form-control input[type="url"],
-.form__content .form-control textarea {
-    font-size: 16px;
-    width: 100%;
-}
+    input:not([type="file"]) {
+        font-size: 16px;
+        width: 100%;
+        line-height: 1.5rem;
+        padding-left: 0.5rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #aaaaaa;
 
-.form__content .form-control input[type="text"],
-.form__content .form-control input[type="email"],
-.form__content .form-control input[type="url"] {
-    line-height: 1.5rem;
-    padding-left: 0.5rem;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #aaaaaa;
-}
+        &:focus {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
 
-.form__content .form-control textarea:focus,
-.form__content .form-control input[type="text"]:focus
-.form__content .form-control input[type="email"]:focus,
-.form__content .form-control input[type="url"]:focus {
-    border-bottom: 2px solid $color-primary;
+    textarea {
+        font-size: 16px;
+        width: 100%;
+
+        &:focus {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
 }
 
 .form__submit {
