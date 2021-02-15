@@ -21,8 +21,8 @@ import SettingsPage from '@/pages/User/SettingsPage.vue';
 import PostIdeasPage from '@/pages/User/PostIdeasPage.vue';
 import DraftIdeasPage from '@/pages/User/DraftIdeasPage.vue';
 import StockEventsPage from '@/pages/User/StockEventsPage.vue';
-import NotificationPage from '@/pages/User/NotificationPage.vue';
-import MessageDisplayPage from '@/pages/User/MessageDisplayPage.vue';
+// import NotificationPage from '@/pages/User/NotificationPage.vue';
+// import MessageDisplayPage from '@/pages/User/MessageDisplayPage.vue';
 // Event pages
 import EventHomePage from '@/pages/Event/EventHomePage.vue';
 import NewEventsPage from '@/pages/Event/NewEventsPage';
@@ -82,16 +82,15 @@ const routes = [
                     { name: 'postIdeas',    path: 'post',         component: PostIdeasPage    },
                     { name: 'draftIdeas',   path: 'draft',        component: DraftIdeasPage   },
                     { name: 'stockEvents',  path: 'events/stock', component: StockEventsPage  },
-                    {
-                        name: 'notification',
-                        path: 'notification',
-                        props: true,
-                        component: NotificationPage, 
-                        children: [
-                            { name: 'messageDisplay', path: 'message/:messageId', component: MessageDisplayPage },
-                        ]
-                    },
-                    
+                    // {
+                    //     name: 'notification',
+                    //     path: 'notification',
+                    //     props: true,
+                    //     component: NotificationPage, 
+                    //     children: [
+                    //         { name: 'messageDisplay', path: 'message/:messageId', component: MessageDisplayPage },
+                    //     ]
+                    // },
                 ]
             },
             {

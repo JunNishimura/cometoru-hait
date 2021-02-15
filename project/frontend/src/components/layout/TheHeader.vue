@@ -30,12 +30,12 @@
                                 <span>マイページ</span>
                             </router-link>
                         </li>
-                        <li class="dropdown-link">
+                        <!-- <li class="dropdown-link">
                             <router-link :to="notificationLink" class="icon-title-align">
                                 <FontAwesomeIcon class="icon" :icon="['fas', 'bell']" />
                                 <span>通知</span>
                             </router-link>
-                        </li>
+                        </li> -->
                         <li class="dropdown-link">
                             <a href="#" @click="logout" class="icon-title-align">
                                 <FontAwesomeIcon class="icon" :icon="['fas', 'sign-out-alt']" />
@@ -74,9 +74,9 @@ export default {
         userLink() {
             return { name: 'userprofile', params: { userId: this.userId } };
         },
-        notificationLink() {
-            return { name: 'notification', params: { userId: this.userId }};
-        },
+        // notificationLink() {
+        //     return { name: 'notification', params: { userId: this.userId }};
+        // },
         signupLink() {
             return { name: 'signup' };
         },

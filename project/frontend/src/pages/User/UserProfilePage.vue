@@ -13,7 +13,7 @@
                             <FontAwesomeIcon class="icon" v-if="isFollowing"  :icon="['fas', 'user-minus']" />
                         </button>
                     </div>
-                    <div class="btn__outer">
+                    <!-- <div class="btn__outer">
                         <button  @click="showModal('message')" class="profile__message-btn">
                             メッセージを送る 
                             <FontAwesomeIcon class="icon" :icon="['fas', 'paper-plane']" />
@@ -21,7 +21,7 @@
                         <div class="message-modal" v-if="modalState.message">
                             <MessageModal v-model="modalState.message" :userTo="userDetail.user_id" />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="edit-profile" v-if="isMyProfile">   
                     <router-link to="/settings">
@@ -98,13 +98,13 @@
 
 <script>
 import apiHelper from '@/services/apiHelper.js'
-import MessageModal from '@/components/Message/MessageModal.vue';
+// import MessageModal from '@/components/Message/MessageModal.vue';
 import UserTab from '@/components/User/UserTab.vue';
 import UserFollowElement from '@/components/User/UserFollowElement.vue';
 
 export default {
     components: {
-        MessageModal,
+        // MessageModal,
         UserTab,
         UserFollowElement
     },
