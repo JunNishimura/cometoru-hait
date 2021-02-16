@@ -28,13 +28,14 @@ from .filters import (UserFilter, IdeaFilter, TagFilter, UserTagFilter,
                     UserFollowingFilter, FeedbackQuestionFilter,
                     FeedbackFilter, MessageFilter, RecruitmentFilter)
 
-
+""" 
 class UserViewset(mixins.RetrieveModelMixin,
                 mixins.UpdateModelMixin,
                 mixins.ListModelMixin,
                 mixins.DestroyModelMixin,
-                viewsets.GenericViewSet):
-    permission_classes = (IsAuthorOrReadOnly,)
+                viewsets.GenericViewSet): """
+class UserViewset(viewsets.ModelViewSet):
+    #permission_classes = (IsAuthorOrReadOnly,)
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     filter_backends = (filters.DjangoFilterBackend,)
