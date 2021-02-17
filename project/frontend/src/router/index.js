@@ -33,7 +33,6 @@ import store from '@/store/index.js';
 
 //---------- about meta ----------//
 // requiresAuth: ログイン状態でのみ訪問可能なページ
-// requiresUnAuth: 未ログイン状態でのみ訪問可能なページ
 
 const routes = [
     {
@@ -66,8 +65,8 @@ const routes = [
                 component: AuthPage,
                 redirect: { name: 'signup' },
                 children: [
-                    { name: 'signup', path: 'signup', component: SignupPage, meta: { requiresUnAuth: true }},
-                    { name: 'login',  path: 'login',  component: LoginPage,  meta: { requiresUnAuth: true }},
+                    { name: 'signup', path: 'signup', component: SignupPage },
+                    { name: 'login',  path: 'login',  component: LoginPage },
                 ]
             },
             {
@@ -160,7 +159,7 @@ router.beforeEach((to, from, next) => {
 // ログインページに強制送還するための関数
 function forceToLoginPage(to, _, next) {
     next({
-        path: { name: 'login'},
+        path: '/auth',
         query: { next: to.fullPath },
     });
 }

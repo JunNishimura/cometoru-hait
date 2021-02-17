@@ -9,10 +9,9 @@
                     </div>
                 </template>
                 <template #form-content>
-                    <div class="form-control" :class="{invalid: !formData.username.isValid}">
+                    <div class="form-control">
                         <label for="username">ユーザー名</label>
-                        <p v-if="!formData.username.isValid">ユーザー名は必須項目です</p>
-                        <input type="text" id="username" name="username" v-model.trim="formData.username.val" @blur="clearValidity('username')">
+                        <input type="text" id="username" name="username" v-model.trim="formData.username">
                     </div>
                     <div class="form-control">
                         <label for="univ">大学</label>
@@ -57,21 +56,17 @@ export default {
     data() {
         return {
             loadComplete: false,
-            isFormValid: true,
             selectedImage: null,
             previewImage: null,
             formData: {
-                username: {
-                    val: '',
-                    isValid: true,
-                },
+                username: '',
                 univ: '',
                 major: '',
                 email: null,
                 intro: '',
                 portfolio: '',
             },
-            tags: [],    // 現時点でDBに格納されているtags
+            originalTags: [],    // 現時点でDBに格納されているtags
             inputTags: [], // ユーザーの入力を反映したtags
         }
     },
@@ -89,8 +84,8 @@ export default {
         }).then( res => {
             // tag_nameのみを取り出す
             if (res != null) {
-                this.tags = res.map((tag) => tag.tag_name);
-                this.inputTags = this.tags.slice(); // 値渡し
+                this.originalTags = res.map((tag) => tag.tag_name);
+                this.inputTags = this.originalTags.slice(); // 値渡し
             }
 
             this.initUserForm();
@@ -102,11 +97,11 @@ export default {
     methods: {
         initUserForm() {
             // すでに登録されている情報をフォームに反映する
-            this.formData.username.val = this.userDetail.username;
-            this.formData.univ = this.userDetail.univ_name == null ? '' : this.userDetail.univ_name;
-            this.formData.major = this.userDetail.major == null ? '' : this.userDetail.major;
-            this.formData.email = this.userDetail.email == null ? '' : this.userDetail.email;
-            this.formData.intro = this.userDetail.intro == null ? '' : this.userDetail.intro;
+            this.formData.username  = this.userDetail.username;
+            this.formData.univ      = this.userDetail.univ_name == null ? '' : this.userDetail.univ_name;
+            this.formData.major     = this.userDetail.major     == null ? '' : this.userDetail.major;
+            this.formData.email     = this.userDetail.email     == null ? '' : this.userDetail.email;
+            this.formData.intro     = this.userDetail.intro     == null ? '' : this.userDetail.intro;
             this.formData.portfolio = this.userDetail.portfolio == null ? '' : this.userDetail.portfolio;
 
             if (this.userDetail.prof_img != null) {
@@ -126,59 +121,29 @@ export default {
                 this.previewImage = this.userDetail.prof_img;
             }
         },
-        clearValidity(input) {
-            this.formData[input].isValid = true;
-        },
-        formValidation() {
-            this.isFormValid = true;
-
-            if (this.formData.username.val === '') {
-                this.formData.username.isValid = false;
-                this.isFormValid = false;
+        usernameNullCheck() {
+            // usernameは空にできないため、空に書き換えられたら元々の名前を入れる
+            if (this.formData.username == null) {
+                this.formData.username = this.userDetail.username;
             }
         },
-        updateProfile() {
-            this.formValidation();
-
-            if (!this.isFormValid) {
-                return;
-            }
-
-            const updateData = {
-                userDetail: null,
-                userId: this.userId,
-                username: this.formData.username.val,
-                email: this.formData.email,
-                prof_img: this.selectedImage,
-                intro: this.formData.intro == null ? '' : this.formData.intro,
-                univ_name: this.formData.univ == null ? '' : this.formData.univ,
-                major: this.formData.major == null ? '' : this.formData.major,
-                portfolio: this.formData.portfolio == null ? '' : this.formData.portfolio,
-            };
-            
-            // userDetailの更新
-            apiHelper.updateUserDetail(updateData)
-            .catch( err => {
-                console.log("error to update user detail: ", err);
-            })
-
-            // タグの追加 / 更新
-            if (this.inputTags == null) return;
-
-            // もしタグ未登録なら追加して終了
-            if (this.tags == null) {
+        reload() {
+            this.$router.replace({ name: 'userprofile', params: { userId: this.userId }});   
+        },
+        updateTags() {
+            if (this.originalTags == null && this.inputTags.length >= 1) {
+                // 元々タグが未登録なら追加して終了
                 const promises = [];
                 for (const tag of this.inputTags) {
                     promises.push(apiHelper.postUserTag(this.userId, tag));
                 }
                 Promise.all(promises)
                 .then( () => {
-                    // reload
-                    this.$router.go({ name: 'userprofile', params: { userId: this.userId }});   
+                    this.reload();
                 }).catch( err => {
                     console.log("error to post userTag: ", err);
                 })
-            } else if (!utils.arrayEqual(this.tags, this.inputTags) ) {
+            } else if (!utils.arrayEqual(this.originalTags, this.inputTags) ) {
                 // もしタグに変更があるなら既存のタグを全削除してから、新しいタグを追加する
                 apiHelper.deleteAllUserTag(this.userId)
                 .then( () => {
@@ -189,15 +154,35 @@ export default {
 
                     return Promise.all(promises)
                 }).then( () => {
-                    // reload
-                    this.$router.go({ name: 'userprofile', params: { userId: this.userId }});
+                    this.reload();
                 }).catch(err => {
                     console.log("error to update tag: ", err)
                 })
             } else {
-                // reload
-                this.$router.go({ name: 'userprofile', params: { userId: this.userId }});
+                this.reload();
             }
+        },
+        updateProfile() {
+            this.usernameNullCheck();
+
+            // userDetailの更新
+            const updateData = {
+                userId: this.userId,
+                username: this.formData.username,
+                email: this.formData.email,
+                prof_img: this.selectedImage,
+                intro: this.formData.intro,
+                univ_name: this.formData.univ,
+                major: this.formData.major,
+                portfolio: this.formData.portfolio,
+            };
+            apiHelper.updateUserDetail(updateData)
+            .catch( err => {
+                console.log("error to update user detail: ", err);
+            })
+
+            // タグの追加 / 更新
+            this.updateTags();
         }
     }
 }

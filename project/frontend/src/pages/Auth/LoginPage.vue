@@ -1,40 +1,30 @@
 <template>
-    <div id="login-page">
-        <AuthModel mode="login">
-            <template #form>
-                <BaseForm @submitFunc="login" headerTitle="ログイン">
-                    <template #form-content>
-                        <div class="form-control" :class="{invalid: !username.isValid}">
-                            <label for="username">ユーザー名 <span class="necessary">[必須]</span></label>
-                            <p v-if="!username.isValid">ユーザー名は必須項目です</p>
-                            <input type="text" id="username" name="username" v-model.trim="username.val" @blur="clearValidity('username')">
-                        </div>
-                        <div class="form-control" :class="{invalid: !email.isValid}">
-                            <label for="email">メールアドレス <span class="necessary">[必須]</span></label>
-                            <p v-if="!email.isValid">メールアドレスは必須項目です</p>
-                            <input type="email" id="email" name="email" v-model.trim="email.val" @blur="clearValidity('email')">
-                        </div>
-                        <div class="form-control" :class="{invalid: !password.isValid}">
-                            <label for="password">パスワード <span class="necessary">[必須]</span></label>
-                            <p v-if="!password.isValid">パスワードは必須項目です</p>
-                            <input type="password" id="password" name="password" v-model="password.val" @blur="clearValidity('password')">
-                        </div>
-                        <div class="form-control forget">
-                            <a href="#">パスワードを忘れましたか?</a>
-                        </div>
-                    </template>
-                </BaseForm>
-            </template>
-        </AuthModel>
-    </div>
+    <BaseForm @submitFunc="login" headerTitle="ログイン">
+        <template #form-content>
+            <div class="form-control" :class="{invalid: !username.isValid}">
+                <label for="username">ユーザー名 <span class="necessary">[必須]</span></label>
+                <p v-if="!username.isValid">ユーザー名は必須項目です</p>
+                <input type="text" id="username" name="username" v-model.trim="username.val" @blur="clearValidity('username')">
+            </div>
+            <div class="form-control" :class="{invalid: !email.isValid}">
+                <label for="email">メールアドレス <span class="necessary">[必須]</span></label>
+                <p v-if="!email.isValid">メールアドレスは必須項目です</p>
+                <input type="email" id="email" name="email" v-model.trim="email.val" @blur="clearValidity('email')">
+            </div>
+            <div class="form-control" :class="{invalid: !password.isValid}">
+                <label for="password">パスワード <span class="necessary">[必須]</span></label>
+                <p v-if="!password.isValid">パスワードは必須項目です</p>
+                <input type="password" id="password" name="password" v-model="password.val" @blur="clearValidity('password')">
+            </div>
+            <div class="form-control forget">
+                <a href="#">パスワードを忘れましたか?</a>
+            </div>
+        </template>
+    </BaseForm>
 </template>
 
 <script>
-import AuthModel from '@/components/Auth/AuthModel.vue';
 export default {
-    components: {
-        AuthModel,
-    },
     data() {
         return {
             username: {
