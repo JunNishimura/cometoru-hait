@@ -151,10 +151,11 @@ export default {
         formData.append('user_id', ideaData.user_id);
         formData.append('title', ideaData.title);
         formData.append('overview', ideaData.overview);
+        formData.append('target', ideaData.target);
         formData.append('background', ideaData.background);
+        formData.append('value', ideaData.value);
         formData.append('passion', ideaData.passion);
         formData.append('state', ideaData.state);
-        formData.append('offer', ideaData.offer );
 
         const response = await api.put(url, formData);
         const data = await response.data;

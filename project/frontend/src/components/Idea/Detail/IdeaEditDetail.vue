@@ -7,7 +7,7 @@
             </div>
             <div class="form-control idea__edit-target">
                 <h3 class="input__title">ターゲット</h3>
-                <ResizableTextarea v-model="createdValue"/>
+                <ResizableTextarea v-model="target"/>
             </div>
             <div class="form-control idea__edit-background">
                 <h3 class="input__title">背景</h3>
@@ -88,7 +88,7 @@ export default {
 
             apiHelper.putIdea(ideaData, this.ideaId)
             .then(() => {
-                this.$router.replace({ name: 'ideaDetail', params: { ideaId: this.ideaId } })
+                this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId } })
             }).catch( err => {
                 console.log("error to post new idea: ", err);
             });
@@ -96,17 +96,11 @@ export default {
     },  
     created() {
         // 既存のデータを反映する
-        this.overview = this.currentOverview;
-        this.target = this.currentTarget;
-        this.background = this.currentBackground;
+        this.overview     = this.currentOverview;
+        this.target       = this.currentTarget;
+        this.background   = this.currentBackground;
         this.createdValue = this.currentValue;
-        this.passion = this.currentPassion;
+        this.passion      = this.currentPassion;
     },
 }
 </script>
-
-<style scoped>
-.form__content {
-    background-color: red;
-}
-</style>
