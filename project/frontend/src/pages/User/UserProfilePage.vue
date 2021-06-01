@@ -41,9 +41,9 @@
                     <p>{{ userDetail.intro }}</p>
                 </div>
                 <div class="profile__follow">
-                    <div class="profile__follow-buttons">
-                        <div class="follower-btn" @click="showModal('follower')">フォロワー {{ followerCount }}人</div>
-                        <div class="following-btn" @click="showModal('following')">フォロー中 {{ followingCount }}人</div>
+                    <div class="profile__follow-links">
+                        <div class="follower-link" @click="showModal('follower')">フォロワー {{ followerCount }}人</div>
+                        <div class="following-link" @click="showModal('following')">フォロー中 {{ followingCount }}人</div>
                     </div>
                 </div>
                 <div class="profile__sub-info">
@@ -263,37 +263,131 @@ export default {
 
 <style lang="scss" scoped>
 #profile-page {
-    width: 60%;
+    max-width: $global-max-width;
     margin: 0 auto;
+    
     padding: 2rem 0;
 }
 
 .profile__header {
-    margin: 5rem 0;
+    margin: 3rem 0;
     display: flex;
     justify-content: flex-start;
-}
 
-.profile__header-left {
-    text-align: center;
-    margin-right: 2rem;
-}
+    @include respond(phone) {
+        flex-direction: column;
+    }
 
-.profile__image-box {
-    margin: 0 auto;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    position: relative;
+    .profile__header-left {
+        text-align: center;
+        margin-right: 4.8rem; // 3 * 1.618
+        
+        .profile__image-box {
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
 
-    img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 190px;
-        height: 190px;
-        border-radius: 50%; 
+            img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 190px;
+                height: 190px;
+                border-radius: 50%; 
+            }
+        }
+
+        .edit-profile {
+            margin-top: 3rem;
+
+            span {
+                margin-right: 1rem;
+            }
+
+            a {
+                font-size: 16px;
+                width: 100%;
+                line-height: 2.5rem;
+                display: block;
+                text-decoration: none;
+                color: #000;
+                background-color: #6cdb51;
+
+                &:hover {
+                    background-color: #62c44a;
+                }
+            }
+        }
+
+        @include respond(phone) {
+            width: 80%;
+            margin: 0 auto;
+        }
+    }
+
+    .profile__header-right {
+        margin-top: 1rem;
+        width: 100%;
+
+        .profile__name {
+            font-size: 14px;
+            margin-bottom: 1rem;
+        }
+
+        .profile__follow-links {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            
+            @include respond(phone) {
+                justify-content: center;
+            }
+        }
+
+        .follower-link,
+        .following-link {
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 1rem 1rem 0 0;
+        }
+
+        .follower-link:hover,
+        .following-link:hover {
+            border-bottom: 1px solid #000;
+        }
+
+        .profile__sub-info {
+            width: 20rem;
+            margin-top: 1rem;
+
+            .info-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+                border-bottom: 1px solid #eee;
+                color: #555;
+
+                a {
+                    text-decoration: none;
+                    color: #555;
+                }
+            }
+
+            @include respond(phone) {
+                width: 100%;
+            }
+        }
+
+        @include respond(phone) {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
     }
 }
 
@@ -319,70 +413,6 @@ export default {
     .base-tag {
         background-color: #fff;
         font-size: 16px;
-    }
-}
-
-.profile__name {
-    margin-bottom: 1rem;
-}
-
-.profile__follow-buttons {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;   
-}
-
-.follower-btn,
-.following-btn {
-    color: #000;
-    font-weight: 700;
-    cursor: pointer;
-    margin: 1rem 1rem 0 0;
-}
-
-.follower-btn:hover,
-.following-btn:hover {
-    border-bottom: 1px solid #000;
-}
-
-.profile__sub-info {
-    width: 20rem;
-    margin-top: 1rem;
-
-    .info-row {   
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        border-bottom: 1px solid #eee;
-        color: #555;
-
-        a {
-            text-decoration: none;
-            color: #555;
-        }
-    }
-}
-
-.edit-profile {
-    margin-top: 3rem;
-
-    span {
-        margin-right: 1rem;
-    }
-
-    a {
-        font-size: 16px;
-        width: 100%;
-        line-height: 2.5rem;
-        display: block;
-        text-decoration: none;
-        color: #000;
-        background-color: #6cdb51;
-
-        &:hover {
-            background-color: #62c44a;
-        }
     }
 }
 </style>

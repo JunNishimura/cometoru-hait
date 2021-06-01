@@ -1,6 +1,6 @@
 <template>
     <div id="tag-idea__page">
-        <SearchTag 
+        <SearchTag
             v-if="loadHitTagComplete"
             tagLabel="検索タグ"
             :searchTags="searchTags"

@@ -1,5 +1,5 @@
 <template>
-    <BaseForm @submitFunc="updateImage">
+    <BaseForm @submitFunc="updateIdea">
         <template #form-content>
             <div class="form-control">
                 <h3 class="input__title">イメージの挿入</h3>
@@ -17,16 +17,12 @@ export default {
         ideaId: {
             required: true,
         },
-        title: {
-            type: String,
-            required: true,
-        },
         userId: {
             required: true,
         },
-        state: {
-            type: String,
-            required: true
+        ideaDetail: {
+            required: true,
+            type: Object
         }
     },
     methods: {
@@ -42,15 +38,21 @@ export default {
                 this.previewImage = null;
             }
         },
-        updateImage() {
-            const data = {
+        updateIdea() {
+            const updateData = {
                 user_id: this.userId,
-                title: this.title,
-                state: this.state,
+                title: this.ideaDetail.title,
+                overview: this.ideaDetail.overview,
+                target: this.ideaDetail.target,
+                background: this.ideaDetail.background,
+                value: this.ideaDetail.value,
+                passion: this.ideaDetail.passion,
+                state: this.ideaDetail.state,
+                deadline: this.ideaDetail.deadline,
                 idea_image: this.uploadedImage,
             }
             
-            apiHelper.putImage(data, this.ideaId)
+            apiHelper.putIdea(updateData, this.ideaId)
             .then( () => {
                 this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId }});
             }).catch( err => {

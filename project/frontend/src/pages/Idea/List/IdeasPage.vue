@@ -2,7 +2,10 @@
     <div id="ideas__page">
         <div class="ideas__display">
             <section class="ideas__display-side">
-                <IdeaVerticalTab />
+                <select v-model="selectedTab" class="select-tab">
+                    <option v-for="(t, i) in tabs" :value=t :key=i>{{t.label}}</option>
+                </select>
+                <IdeaVerticalTab class="idea__vertical-tab" />
             </section>
             <section class="ideas__display-content"> 
                 <router-view />
@@ -25,27 +28,75 @@ export default {
         IdeaVerticalTab,
         FloatingButton
     },
+    data() {
+        return {
+            selectedTab: {val: 'new', label: '新着'},
+            tabs: [
+                {val: 'new', label: '新着'},
+                {val: 'recommend', label: 'レコメンド'},
+                {val: 'tag', label: 'タグ'},
+            ]
+        }
+    },
+    watch: {
+        selectedTab(newOption) {
+            if (newOption.val === 'new') {
+                this.$router.push({name: 'newIdeas'});
+            } else if (newOption.val === 'recommend') {
+                this.$router.push({name: 'recommendIdeas'});
+            } else if (newOption.val === 'tag') {
+                this.$router.push({name: 'tagIdeas'});
+            }
+        }
+    }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #ideas__page {
     height: 100%;
 }
 
 .ideas__display {
-    width: 60%;
-    padding: 2rem 0;
+    color: #000;
+    max-width: $global-max-width;
+    padding: 2.47rem 0;  // 2.47 = 4(line height of header) / 1.618
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;
+
+    @include respond(tablet) {
+        margin: 0 2.47rem; // tabletの場合左右にmarginを入れる
+    }
+
+    @include respond(phone) {
+        flex-direction: column;
+    }
 }
 
 .ideas__display-side {
-    position: fixed;
+    margin-right: 3rem;
+    .select-tab {
+        display: none;
+        width: 100%;
+        border: none;
+        margin-bottom: 1.52rem; // 2.47 / 1.618
+        height: 20px;
+
+        @include respond(phone) {
+            display: block;
+        }
+    }
+
+    .idea__vertical-tab {
+        @include respond(phone) {
+            display: none;
+        }
+    }
 }
 
 .ideas__display-content {
+    width: 100%;
     margin-left: auto;
 }
 </style>

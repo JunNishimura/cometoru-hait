@@ -8,8 +8,8 @@
                 </div>
                 <BaseVerticalDropdown v-if="isDropdownOn">
                     <template #dropdown-item>
-                        <li v-if="ideaDetail.state === 'draft'"><div class="dropdown__btn" @click="publishIdea">公開する</div></li>
-                        <li v-if="ideaDetail.state === 'post'"><div class="dropdown__btn" @click="unPublishIdea">非公開にする</div></li>
+                        <li v-if="ideaDetail.state === 'draft'"><div class="dropdown__btn" @click="publishIdea('post')">公開する</div></li>
+                        <li v-if="ideaDetail.state === 'post'"><div class="dropdown__btn" @click="publishIdea('draft')">非公開にする</div></li>
                         <li><div class="dropdown__btn" @click="showModal('edit')">編集する</div></li>
                         <li><div class="dropdown__btn" @click="showModal('delete')">削除する</div></li>
                     </template>
@@ -23,7 +23,6 @@
                             :myUserId="myUserId"
                             :ideaId="ideaId"
                             :ideaDetail="ideaDetail"
-                            :deadline="new Date(ideaDetail.deadline)"
                             :currentTags="currentTags"
                             :currentRecruitments="currentRecruitments"
                         />
@@ -151,20 +150,23 @@ export default {
             this.modalState = true;
             this.isDropdownOn = false;
         },
-        publishIdea() {
-            apiHelper.publishIdea(this.ideaDetail, this.ideaId, 'post')
+        publishIdea(_state) {
+            const updateData = {
+                user_id: this.myUserId,
+                title: this.ideaDetail.title,
+                overview: this.ideaDetail.overview,
+                target: this.ideaDetail.target,
+                background: this.ideaDetail.background,
+                value: this.ideaDetail.value,
+                passion: this.ideaDetail.passion,
+                state: _state,
+                deadline: this.ideaDetail.deadline,
+                idea_image: this.ideaDetail.idea_image,
+            }
+
+            apiHelper.putIdea(updateData, this.ideaId)
             .then(() => {
                 this.$router.go({name: 'ideas', params: {ideaId: this.ideaId}});
-            }).catch( err => {
-                console.log("error to publish idea: ", err);
-            })
-
-            this.isDropdownOn = false;
-        },
-        unPublishIdea() {
-            apiHelper.publishIdea(this.ideaDetail, this.ideaId, 'draft')
-            .then(() => {
-                this.$router.go({name: 'ideaDetail', params: {ideaId: this.ideaId}});
             }).catch( err => {
                 console.log("error to publish idea: ", err);
             })

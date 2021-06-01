@@ -21,24 +21,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #event__home-page {
     height: 100%;
 }
 
 .event__display {
-    width: 60%;
-    padding: 2rem 0;
+    max-width: $global-max-width;
+    padding: 2.47rem 0;
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;
+
+    @include respond(tablet) {
+        margin: 0 2.47rem; // tabletの場合左右にmarginを入れる
+    }
 }
 
 .event__display-side {
-    position: fixed;
+    @include respond(phone) {
+        display: none;
+    }
 }
 
 .event__display-content {
+    width: 100%;
     margin-left: auto;
 }
 </style>

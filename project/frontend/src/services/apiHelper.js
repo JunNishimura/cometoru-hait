@@ -156,23 +156,12 @@ export default {
         formData.append('value', ideaData.value);
         formData.append('passion', ideaData.passion);
         formData.append('state', ideaData.state);
+        formData.append('deadline', ideaData.deadline);
+        // formData.append('idea_image', ideaData.idea_image);
 
-        const response = await api.put(url, formData);
-        const data = await response.data;
-
-        return data;
-    },
-    async putImage(data, ideaId) {
-        const url = '/ideas/' + ideaId + '/';
-        const formData = new FormData();
-        formData.append('user_id', data.user_id);
-        formData.append('title', data.title);
-        formData.append('state', data.state);
-        
-        if(data.idea_image !== null) {
-            formData.append('idea_image', data.idea_image);
-        }
-
+        // if(ideaData.idea_image !== null) {
+        //     formData.append('idea_image', ideaData.idea_image);
+        // }
         const response = await api.put(url, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -182,42 +171,62 @@ export default {
 
         return responseData;
     },
-    async putDate(data, ideaId) {
-        const url = '/ideas/' + ideaId + '/';
-        const response = await api.put(url, {
-            user_id: data.user_id,
-            title: data.title,
-            state: data.state,
-            deadline: data.deadline,
-        });
-        const responseData = await response.data;
-
-        return responseData;            
-    },
-    async publishIdea(ideaData, ideaId, state) {
-        const url = '/ideas/' + ideaId + '/';
-        const formData = new FormData();
-        formData.append('user_id', ideaData.user_id);
-        formData.append('title', ideaData.title);
-        formData.append('overview', ideaData.overview);
-        formData.append('background', ideaData.background);
-        formData.append('passion', ideaData.passion);
-        formData.append('state', state);
-        formData.append('offer', ideaData.offer );
+    // async putImage(data, ideaId) {
+    //     const url = '/ideas/' + ideaId + '/';
+    //     const formData = new FormData();
+    //     formData.append('user_id', data.user_id);
+    //     formData.append('title', data.title);
+    //     formData.append('state', data.state);
         
-        if(ideaData.idea_image !== null) {
-            formData.append('idea_image', ideaData.idea_image);
-        }
+    //     if(data.idea_image !== null) {
+    //         formData.append('idea_image', data.idea_image);
+    //     }
 
-        const response = await api.put(url, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        const data = await response.data;
+    //     const response = await api.put(url, formData, {
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         }
+    //     });
+    //     const responseData = await response.data;
 
-        return data;
-    },
+    //     return responseData;
+    // },
+    // async putDate(data, ideaId) {
+    //     const url = '/ideas/' + ideaId + '/';
+    //     const response = await api.put(url, {
+    //         user_id: data.user_id,
+    //         title: data.title,
+    //         state: data.state,
+    //         deadline: data.deadline,
+    //     });
+    //     const responseData = await response.data;
+
+    //     return responseData;            
+    // },
+    // async publishIdea(ideaData, ideaId, state) {
+    //     const url = '/ideas/' + ideaId + '/';
+    //     const formData = new FormData();
+    //     formData.append('user_id', ideaData.user_id);
+    //     formData.append('title', ideaData.title);
+    //     formData.append('overview', ideaData.overview);
+    //     formData.append('background', ideaData.background);
+    //     formData.append('passion', ideaData.passion);
+    //     formData.append('state', state);
+    //     formData.append('offer', ideaData.offer );
+        
+    //     if(ideaData.idea_image !== null) {
+    //         formData.append('idea_image', ideaData.idea_image);
+    //     }
+
+    //     const response = await api.put(url, formData, {
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         }
+    //     });
+    //     const data = await response.data;
+
+    //     return data;
+    // },
     async deleteIdea(ideaId) {
         const url = '/ideas/' + ideaId + '/';
         const response = await api.delete(url);

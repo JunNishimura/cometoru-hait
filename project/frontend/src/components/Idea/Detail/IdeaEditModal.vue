@@ -7,36 +7,26 @@
             <IdeaEditBasic v-if="currentEditPage=='basic'"
                 :myUserId="myUserId"
                 :ideaId="ideaId"
-                :currentTitle="ideaDetail.title"
+                :ideaDetail="ideaDetail"
                 :currentTags="currentTags"
-                :currentState="ideaDetail.state"
-                :currentDeadline="deadline"
                 :currentRecruitments="currentRecruitments"
             />
             <IdeaEditDetail v-if="currentEditPage=='detail'"
                 :myUserId="myUserId"
                 :ideaId="ideaId"
-                :currentTitle="ideaDetail.title"
-                :currentOverview="ideaDetail.overview"
-                :currentTarget="ideaDetail.target"
-                :currentBackground="ideaDetail.background"
-                :currentValue="ideaDetail.value"
-                :currentPassion="ideaDetail.passion"
-                :currentState="ideaDetail.state"
+                :ideaDetail="ideaDetail"
             />
             <IdeaEditImage v-if="currentEditPage=='image'"
                 :userId="myUserId"
-                :title="ideaDetail.title"
-                :state="ideaDetail.state"
                 :ideaId="ideaId"
+                :ideaDetail="ideaDetail"
             />
             <IdeaEditQuestion v-if="currentEditPage=='question'"
                 :ideaId="ideaId"
                 :isMyIdea="isMyIdea"
                 :myUserId="myUserId"
                 :userId="myUserId"
-                :title="ideaDetail.title"
-                :state="ideaDetail.state"
+                :ideaDetail="ideaDetail"
             />
         </div>
     </div>
@@ -64,11 +54,7 @@ export default {
         ideaDetail: {
             required: true,
             type: Object,
-        }, 
-        deadline: {
-            required: true,
-            type: Date,
-        }, 
+        },
         currentTags: {
             type: Array
         }, 

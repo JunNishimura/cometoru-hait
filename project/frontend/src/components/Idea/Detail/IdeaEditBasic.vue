@@ -50,17 +50,11 @@ export default {
         ideaId: {
             type: String,
         },
-        currentTitle: {
-            type: String,
+        ideaDetail: {
+            type: Object
         },
         currentTags: {
             type: Array,
-        },
-        currentState: {
-            type: String,
-        },
-        currentDeadline: {
-            type: Date,
         },
         currentRecruitments: {
             type: Array,
@@ -91,13 +85,19 @@ export default {
             const updateData = {
                 user_id: this.myUserId,
                 title: this.inputData.title,
-                state: this.currentState,
+                overview: this.ideaDetail.overview,
+                target: this.ideaDetail.target,
+                background: this.ideaDetail.background,
+                value: this.ideaDetail.value,
+                passion: this.ideaDetail.passion,
+                idea_image: this.ideaDetail.idea_image,
+                state: this.ideaDetail.state,
                 deadline: this.inputData.deadline,
             };
 
-            apiHelper.putDate(updateData, this.ideaId)
+            apiHelper.putIdea(updateData, this.ideaId)
             .then( () => {
-
+                this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId } })
             }).catch( err => {
                 console.log("error to add date: ", err);
             })
@@ -175,9 +175,9 @@ export default {
     },  
     created() {
         // 既存のデータを反映する
-        this.inputData.title = this.currentTitle;
+        this.inputData.title = this.ideaDetail.title;
+        this.inputData.deadline = this.ideaDetail.deadline;
         this.inputData.tags  = this.currentTags.slice();
-        this.inputData.deadline = this.currentDeadline;
         this.inputData.recruitments = this.currentRecruitments.slice();
     },
 }

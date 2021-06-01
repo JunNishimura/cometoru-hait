@@ -145,12 +145,16 @@ ul {
 }
 
 .nav-links {
-    width: 60%;
+    max-width: $global-max-width;
     margin: 0 auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     border: none;
+
+    @include respond(tablet) {
+        margin: 0 2.47rem; // tabletの場合左右にmarginを入れる
+    }
 }
 
 %header-icon-parent {

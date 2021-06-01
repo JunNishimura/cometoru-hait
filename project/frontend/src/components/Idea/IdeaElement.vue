@@ -106,10 +106,13 @@ export default {
 
 <style lang="scss" scoped>
 .idea {
-    width: 35rem;
+    margin-bottom: 1.85rem; // 1.85 = 3 / 1.618
     background-color: #fff;
     padding: 1rem;
-    border: 1px solid #dddddd;
+
+    @include respond(phone) {
+        margin-left: 0;
+    }
 }
 
 .idea__header {

@@ -40,28 +40,9 @@ export default {
         ideaId: {
             required: true
         },
-        currentTitle: {
-            type: String,
+        ideaDetail: {
             required: true,
-        },
-        currentOverview: {
-            type: String,
-        },
-        currentTarget: {
-            type: String,
-        },
-        currentBackground: {
-            type: String
-        },
-        currentValue: {
-            type: String,
-        },
-        currentPassion: {
-            type: String,
-        },
-        currentState: {
-            type: String,
-            required: true,
+            type: Object
         }
     },
     data() {
@@ -77,13 +58,15 @@ export default {
         updateDetailInfo() {
             const ideaData = {
                 user_id: this.myUserId,
-                title: this.currentTitle,
+                title: this.ideaDetail.title,
                 overview: this.overview,
                 target: this.target,
                 background: this.background,
                 value: this.createdValue,
                 passion: this.passion,
-                state: this.currentState,
+                state: this.ideaDetail.state,
+                deadline: this.ideaDetail.deadline,
+                idea_image: this.ideaDetail.idea_image
             }
 
             apiHelper.putIdea(ideaData, this.ideaId)
@@ -96,11 +79,11 @@ export default {
     },  
     created() {
         // 既存のデータを反映する
-        this.overview     = this.currentOverview;
-        this.target       = this.currentTarget;
-        this.background   = this.currentBackground;
-        this.createdValue = this.currentValue;
-        this.passion      = this.currentPassion;
+        this.overview     = this.ideaDetail.overview;
+        this.target       = this.ideaDetail.target;
+        this.background   = this.ideaDetail.background;
+        this.createdValue = this.ideaDetail.value;
+        this.passion      = this.ideaDetail.passion;
     },
 }
 </script>

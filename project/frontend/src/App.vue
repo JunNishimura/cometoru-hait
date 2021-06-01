@@ -12,13 +12,23 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 * {
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
+
+    font-size: 87.5%; // 1rem == 14px
+
+    @include respond(tablet) {
+        font-size: 75%; // 1rem == 12px
+    }
+
+    @include respond(phone) {
+        font-size: 62.5%; // 1rem == 10px 
+    }
 }
 
 body {
@@ -27,7 +37,7 @@ body {
     padding: 0;
 }
 
-button, input, textarea {
+button, select, input, textarea {
     font-family: inherit;
 }
 

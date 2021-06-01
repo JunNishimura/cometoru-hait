@@ -1,0 +1,22 @@
+// floatの後ろが回り込むのを修正
+@mixin clear-float {
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+/*
+phone: ~ 559px
+tablet: 560px ~ 959px
+pc: 960px ~
+*/
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 35em) { @content }; // 560px
+    }
+    @else if $breakpoint == tablet {
+        @media (max-width: 60em) { @content }; // 960px
+    }
+}

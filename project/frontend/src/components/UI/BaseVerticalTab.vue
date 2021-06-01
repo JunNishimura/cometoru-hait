@@ -2,7 +2,7 @@
     <div class="vertical__tab">
         <div class="vertical__tab-title">
             <h1>{{title}}</h1>
-        </div>
+        </div>  
         <ul class="vertical__tab-links">
             <slot name="tab-link"></slot>
         </ul>
@@ -19,6 +19,7 @@ export default {
 .vertical__tab {
     width: 15rem;
     color: #000;
+    position: sticky;
 
     ul {
         list-style: none;

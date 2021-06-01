@@ -23,11 +23,3 @@ export default {
     props: ['ideas']
 }
 </script>
-
-<style lang="scss" scoped>
-.idea__board .idea {
-    &:not(:nth-last-child(1)) {
-        margin-bottom: 1.5rem;
-    }
-}
-</style>

@@ -1,14 +1,5 @@
 <template>
     <div class="search__tag">
-        <div class="hit-tags">
-            <span>人気のあるタグ</span>
-            <BaseTag v-for="(tag, index) in hitTags"
-                :key="index"
-                :name="tag.tag_name"
-                :clickable="true"
-                @clickTag="clickTag"
-            ></BaseTag>
-        </div>
         <div class="search">
             <span v-if="!isTagValid" class="invalid">タグはこれ以上追加できません</span>
             <div class="search-box">
@@ -21,6 +12,15 @@
                     <span class="delete" @click="deleteTag(id)"><FontAwesomeIcon :icon="['fas', 'times']" /></span>
                 </div>
             </div>
+        </div>
+        <div class="hit-tags">
+            <h4>人気なタグ</h4>
+            <BaseTag v-for="(tag, index) in hitTags"
+                :key="index"
+                :name="tag.tag_name"
+                :clickable="true"
+                @clickTag="clickTag"
+            ></BaseTag>
         </div>
     </div>
 </template>
@@ -95,25 +95,13 @@ export default {
 
 <style lang="scss" scoped>
 .search__tag {
-    width: 35rem;
-}
-
-.hit-tags { 
-    @include clear-float();
-    padding: 1rem;
-    background-color: #fff;
-    margin-bottom: 1rem;
-
-    span {
-        font-size: 20px;
-        font-weight: bold;
-        display: block;
+    .base-tag {
+        background-color: #fff;
     }
 }
 
 .search {
-    padding: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.52rem; // 2.47 / 1.618
 }
 
 .search-box {
@@ -133,7 +121,6 @@ export default {
     height: 45px;
     border: 1px solid #fff;
     background-color: #fff;
-    border-radius: 64px;
     outline: none;
 }
 
@@ -146,11 +133,10 @@ export default {
         justify-content: space-between;
         align-items: center;
         min-width: 6rem;
-        padding: 0.5rem;
-        margin: 0.5rem;
-        border-radius: 4px;
+        margin: 0.96rem 0.96rem 0 0;
+        padding: 0.3rem 0.5rem;
         color: #333;
-        background-color: #ddd;
+        background-color: #fff;
         
         .name {
             font-size: 18px;
@@ -166,5 +152,14 @@ export default {
 
 .invalid {
     color: #ff4a4a;
+}
+
+.hit-tags { 
+    @include clear-float();
+    margin-bottom: 1rem;
+
+    h4 {
+        margin-bottom: 0.94rem; // 1.52 / 1.618
+    }
 }
 </style>
