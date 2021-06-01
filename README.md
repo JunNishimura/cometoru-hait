@@ -9,4 +9,3 @@
 
 ## URL
 [カムトル](https://cometrue-6fd0b.web.app/ideas/new)
-※レスポンシブデザイン未実装なのでタブレット、モバイルでの閲覧は非推奨
