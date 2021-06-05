@@ -35,7 +35,7 @@ export default {
                 {val: 'new', label: '新着'},
                 {val: 'recommend', label: 'レコメンド'},
                 {val: 'tag', label: 'タグ'},
-            ]
+            ],
         }
     },
     watch: {
@@ -48,13 +48,13 @@ export default {
                 this.$router.push({name: 'tagIdeas'});
             }
         }
-    }
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 #ideas__page {
-    height: 100%;
+    min-height: 100vh;
 }
 
 .ideas__display {
@@ -76,6 +76,10 @@ export default {
 
 .ideas__display-side {
     margin-right: 3rem;
+    @include respond(phone) {
+        margin-right: 0;
+    }
+
     .select-tab {
         display: none;
         width: 100%;

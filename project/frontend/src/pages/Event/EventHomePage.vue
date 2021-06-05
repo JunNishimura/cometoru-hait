@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 #event__home-page {
-    height: 100%;
+    min-height: 100vh;
 }
 
 .event__display {

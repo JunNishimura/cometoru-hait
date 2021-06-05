@@ -32,13 +32,9 @@ html {
 }
 
 body {
-    font-family: 'Noto Serif JP', serif;
+    font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
     margin: 0;
     padding: 0;
-}
-
-button, select, input, textarea {
-    font-family: inherit;
 }
 
 h1, h2, h3, h4, h5 {

@@ -128,7 +128,7 @@ export default {
     width: 100%;
     color: #000;
     background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     font-weight: bold;
     letter-spacing: 4px;
     z-index: 100;
@@ -208,7 +208,7 @@ ul {
 .nav-link {
     a {
         display: block;
-        line-height: 4rem;
+        line-height: $header-height;
     }
 
     .vertical__dropdown {

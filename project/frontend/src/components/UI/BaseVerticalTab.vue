@@ -43,7 +43,6 @@ export default {
     color: #000;
     text-decoration: none;
     font-size: 18px;
-    font-weight: bold;
     padding: .5rem;
     transition: all .15s ease-out;
     display: block;

@@ -3,11 +3,16 @@ $color-primary:     #ffbb3c;
 $color-secondary:   #ffe0a7;
 $color-tertiary:    #ffeece;
 
+// title color
+$title-color-primary: #805000;
+$title-color-secondary: #80500077;
+
 // background color
 $bg-color-primary:   #f7f2e9;
 $bg-color-secondary: #fdfaf4;
 $bg-color-tertiary:  #e1ddd5;
-$bg-color-quaternary:#d0c5b1;
+$bg-color-quaternary:#ffe2ad;
 
-// width
+// width, height
 $global-max-width: 960px;
+$header-height: 4rem;
