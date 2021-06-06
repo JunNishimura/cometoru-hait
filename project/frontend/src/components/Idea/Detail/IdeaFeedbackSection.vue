@@ -37,15 +37,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-#idea__feedback-section {
-    background-color: $bg-color-quaternary;
-}
-
-.idea__feedback-container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-</style>

@@ -1,7 +1,7 @@
 <template>
     <div class="idea__property-container">
         <div class="header">
-            <h3><span class="header__highlight">{{ firstLetter }}</span>{{ restLetter }}</h3>
+            <h3>{{ title }}</h3>
         </div>
         <div class="content">
             <slot name="content"></slot>
@@ -12,14 +12,6 @@
 <script>
 export default {
     props: ['title'],
-    computed: {
-        firstLetter() {
-            return this.title.charAt(0);
-        },
-        restLetter() {
-            return this.title.substr(1);
-        }
-    }
 }
 </script>
 
@@ -36,9 +28,5 @@ export default {
         border-bottom: 1px solid #000;
         letter-spacing: 10px;
     }
-}
-
-.header__highlight {
-    font-size: 30px;
 }
 </style>

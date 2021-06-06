@@ -40,15 +40,3 @@ export default {
     props: ['overview', 'target', 'background', 'value', 'passion']
 }
 </script>
-
-<style lang="scss" scoped>
-#idea__overview-section {
-    background-color: $bg-color-secondary;
-}
-
-.idea__overview-container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 5rem 0;
-}
-</style>

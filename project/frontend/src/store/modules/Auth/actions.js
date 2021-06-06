@@ -22,7 +22,7 @@ export default {
                 token: key,
             });
         }).catch( err => {
-            console.log("error at authUser: ", err);
+            return err;
         })
     },
     signup(context, payload) {

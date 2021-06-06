@@ -108,15 +108,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.feedback__question {
-    margin: 0 2rem;
-}
-
 .feedback__question-display {
-    border-bottom: 1px solid #999;
+    width: 100%;
+    border-bottom: 1px solid #0001;
     padding: 0.1rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     line-height: 3rem;
     
@@ -133,7 +130,6 @@ export default {
 
 form {
     padding: 1.5rem 2rem;
-    background-color: #fff;
     
     input {
         font-size: 18px;

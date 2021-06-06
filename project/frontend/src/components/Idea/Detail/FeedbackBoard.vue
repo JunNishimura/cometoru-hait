@@ -30,8 +30,8 @@ export default {
 
 <style scoped>
 .questions {
-    width: 50rem;
-    margin: 0 auto;
+    width: 100%;
+    margin-right: auto;
     max-height: 20rem;
 }
 </style>

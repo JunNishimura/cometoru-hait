@@ -37,7 +37,7 @@
                 <h1>{{ ideaDetail.title }}</h1>
             </div>
             <div class="idea__post-user">
-                <span class="ideas__by">Ideas By: </span>
+                <span class="ideas__by">投稿者</span>
                 <div class="user__profile-box">
                     <img :src="userDetail.prof_img">
                 </div>
@@ -65,30 +65,30 @@
         </section>
 
         <section class="idea__body">
-            <IdeaDetailTab />
-            <IdeaOverviewSection
-                :overview="ideaDetail.overview"
-                :target="ideaDetail.target"
-                :background="ideaDetail.background"
-                :value="ideaDetail.value"
-                :passion="ideaDetail.passion"
-            />
-            <!-- <IdeaReputationSection
-                :ideaId="ideaId"
-            /> -->
-            <IdeaImageSection
-                :image="ideaDetail.idea_image"
-            />
-            <IdeaFeedbackSection
-                :ideaId="ideaId"
-            />
+            <div class="idea__body-wrapper">
+                <IdeaOverviewSection
+                    :overview="ideaDetail.overview"
+                    :target="ideaDetail.target"
+                    :background="ideaDetail.background"
+                    :value="ideaDetail.value"
+                    :passion="ideaDetail.passion"
+                />
+                <!-- <IdeaReputationSection
+                    :ideaId="ideaId"
+                /> -->
+                <IdeaImageSection
+                    :image="ideaDetail.idea_image"
+                />
+                <IdeaFeedbackSection
+                    :ideaId="ideaId"
+                />
+            </div>
         </section>
     </div>
 </template>
 
 <script>
 import apiHelper from '@/services/apiHelper.js';
-import IdeaDetailTab from '@/components/Idea/Detail/IdeaDetailTab.vue';
 // import InputTag from '@/components/Tag/InputTag.vue';
 import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vue';
 // import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
@@ -100,7 +100,6 @@ import IdeaDeleteModal from '@/components/Idea/Detail/IdeaDeleteModal.vue';
 
 export default {
     components: {
-        IdeaDetailTab,
         // InputTag,
         IdeaOverviewSection,
         // IdeaReputationSection,
@@ -233,13 +232,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.idea__detail {
-    width: 100%;
-}
-
 .idea__header {
-    width: 60%;
-    padding: 3rem 0 0;
+    max-width: $global-max-width;
+    padding-top: 6.47rem; // $header-height * 1.618
     margin: 0 auto;
     text-align: left;
     color: #000;
@@ -364,5 +359,14 @@ export default {
 .display-tag .base-tag {
     font-size: 16px;
     background-color: #fff;
+}
+
+.idea__body {
+    background-color: $bg-color-secondary;
+
+    .idea__body-wrapper {
+        max-width: $global-max-width;
+        margin: 0 auto;
+    }
 }
 </style>

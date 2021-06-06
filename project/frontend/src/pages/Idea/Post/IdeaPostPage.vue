@@ -199,11 +199,21 @@ export default {
     align-items: center;
 }
 
+.form-wrapper {
+    @include respond(tablet) {
+        width: 100%;
+    }
+}
+
 .image-wrapper {
     background-repeat: no-repeat;
     background-size: 30rem;
     background-position: center;
     position: relative;
+
+    @include respond(tablet) {
+        display: none;
+    }
 }
 
 .title,

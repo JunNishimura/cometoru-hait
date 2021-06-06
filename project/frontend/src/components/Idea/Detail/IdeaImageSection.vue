@@ -29,16 +29,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#idea__image-section {
-    background-color: $bg-color-tertiary;
-}
-
-.idea__image-container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
 .idea__image-box {
     text-align: center;
     

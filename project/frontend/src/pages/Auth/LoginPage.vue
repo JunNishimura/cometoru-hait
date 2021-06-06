@@ -39,7 +39,6 @@ export default {
                 val: '',
                 isValid: true,
             },
-            isFormValid: true,
         };
     },
     methods: {
@@ -60,44 +59,47 @@ export default {
                 isValid: true,
             };
         },
-        formValidation() {
-            this.isFormValid = true;
+        formValidity() {
+            // reset boolean
+            this.username.isValid = true;
+            this.email.isValid = true;
+            this.password.isValid = true;            
 
             if (this.username.val === '') {
                 this.username.isValid = false;
-                this.isFormValid = false;
             }
 
             if (this.email.val === '') {
                 this.email.isValid = false;
-                this.isFormValid = false;
             }
 
             if (this.password.val === '') {
                 this.password.isValid = false;
-                this.isFormValid = false;
             }
+
+            return this.username.isValid & this.email.isValid & this.password.isValid;
         },
         login() {
-            this.formValidation();
+            if (this.formValidity) {
+                const userData = {
+                    username: this.username.val,
+                    email: this.email.val,
+                    password: this.password.val,
+                };
+                this.$store.dispatch('auth/login', userData)
+                .then( res => {
+                    console.log("result: ", res);
+                })
+                .catch(e => {
+                    console.log("error: ", e)
+                })
 
-            // not to login if the form is invalid
-            if (!this.isFormValid) {
-                return;
-            }
+                // clear input
+                this.clearForm();
 
-            const userData = {
-                username: this.username.val,
-                email: this.email.val,
-                password: this.password.val,
-            };
-            this.$store.dispatch('auth/login', userData);
-
-            // clear input
-            this.clearForm();
-
-            // redirect to /ideas
-            this.$router.replace({ name: 'ideas' });
+                // redirect to /ideas
+                this.$router.replace({ name: 'ideas' });
+            } 
         }
     }
 }

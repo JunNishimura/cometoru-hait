@@ -42,18 +42,16 @@ export default {
         isAboutDisplay() {
             const curPath = this.$route.path;
             return !this.isLoggedIn 
-                & (curPath === '/ideas/new')
+                & (curPath === '/ideas/new'
                     || curPath === '/ideas/tag'
                     || curPath === '/ideas/recommend'
                     || curPath === '/events/new'
-                    || curPath === '/events/coming'
+                    || curPath === '/events/coming')
         }
     },
     created() {
         const myUserId = this.$store.getters['auth/userId'];
         this.isLoggedIn = myUserId != null;
-
-        console.log(this.$route.path)
     },
     mounted() {
         this
@@ -72,6 +70,7 @@ export default {
                 opacity: [1, 0],
                 easing: 'linear',
                 duration: 500,
+                delay: 1000,
                 complete: ()=> {
                     this.isAnimFinished = true;
                 }
