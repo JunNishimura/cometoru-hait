@@ -39,6 +39,7 @@ const routes = [
         path: '/',
         component: HomePage,
         redirect: { name: 'ideas' },
+        meta: { title: 'カムトル', desc: 'Make Your Idea Come True.'},
         children: [
             {
                 name: 'ideas',
