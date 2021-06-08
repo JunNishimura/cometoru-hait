@@ -132,7 +132,7 @@ export default {
     },
     computed: {
         myUserId() {
-            return this.$store.getters['auth/userId'];
+            return parseInt(this.$store.getters['auth/userId']);
         },
         mailAddress() {
             return "mailto:" + this.userDetail.contact;
