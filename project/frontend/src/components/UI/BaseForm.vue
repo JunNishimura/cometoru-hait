@@ -51,21 +51,20 @@ form {
     margin-bottom: 1.25rem;
 
     p {
-        font-size: 14px;
+        margin: 0;
+        font-size: 12px;
     }
     
     label {
-        font-size: 17px;
+        font-size: 16px;
         font-weight: bold;
         display: block;
-        margin-bottom: 0.25rem;
     }
 
     input:not([type="file"]) {
         font-size: 16px;
         width: 100%;
         line-height: 1.5rem;
-        padding-left: 0.5rem;
         outline: none;
         border: none;
         border-bottom: 1px solid #aaaaaa;
@@ -104,6 +103,10 @@ form {
 .forget a,
 .invalid p {
     color: #ff3535;
+}
+
+.necessary {
+    font-size: 12px;
 }
 
 .forget {
