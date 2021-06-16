@@ -141,6 +141,11 @@ export default {
                 this.matchPassword = false;
                 this.isFormValid = false;
             }
+
+            // passwordエラーの場合はアラートを起動
+            if (!(this.password1.val && this.password2.val)) {
+                alert("パスワードは英小文字、英大文字、数字を含み6文字以上のみ有効です");
+            }
         },
         signUp() {
             const userData = {
