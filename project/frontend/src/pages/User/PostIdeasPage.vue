@@ -1,29 +1,21 @@
 <template>
     <div id="post__ideas-page" v-if="loadComplete">
         <div class="post__ideas">
-            <IdeaElement
-                v-for="idea in postIdeas"
-                :key="idea.idea_id"
-                :idea_id="idea.idea_id"
-                :user_id="idea.user_id"
-                :title="idea.title"
-                :overview="idea.overview"
-                :background="idea.background"
-                :passion="idea.passion"
-                :idea_img="idea.idea_img"
-                :idea_date="idea.idea_date"
-            ></IdeaElement>
+            <Pagination
+                :items="postIdeas"
+                :itemNumPerPage="5"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import apiHelper from '@/services/apiHelper.js';
-import IdeaElement from '@/components/Idea/IdeaElement.vue';
+import Pagination from '@/components/Layout/Pagination.vue';
 
 export default {
     components: {
-        IdeaElement,
+        Pagination
     },
     data() {
         return {
@@ -54,9 +46,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.post__ideas .idea {
-    margin: 1rem auto;;
-}
-</style>

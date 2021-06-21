@@ -135,7 +135,7 @@ export default {
             apiHelper.postIdea(ideaData)
             .then( res => {
                 this.retIdeaId = res.idea_id;
-                this.$router.replace({ name: 'ideaDetail', params: { ideaId: this.retIdeaId } });
+                this.$router.push({ name: 'ideaDetail', params: { ideaId: this.retIdeaId } });
             }).catch( err => {
                 console.log("error to post new idea: ", err);
             });
@@ -144,6 +144,7 @@ export default {
             // 投稿できるか否かの確認
             this.formValidation();
             if (!this.isFormValid) {
+                alert("入力が不適切です。")
                 return;
             }
 
@@ -295,7 +296,7 @@ export default {
 .closing {
     width: 30rem;
     height: 100%;
-    margin: 0 auto;
+    margin: 0 auto; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -312,8 +313,7 @@ export default {
 .form__btns button {
     height: 3.5rem;
     min-width: 7rem;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
     outline: none;
     border: none;
 }
