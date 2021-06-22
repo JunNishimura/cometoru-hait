@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
 
 export default {
@@ -69,7 +69,7 @@ export default {
                 idea_image: this.ideaDetail.idea_image
             }
 
-            apiHelper.putIdea(ideaData, this.ideaId)
+            asyncProcessing.putIdea(ideaData, this.ideaId)
             .then(() => {
                 this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId } })
             }).catch( err => {

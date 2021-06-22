@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: ['eventId', 'name', 'detail', 'schedule',  'location', 'url'],
@@ -51,7 +51,7 @@ export default {
         stockEvent() {
             if (this.stockState) {
                 // すでに追加されているならストックから除く
-                apiHelper.removeEventStock(this.eventId, this.myUserId)
+                asyncProcessing.removeEventStock(this.eventId, this.myUserId)
                 .then(() => {
                     this.stockState = false;
                     this.$store.dispatch('myData/removeEventStock', {
@@ -62,7 +62,7 @@ export default {
                 })
             } else {
                 // もしまだストックされていないなら追加する
-                apiHelper.addEventStock(this.eventId, this.myUserId)
+                asyncProcessing.addEventStock(this.eventId, this.myUserId)
                 .then(() => {
                     this.stockState = true;
                     this.$store.dispatch('myData/addEventStock', {

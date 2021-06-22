@@ -1,5 +1,5 @@
 import api from '@/services/api.js';
-import apiHelper from '../../../services/apiHelper';
+import asyncProcessing from '../../../services/asyncProcessing';
 
 export default {
     auth(context, payload) {
@@ -7,13 +7,13 @@ export default {
         const data = payload.data;
         let key = null;
         
-        apiHelper.authUser(url, data)
+        asyncProcessing.authUser(url, data)
         .then( res => {
             // tokenをlocalに保存する
             key = res.key;
             localStorage.setItem('token', key);
 
-            return apiHelper.loadUserDetailByName(payload.data.username)
+            return asyncProcessing.loadUserDetailByName(payload.data.username)
         }).then( res => {
             const userId = res.user_id;
             localStorage.setItem('userId', userId);

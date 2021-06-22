@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import EventBoard from '@/components/Event/EventBoard.vue';
 
 export default {
@@ -21,7 +21,7 @@ export default {
         }
     },
     created() {
-        apiHelper.loadNewEvents()
+        asyncProcessing.loadNewEvents()
         .then( res => {
             this.events = res;
             this.loadComplete = true;

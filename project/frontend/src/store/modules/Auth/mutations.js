@@ -1,4 +1,4 @@
-import apiHelper from "../../../services/apiHelper";
+import asyncProcessing from "../../../services/asyncProcessing";
 
 export default {
     setUser(state, payload) {
@@ -12,7 +12,7 @@ export default {
         state.isLoggedIn = false;
     },
     loginSetup(state, payload) {
-        apiHelper.loadStockEvents(payload.myUserId)
+        asyncProcessing.loadStockEvents(payload.myUserId)
         .then( res => {
             // resは自分のuserIDを含むevent_stockのアイテム
             const eventIDs = [];

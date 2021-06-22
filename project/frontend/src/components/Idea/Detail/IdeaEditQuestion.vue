@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: {
@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         addQuestion() {
-            apiHelper.addQuestion(this.ideaId, this.inputQuestion) 
+            asyncProcessing.addQuestion(this.ideaId, this.inputQuestion) 
             .then( () => {
                 this.$router.go({name: 'feedback', params: { ideaId: this.ideaId }});
             }).catch( err => {

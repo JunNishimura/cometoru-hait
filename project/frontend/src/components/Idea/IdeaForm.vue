@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
 
 export default {
@@ -134,7 +134,7 @@ export default {
 
             if (this.formType === 'new') {
                 // Ideaをpostする
-                apiHelper.postIdea(ideaData)
+                asyncProcessing.postIdea(ideaData)
                 .then( res => {
                     this.retIdeaId = res.idea_id;
                     this.$router.replace({ name: 'ideaDetail', params: { ideaId: this.retIdeaId } });
@@ -143,7 +143,7 @@ export default {
                 });
             } else if (this.formType === 'edit') {
                 // Ideaをputする
-                apiHelper.putIdea(ideaData, this.ideaId)
+                asyncProcessing.putIdea(ideaData, this.ideaId)
                 .then( res => {
                     this.retIdeaId = res.idea_id;
                 }).catch( err => {
@@ -178,7 +178,7 @@ export default {
     created() {
         // 編集の場合は、既存のデータをまず読み込む
         if (this.formType === 'edit') {
-            apiHelper.loadIdeaDetail(this.ideaId)
+            asyncProcessing.loadIdeaDetail(this.ideaId)
             .then( res => {
                 // ideaの詳細を読み込み
                 const idea = res;

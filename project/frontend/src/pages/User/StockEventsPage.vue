@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import EventElement from '@/components/Event/EventElement.vue';
 
 export default {
@@ -49,7 +49,7 @@ export default {
 
             const promises = [];
             for (const id of this.eventIDs) {
-                promises.push(apiHelper.loadEventDetail(id));
+                promises.push(asyncProcessing.loadEventDetail(id));
             }
 
             Promise.all(promises)

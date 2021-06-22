@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import IdeaBoard from '@/components/Idea/IdeaBoard.vue';
 
 export default {
@@ -21,7 +21,7 @@ export default {
         }
     },
     created() {
-        apiHelper.loadPostIdeas()
+        asyncProcessing.loadPostIdeas()
         .then( res => {
             this.ideas = res;
 

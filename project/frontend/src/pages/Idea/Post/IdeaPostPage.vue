@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
 
 export default {
@@ -132,7 +132,7 @@ export default {
             }
 
             // Ideaをpostする
-            apiHelper.postIdea(ideaData)
+            asyncProcessing.postIdea(ideaData)
             .then( res => {
                 this.retIdeaId = res.idea_id;
                 this.$router.push({ name: 'ideaDetail', params: { ideaId: this.retIdeaId } });

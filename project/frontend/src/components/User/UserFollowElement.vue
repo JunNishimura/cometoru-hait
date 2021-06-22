@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 
 export default {
     props: {
@@ -48,12 +48,12 @@ export default {
     },
     created() {
         // ユーザーの詳細情報の読み込み
-        apiHelper.loadUserDetail(this.userId)
+        asyncProcessing.loadUserDetail(this.userId)
         .then( res => {
             this.userDetail = res;
 
             // tagの読み込み
-            return apiHelper.loadUserTags(this.userId)
+            return asyncProcessing.loadUserTags(this.userId)
         }).then( res => {
             this.tags = res;
 
@@ -63,7 +63,7 @@ export default {
         })
 
         // ページ訪問者がこのユーザーをフォローしているか否か
-        apiHelper.checkFollowing(this.myUserId, this.userId).
+        asyncProcessing.checkFollowing(this.myUserId, this.userId).
         then(res => {
             this.isFollowing = res;
         }).catch( err => {
@@ -92,7 +92,7 @@ export default {
         follow() {
             if (this.isFollowing) {
                 // もしフォロー済みならフォロー解除
-                apiHelper.stopFollowing(this.myUserId, this.userId)
+                asyncProcessing.stopFollowing(this.myUserId, this.userId)
                 .then( () => {
                     this.reload();
                 }).catch( err => {
@@ -100,7 +100,7 @@ export default {
                 })
             } else {
                 // フォローしていないなら、フォローする
-                apiHelper.follow(this.myUserId, this.userId)
+                asyncProcessing.follow(this.myUserId, this.userId)
                 .then( () => {
                     this.reload();
                 }).catch( err => {

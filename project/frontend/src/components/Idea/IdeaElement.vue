@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: ['idea_id', 'user_id', 'title', 'overview', 'idea_date', 'deadline'],
@@ -75,7 +75,7 @@ export default {
     },
     created() {
         // user_idよりユーザー情報を取得
-        apiHelper.loadUserDetail(this.user_id)
+        asyncProcessing.loadUserDetail(this.user_id)
         .then( res => {
             this.userDetail = res;
             this.load.user = true;
@@ -84,7 +84,7 @@ export default {
         });
 
         // idea_idよりタグを取得
-        apiHelper.loadIdeaTags(this.idea_id) 
+        asyncProcessing.loadIdeaTags(this.idea_id) 
         .then( res => {
             this.tags = res;
             this.load.tag = true;
@@ -93,7 +93,7 @@ export default {
         });
 
         // idea_idよりrecruitmentsを取得
-        apiHelper.loadRecruitments(this.idea_id)
+        asyncProcessing.loadRecruitments(this.idea_id)
         .then( res => {
             this.recruitments = res;
             this.load.recruitments = true;

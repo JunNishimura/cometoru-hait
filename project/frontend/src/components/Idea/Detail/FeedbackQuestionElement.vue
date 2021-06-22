@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 import FeedbackReplyElement from '@/components/Idea/Detail/FeedbackReplyElement.vue';
 
 export default {
@@ -62,7 +62,7 @@ export default {
             // もしまだreplyが読み込まれていなければ、読み込む
             // すでに読み込まれているならスキップ
             if (!this.loadComplete && !this.isDropdownOpen) {
-                apiHelper.loadFeedbacks(this.questionId)
+                asyncProcessing.loadFeedbacks(this.questionId)
                 .then( res => {
                     this.feedbacks = res;
 
@@ -93,7 +93,7 @@ export default {
             this.formValidation();
             if (!this.isInputValid) return;
 
-            apiHelper.addFeedback({
+            asyncProcessing.addFeedback({
                 user_id: this.myUserId,
                 feedback_question_id: this.questionId,
                 feedback: this.feedbackInput

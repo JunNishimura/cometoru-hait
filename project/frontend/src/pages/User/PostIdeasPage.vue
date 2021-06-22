@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import Pagination from '@/components/Layout/Pagination.vue';
 
 export default {
@@ -36,7 +36,7 @@ export default {
             this.isMyProfile = true;
         }
 
-        apiHelper.loadFilteredPostIdeas(paramUserId)
+        asyncProcessing.loadFilteredPostIdeas(paramUserId)
         .then( res => {
             this.postIdeas = res;
             this.loadComplete = true;

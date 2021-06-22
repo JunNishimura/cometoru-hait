@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 export default {
     props: {
         messageId: {
@@ -59,7 +59,7 @@ export default {
         }
     },
     created() {
-        apiHelper.loadUserDetail(this.user_from)
+        asyncProcessing.loadUserDetail(this.user_from)
         .then( res => {
             this.user = res;
 

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 import IdeaBoard from '@/components/Idea/IdeaBoard.vue'
 
 export default {
@@ -30,7 +30,7 @@ export default {
     created() {
         // 自分の登録しているタグにマッチするアイデアと
         // 自分のフォローしている
-        apiHelper.loadUserTags(this.myUserId)
+        asyncProcessing.loadUserTags(this.myUserId)
         .then( res => {
             // 1. 自分のタグを取得
             this.myTags = res;
@@ -43,7 +43,7 @@ export default {
 
             let promises = [];
             this.myTags.forEach( tag => {
-                promises.push(apiHelper.loadIdeaTagsByTag(tag.tag_id));
+                promises.push(asyncProcessing.loadIdeaTagsByTag(tag.tag_id));
             });
             Promise.all(promises)
             .then( results => {
@@ -65,7 +65,7 @@ export default {
                 });
 
                 // 3. 自分がフォローしているユーザーを取得
-                return apiHelper.loadFollowingUsers(this.myUserId)
+                return asyncProcessing.loadFollowingUsers(this.myUserId)
             }).then( res => {
                 const followingUsers = res.map( user => user.following_user_id );
                 if (followingUsers.length === 0) {
@@ -75,7 +75,7 @@ export default {
                 // 4. 自分がフォローしているユーザが投稿しているアイデアのIDを取得する
                 promises = [];
                 followingUsers.forEach( userId => {
-                    promises.push(apiHelper.loadFilteredPostIdeas(userId));
+                    promises.push(asyncProcessing.loadFilteredPostIdeas(userId));
                 });
                 return Promise.all(promises);
             }).then( results => {
@@ -94,7 +94,7 @@ export default {
                 // 5. アイデアのidよりアイデアそのものを読み込む
                 promises = [];
                 this.ideaIds.forEach( ideaId => {
-                    promises.push(apiHelper.loadIdeaDetail(ideaId));
+                    promises.push(asyncProcessing.loadIdeaDetail(ideaId));
                 });
                 return Promise.all(promises)
             }).then( results => {

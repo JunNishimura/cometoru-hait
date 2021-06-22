@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 export default {
     data() {
         return {
@@ -24,7 +24,7 @@ export default {
             this.loadComplete = false;
             this.messageId = this.$route.params['messageId'];
 
-            apiHelper.loadMessage(this.messageId)
+            asyncProcessing.loadMessage(this.messageId)
             .then( res => {
                 this.message = res;
 

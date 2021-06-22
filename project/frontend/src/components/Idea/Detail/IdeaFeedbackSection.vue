@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import FeedbackBoard from '@/components/Idea/Detail/FeedbackBoard.vue';
 
 export default {
@@ -26,7 +26,7 @@ export default {
         }
     },
     created() {
-        apiHelper.loadFeedbackQuestions(this.ideaId)
+        asyncProcessing.loadFeedbackQuestions(this.ideaId)
         .then( res => {
             this.questions = res;
 

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import IdeaElement from '@/components/Idea/IdeaElement.vue';
 
 export default {
@@ -42,7 +42,7 @@ export default {
             this.isMyProfile = true;
         }
 
-        apiHelper.loadFilteredDraftIdeas(this.myUserId)
+        asyncProcessing.loadFilteredDraftIdeas(this.myUserId)
         .then( res => {
             this.draftIdeas = res;
             this.loadComplete = true;

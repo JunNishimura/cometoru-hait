@@ -34,7 +34,7 @@
 
 <script>
 import utils from '@/services/utils.js';
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import InputTag from '@/components/Tag/InputTag.vue';
 import RecruitInput from '@/components/Idea/Detail/RecruitInput.vue';
 
@@ -95,7 +95,7 @@ export default {
                 deadline: this.inputData.deadline,
             };
 
-            apiHelper.putIdea(updateData, this.ideaId)
+            asyncProcessing.putIdea(updateData, this.ideaId)
             .then( () => {
                 this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId } })
             }).catch( err => {
@@ -107,7 +107,7 @@ export default {
             if(this.currentTags.length === 0) {
                 const promises = [];
                 for (const tag of this.inputData.tags) {
-                    promises.push(apiHelper.postIdeaTag(this.ideaId, tag));
+                    promises.push(asyncProcessing.postIdeaTag(this.ideaId, tag));
                 }
 
                 Promise.all(promises)
@@ -118,11 +118,11 @@ export default {
                 });
             } else if (!utils.arrayEqual(this.currentTags, this.inputData.tags) ) {
                 // もし元々のタグから変更があるなら全部消してから全てを追加する
-                apiHelper.deleteAllIdeaTag(this.ideaId)
+                asyncProcessing.deleteAllIdeaTag(this.ideaId)
                 .then(() => {
                     const promises = [];
                     for (const tag of this.inputTags) {
-                        promises.push(apiHelper.postIdeaTag(this.ideaId, tag));
+                        promises.push(asyncProcessing.postIdeaTag(this.ideaId, tag));
                     }
 
                     return Promise.all(promises)
@@ -140,7 +140,7 @@ export default {
                 (this.inputData.recruitments.length > 1 && this.inputData.recruitments[0] != '')) {
                 const promises = [];
                 for (const rec of this.inputData.recruitments) {
-                    promises.push(apiHelper.postRecruitment(this.ideaId, rec.kind, rec.number));
+                    promises.push(asyncProcessing.postRecruitment(this.ideaId, rec.kind, rec.number));
                 }
 
                 Promise.all(promises)
@@ -150,11 +150,11 @@ export default {
                     console.log("error to add recruitments: ", err);
                 })
             } else if (!utils.recruitmentsEqual(this.currentRecruitments, this.inputData.recruitments)) {
-                apiHelper.deleteAllRecruitments(this.ideaId)
+                asyncProcessing.deleteAllRecruitments(this.ideaId)
                 .then(() => {
                     const promises = [];
                     for (const rec of this.inputData.recruitments) {
-                        promises.push(apiHelper.postRecruitment(this.ideaId, rec.kind, rec.number))
+                        promises.push(asyncProcessing.postRecruitment(this.ideaId, rec.kind, rec.number))
                     }
 
                     return Promise.all(promises)

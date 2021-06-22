@@ -1,8 +1,8 @@
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     setUserData(context, payload) {
-        apiHelper.loadUserDetailByName(payload.username)
+        asyncProcessing.loadUserDetailByName(payload.username)
         .then ( res => {
             context.commit('setUserData', {
                 userId: res[0].user_id,
@@ -18,7 +18,7 @@ export default {
         });
     },
     setTags(context, payload) {
-        apiHelper.loadUserTags(payload.userId)
+        asyncProcessing.loadUserTags(payload.userId)
         .then( res => {
             context.commit('setTags', res);
         }).catch( err => {

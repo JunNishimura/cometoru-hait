@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: {
@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         deleteIdea() {
-            apiHelper.deleteIdea(this.ideaId)
+            asyncProcessing.deleteIdea(this.ideaId)
             .then(() => {
                 // 削除後はideasページに遷移
                 this.$router.replace({ name: 'ideas' });

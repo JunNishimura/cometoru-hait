@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import SearchTag from '@/components/Tag/SearchTag.vue';
 import IdeaBoard from '@/components/Idea/IdeaBoard.vue';
 
@@ -50,7 +50,7 @@ export default {
     },
     methods: {
         loadHitTags() {
-            apiHelper.loadHitTags()
+            asyncProcessing.loadHitTags()
             .then( res => {
                 this.hitTags = res;
 
@@ -74,7 +74,7 @@ export default {
             const tagIDs = [];
             let promises = [];
             for (const tag of this.searchTags) {
-                promises.push(apiHelper.loadTagsByName(tag));
+                promises.push(asyncProcessing.loadTagsByName(tag));
             }
             Promise.all(promises)
             .then( results => {
@@ -94,7 +94,7 @@ export default {
                     const ideaIDs = [];
                     promises = [];
                     for (const tagId of tagIDs) {
-                        promises.push(apiHelper.loadIdeaTagsByTag(tagId));
+                        promises.push(asyncProcessing.loadIdeaTagsByTag(tagId));
                     }
                     Promise.all(promises)
                     .then( results => {
@@ -113,7 +113,7 @@ export default {
                             // step2で取得したアイデアより、自分が投稿したアイデア以外のアイデアデータを取得
                             promises = [];
                             for (const id of ideaIDs) {
-                                promises.push(apiHelper.loadIdeaDetail(id));
+                                promises.push(asyncProcessing.loadIdeaDetail(id));
                             }
                             Promise.all(promises)
                             .then( results => {

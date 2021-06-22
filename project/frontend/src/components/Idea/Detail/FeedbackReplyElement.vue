@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: {
@@ -48,7 +48,7 @@ export default {
             this.$router.go({ name: 'feedback', params: { ideaId: paramIdeaId }});
         },
         deleteFeedback() {
-            apiHelper.deleteFeedback(this.feedbackId)
+            asyncProcessing.deleteFeedback(this.feedbackId)
             .then(() => {
                 this.reload();
             }).catch( err => {
@@ -60,7 +60,7 @@ export default {
         }
     },
     created() {
-        apiHelper.loadUserDetail(this.userId)
+        asyncProcessing.loadUserDetail(this.userId)
         .then( res => {
             this.user = res;
 

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: ['userTo', 'value'],
@@ -51,7 +51,7 @@ export default {
             this.isFormValid = true;
         },
         sendMessage() {
-            apiHelper.sendMessage({
+            asyncProcessing.sendMessage({
                 user_from: this.myUserId,
                 user_to: this.userTo,
                 title: this.message.title,

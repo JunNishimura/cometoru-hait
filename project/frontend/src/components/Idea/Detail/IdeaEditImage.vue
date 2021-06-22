@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: {
@@ -52,7 +52,7 @@ export default {
                 idea_image: this.uploadedImage,
             }
             
-            apiHelper.putIdea(updateData, this.ideaId)
+            asyncProcessing.putIdea(updateData, this.ideaId)
             .then( () => {
                 this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId }});
             }).catch( err => {

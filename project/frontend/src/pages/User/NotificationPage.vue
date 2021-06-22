@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import MessageBoard from '@/components/Message/MessageBoard.vue'
 
 export default {
@@ -29,7 +29,7 @@ export default {
         }
     },
     created() {
-        apiHelper.loadReceivedMessages(this.myUserId)
+        asyncProcessing.loadReceivedMessages(this.myUserId)
         .then( res => {
             this.messages = res;
 

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import utils from '@/services/utils.js';
 import { Plotly } from 'vue-plotly'
 // import ReputationForm from '@/components/Idea/Detail/ReputationForm.vue';
@@ -90,7 +90,7 @@ export default {
     },
     created() {
         // アイデアの評価全て読み込む
-        apiHelper.loadIdeaReputations(this.ideaId)
+        asyncProcessing.loadIdeaReputations(this.ideaId)
         .then( res => {
             this.reputationData.interesting = res.map( rep => rep.interesting );
             this.reputationData.novelty = res.map( rep => rep.novelty );

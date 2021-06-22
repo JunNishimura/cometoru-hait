@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 export default {
     data() {
         return {
@@ -93,7 +93,7 @@ export default {
             this.$router.replace('/'); // ログイン後は/ideasへ自動的に遷移させる
         },
         loadUserDetail() {
-            apiHelper.loadUserDetail(this.userId)
+            asyncProcessing.loadUserDetail(this.userId)
             .then( res => {
                 this.user = res;
                 this.loadComplete = true;

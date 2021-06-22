@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 
 export default {
     props: {
@@ -79,7 +79,7 @@ export default {
     },
     methods: {
         addReputation() {
-            apiHelper.addReputation(this.ideaId, this.myUserId, {
+            asyncProcessing.addReputation(this.ideaId, this.myUserId, {
                 interesting: this.interesting,
                 novelty: this.novelty,
                 possibility: this.possibility,
@@ -92,7 +92,7 @@ export default {
             })
         },
         deleteReputation() {
-            apiHelper.deleteReputation(this.reputationId)
+            asyncProcessing.deleteReputation(this.reputationId)
             .then( () => {
                 this.$router.go({name: 'reputation', params: { ideaId: this.ideaId }});
             }).catch( err => {
@@ -100,7 +100,7 @@ export default {
             })
         },
         updateReputation() {
-            apiHelper.updateReputation(this.reputationId, this.ideaId, this.myUserId, {
+            asyncProcessing.updateReputation(this.reputationId, this.ideaId, this.myUserId, {
                 interesting: this.interesting,
                 novelty: this.novelty,
                 possibility: this.possibility,
@@ -112,13 +112,13 @@ export default {
         },
         initReputation() {
             // 評価状態を確認（評価済み / 未評価）
-            apiHelper.getReputationState(this.ideaId, this.myUserId)
+            asyncProcessing.getReputationState(this.ideaId, this.myUserId)
             .then( res => {
                 this.reputationState = res;
                 
                 // 評価済みの場合
                 if (this.reputationState) {
-                    return apiHelper.loadReputation(this.ideaId, this.myUserId)
+                    return asyncProcessing.loadReputation(this.ideaId, this.myUserId)
                 }
             }).then( res => {
                 if (res != null) {

@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js'
+import asyncProcessing from '@/services/asyncProcessing.js'
 // import MessageModal from '@/components/Message/MessageModal.vue';
 import UserTab from '@/components/User/UserTab.vue';
 import UserFollowElement from '@/components/User/UserFollowElement.vue';
@@ -157,25 +157,25 @@ export default {
             }
         },
         loadUserData() {
-            apiHelper.loadUserDetail(this.paramUserId) 
+            asyncProcessing.loadUserDetail(this.paramUserId) 
             .then( res => {
                 this.userDetail = res;
 
                 // userのタグを取得
-                return apiHelper.loadUserTags(this.paramUserId);
+                return asyncProcessing.loadUserTags(this.paramUserId);
             }).then( res => {
                 this.tags = res;
 
                 // ユーザーが投稿したアイデアのみを抽出
-                return apiHelper.loadFilteredPostIdeas(this.paramUserId);
+                return asyncProcessing.loadFilteredPostIdeas(this.paramUserId);
             }).then ( res => {
                 this.postIdeas = res;
 
-                return apiHelper.loadFollowers(this.paramUserId)
+                return asyncProcessing.loadFollowers(this.paramUserId)
             }).then( res => {
                 this.followIds.follower = res.map((data) => data.user_id);
             
-                return apiHelper.loadFollowingUsers(this.paramUserId)
+                return asyncProcessing.loadFollowingUsers(this.paramUserId)
             }).then( res => {
                 this.followIds.following = res.map((data) => data.following_user_id);
                 
@@ -187,12 +187,12 @@ export default {
         },
         loadFollowData() {
             // フォロワーの読み込み
-            return apiHelper.loadFollowers(this.paramUserId)
+            return asyncProcessing.loadFollowers(this.paramUserId)
             .then( res => {
                 this.followerCount = res.length;
 
                 // フォロー中のユーザーを読み込み
-                return apiHelper.loadFollowingUsers(this.paramUserId);
+                return asyncProcessing.loadFollowingUsers(this.paramUserId);
             }).then( res => {
                 this.followingCount = res.length;
             }).catch( err => {
@@ -202,7 +202,7 @@ export default {
         follow() {
             if (this.isFollowing) {
                 // フォロー済みなら、フォロー解除
-                apiHelper.stopFollowing(this.myUserId, this.paramUserId)
+                asyncProcessing.stopFollowing(this.myUserId, this.paramUserId)
                 .then( () => {
                     this.loadFollowData();
                     this.isFollowing = false;
@@ -211,7 +211,7 @@ export default {
                 })
             } else {
                 // フォローしていないなら、フォローする
-                apiHelper.follow(this.myUserId, this.paramUserId)
+                asyncProcessing.follow(this.myUserId, this.paramUserId)
                 .then( () => {
                     this.loadFollowData();
                     // フォローなう
@@ -230,7 +230,7 @@ export default {
                 this.isMyProfile = false;
 
                 // 自分のページでない場合、訪問中のユーザーを既にフォローしているかを確認
-                apiHelper.checkFollowing(this.myUserId, this.paramUserId)
+                asyncProcessing.checkFollowing(this.myUserId, this.paramUserId)
                 .then( res => {
                     this.isFollowing = res;
                 }).catch( err => {

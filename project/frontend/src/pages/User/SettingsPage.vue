@@ -44,7 +44,7 @@
 
 <script>
 import utils from '@/services/utils.js';
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 import InputTag from '@/components/Tag/InputTag.vue';
 import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
 
@@ -76,11 +76,11 @@ export default {
         },
     },
     created() {
-        apiHelper.loadUserDetail(this.userId)
+        asyncProcessing.loadUserDetail(this.userId)
         .then( res => {
             this.userDetail = res;
 
-            return apiHelper.loadUserTags(this.userId);
+            return asyncProcessing.loadUserTags(this.userId);
         }).then( res => {
             // tag_nameのみを取り出す
             if (res != null) {
@@ -135,7 +135,7 @@ export default {
                 // 元々タグが未登録なら追加して終了
                 const promises = [];
                 for (const tag of this.inputTags) {
-                    promises.push(apiHelper.postUserTag(this.userId, tag));
+                    promises.push(asyncProcessing.postUserTag(this.userId, tag));
                 }
                 Promise.all(promises)
                 .then( () => {
@@ -145,11 +145,11 @@ export default {
                 })
             } else if (!utils.arrayEqual(this.originalTags, this.inputTags) ) {
                 // もしタグに変更があるなら既存のタグを全削除してから、新しいタグを追加する
-                apiHelper.deleteAllUserTag(this.userId)
+                asyncProcessing.deleteAllUserTag(this.userId)
                 .then( () => {
                     const promises = [];
                     for (const tag of this.inputTags) {
-                        promises.push(apiHelper.postUserTag(this.userId, tag));
+                        promises.push(asyncProcessing.postUserTag(this.userId, tag));
                     }
 
                     return Promise.all(promises)
@@ -176,7 +176,7 @@ export default {
                 major: this.formData.major,
                 portfolio: this.formData.portfolio,
             };
-            apiHelper.updateUserDetail(updateData)
+            asyncProcessing.updateUserDetail(updateData)
             .catch( err => {
                 console.log("error to update user detail: ", err);
             })

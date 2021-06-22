@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import apiHelper from '@/services/apiHelper.js';
+import asyncProcessing from '@/services/asyncProcessing.js';
 // import InputTag from '@/components/Tag/InputTag.vue';
 import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vue';
 // import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
@@ -163,7 +163,7 @@ export default {
                 idea_image: this.ideaDetail.idea_image,
             }
 
-            apiHelper.putIdea(updateData, this.ideaId)
+            asyncProcessing.putIdea(updateData, this.ideaId)
             .then(() => {
                 this.$router.go({name: 'ideas', params: {ideaId: this.ideaId}});
             }).catch( err => {
@@ -181,7 +181,7 @@ export default {
         // router paramsより本アイデアのideaIdを取得
         this.ideaId = this.$route.params['ideaId'];
 
-        apiHelper.loadIdeaDetail(this.ideaId)
+        asyncProcessing.loadIdeaDetail(this.ideaId)
         .then( res => {
             // idea情報を取得
             this.ideaDetail = res;
@@ -192,13 +192,13 @@ export default {
             }
 
             // tag情報を取得
-            return apiHelper.loadIdeaTags(this.ideaId);
+            return asyncProcessing.loadIdeaTags(this.ideaId);
         }).then( res => {
             // tag名をtags配列に格納する
             this.currentTags = res.map( (tag) => tag.tag_name );
 
             // recruitments情報を取得
-            return apiHelper.loadRecruitments(this.ideaId);
+            return asyncProcessing.loadRecruitments(this.ideaId);
         }).then( res => {
             if (res != null) {
                 for (const item of res) {
@@ -211,7 +211,7 @@ export default {
                 }
             }
 
-            return apiHelper.loadUserDetail(this.ideaDetail.user_id);
+            return asyncProcessing.loadUserDetail(this.ideaDetail.user_id);
         }).then( res => {
             // user情報を取得
             this.userDetail = res;
