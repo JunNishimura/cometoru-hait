@@ -130,18 +130,21 @@ export default {
                 this.isFormValid = false;
             }
 
-            // password2のチェック
-            if (!this.passwordValidation(this.password2.val)) {
-                this.password2.isValid = false;
-                this.isFormValid = false;
-            }
+            // signup時のみpassword2も確認する
+            if (this.authType === 'signup') {
+                // password2のチェック
+                if (!this.passwordValidation(this.password2.val)) {
+                    this.password2.isValid = false;
+                    this.isFormValid = false;
+                }
 
-            // password1とpassword2の一致を確認
-            if (this.password1.val != this.password2.val) {
-                this.matchPassword = false;
-                this.isFormValid = false;
+                // password1とpassword2の一致を確認
+                if (this.password1.val != this.password2.val) {
+                    this.matchPassword = false;
+                    this.isFormValid = false;
+                }
             }
-
+            
             // passwordエラーの場合はアラートを起動
             if (!(this.password1.val && this.password2.val)) {
                 alert("パスワードは英小文字、英大文字、数字を含み6文字以上のみ有効です");
