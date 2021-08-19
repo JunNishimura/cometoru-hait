@@ -146,7 +146,7 @@ export default {
             }
             
             // passwordエラーの場合はアラートを起動
-            if (!(this.password1.val && this.password2.val)) {
+            if (!(this.password1.isValid && this.password2.isValid)) {
                 alert("パスワードは英小文字、英大文字、数字を含み6文字以上のみ有効です");
             }
         },
