@@ -73,15 +73,31 @@
                     :value="ideaDetail.value"
                     :passion="ideaDetail.passion"
                 />
+                <!-- 項目：評価 -->
                 <!-- <IdeaReputationSection
                     :ideaId="ideaId"
                 /> -->
-                <IdeaImageSection
-                    :image="ideaDetail.idea_image"
-                />
-                <IdeaFeedbackSection
-                    :ideaId="ideaId"
-                />
+                <!-- 項目：画像 -->
+                <IdeaContent title="イメージ" v-if="ideaDetail.idea_image">
+                    <template #content>
+                        <div class="idea__image-container">
+                            <img :src="image" alt="idea-image">
+                        </div>
+                    </template>
+                </IdeaContent>
+                <!-- 項目：フィードバック -->
+                <IdeaContent title="投稿者からの質問" v-if="feedbackQuestions.length > 0">
+                    <template #content>
+                        <div class="idea__feedback-questions">
+                            <FeedbackQuestionElement
+                                v-for="(question, index) in questions"
+                                :key="index"
+                                :question="question.question"
+                                :questionId="question.feedback_question_id"
+                            ></FeedbackQuestionElement>
+                        </div>
+                    </template>
+                </IdeaContent>
             </div>
         </section>
     </div>
@@ -89,12 +105,11 @@
 
 <script>
 import asyncProcessing from '@/services/asyncProcessing.js';
-// import InputTag from '@/components/Tag/InputTag.vue';
 import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vue';
 // import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
-import IdeaImageSection from '@/components/Idea/Detail/IdeaImageSection.vue'
+import IdeaContent from '@/components/Idea/Detail/IdeaContent.vue';
+import FeedbackQuestionElement from '@/components/Idea/Detail/FeedbackQuestionElement.vue';
 import RecruitmentDisplay from '@/components/Idea/Detail/RecruitmentDisplay.vue';
-import IdeaFeedbackSection from '@/components/Idea/Detail/IdeaFeedbackSection.vue';
 import IdeaEditModal from '@/components/Idea/Detail/IdeaEditModal.vue';
 import IdeaDeleteModal from '@/components/Idea/Detail/IdeaDeleteModal.vue';
 
@@ -103,9 +118,9 @@ export default {
         // InputTag,
         IdeaOverviewSection,
         // IdeaReputationSection,
-        IdeaImageSection,
+        IdeaContent,
+        FeedbackQuestionElement,
         RecruitmentDisplay,
-        IdeaFeedbackSection,
         IdeaEditModal,
         IdeaDeleteModal,
     },
@@ -126,6 +141,8 @@ export default {
             // modal
             modalState: false,
             modalType: '', // 'edit' or 'delete'
+            // idea content
+            feedbackQuestions: [],
         };
     },
     computed: {
@@ -210,11 +227,15 @@ export default {
                     });
                 }
             }
-
             return asyncProcessing.loadUserDetail(this.ideaDetail.user_id);
         }).then( res => {
             // user情報を取得
             this.userDetail = res;
+
+            return asyncProcessing.loadFeedbackQuestions(this.ideaId);
+        }).then( res => {
+            // feedback questionsの取得
+            this.feedbackQuestions = res;
 
             // 必要なロードが完了
             this.loadComplete = true;
@@ -367,6 +388,21 @@ export default {
     .idea__body-wrapper {
         max-width: $global-max-width;
         margin: 0 auto;
+
+        .idea__image-container {
+            text-align: center;
+            
+            img {
+                max-width: 800px;
+                max-height: 600px;
+            }
+        }
+
+        .idea__feedback-questions {
+            width: 100%;
+            margin-right: auto;
+            max-height: 20rem;
+        }
     }
 }
 </style>
