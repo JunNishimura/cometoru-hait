@@ -64,86 +64,31 @@
             </div>
         </section>
 
-        <section class="idea__body">
-            <div class="idea__body-wrapper">
-                <!-- 項目：概要 -->
-                <IdeaContent title="概要">
-                    <template #content>
-                        <p>{{ideaDetail.overview}}</p>
-                    </template>
-                </IdeaContent>
-                <!-- 項目：ターゲット -->
-                <IdeaContent title="ターゲット">
-                    <template #content>
-                        <p>{{ideaDetail.target}}</p>
-                    </template>
-                </IdeaContent>
-                <!-- 項目：背景 -->
-                <IdeaContent title="背景">
-                    <template #content>
-                        <p>{{ideaDetail.background}}</p>
-                    </template>
-                </IdeaContent>
-                <!-- 項目：提供価値 -->
-                <IdeaContent title="提供価値">
-                    <template #content>
-                        <p>{{ideaDetail.value}}</p>
-                    </template>
-                </IdeaContent>
-                <!-- 項目：情熱 -->
-                <IdeaContent title="情熱">
-                    <template #content>
-                        <p>{{ideaDetail.passion}}</p>
-                    </template>
-                </IdeaContent>
-                <!-- 項目：評価 -->
-                <!-- <IdeaReputationSection
-                    :ideaId="ideaId"
-                /> -->
-                <!-- 項目：画像 -->
-                <IdeaContent title="イメージ" v-if="ideaDetail.idea_image">
-                    <template #content>
-                        <div class="idea__image-container">
-                            <img :src="image" alt="idea-image">
-                        </div>
-                    </template>
-                </IdeaContent>
-                <!-- 項目：フィードバック -->
-                <IdeaContent title="投稿者からの質問" v-if="feedbackQuestions.length > 0">
-                    <template #content>
-                        <div class="idea__feedback-questions">
-                            <FeedbackQuestionElement
-                                v-for="(question, index) in questions"
-                                :key="index"
-                                :question="question.question"
-                                :questionId="question.feedback_question_id"
-                            ></FeedbackQuestionElement>
-                        </div>
-                    </template>
-                </IdeaContent>
-            </div>
-        </section>
+        <IdeaDetailBody 
+            :overview="ideaDetail.overview"
+            :target="ideaDetail.target"
+            :background="ideaDetail.background"
+            :value="ideaDetail.value"
+            :passion="ideaDetail.passion"
+            :ideaImage="ideaDetail.idea_image"
+            :feedbackQuestions="feedbackQuestions"
+        />
     </div>
 </template>
 
 <script>
 import asyncProcessing from '@/services/asyncProcessing.js';
-// import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
-import IdeaContent from '@/components/Idea/Detail/IdeaContent.vue';
-import FeedbackQuestionElement from '@/components/Idea/Detail/FeedbackQuestionElement.vue';
 import RecruitmentDisplay from '@/components/Idea/Detail/RecruitmentDisplay.vue';
 import IdeaEditModal from '@/components/Idea/Detail/IdeaEditModal.vue';
 import IdeaDeleteModal from '@/components/Idea/Detail/IdeaDeleteModal.vue';
-
+import IdeaDetailBody from '@/components/Idea/Detail/IdeaDetailBody.vue';
 export default {
     components: {
         // InputTag,
-        // IdeaReputationSection,
-        IdeaContent,
-        FeedbackQuestionElement,
         RecruitmentDisplay,
         IdeaEditModal,
         IdeaDeleteModal,
+        IdeaDetailBody
     },
     data() {
         return {
@@ -401,29 +346,5 @@ export default {
 .display-tag .base-tag {
     font-size: 16px;
     background-color: #fff;
-}
-
-.idea__body {
-    background-color: $bg-color-secondary;
-
-    .idea__body-wrapper {
-        max-width: $global-max-width;
-        margin: 0 auto;
-
-        .idea__image-container {
-            text-align: center;
-            
-            img {
-                max-width: 800px;
-                max-height: 600px;
-            }
-        }
-
-        .idea__feedback-questions {
-            width: 100%;
-            margin-right: auto;
-            max-height: 20rem;
-        }
-    }
 }
 </style>
