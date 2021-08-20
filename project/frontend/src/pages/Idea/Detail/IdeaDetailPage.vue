@@ -66,13 +66,36 @@
 
         <section class="idea__body">
             <div class="idea__body-wrapper">
-                <IdeaOverviewSection
-                    :overview="ideaDetail.overview"
-                    :target="ideaDetail.target"
-                    :background="ideaDetail.background"
-                    :value="ideaDetail.value"
-                    :passion="ideaDetail.passion"
-                />
+                <!-- 項目：概要 -->
+                <IdeaContent title="概要">
+                    <template #content>
+                        <p>{{ideaDetail.overview}}</p>
+                    </template>
+                </IdeaContent>
+                <!-- 項目：ターゲット -->
+                <IdeaContent title="ターゲット">
+                    <template #content>
+                        <p>{{ideaDetail.target}}</p>
+                    </template>
+                </IdeaContent>
+                <!-- 項目：背景 -->
+                <IdeaContent title="背景">
+                    <template #content>
+                        <p>{{ideaDetail.background}}</p>
+                    </template>
+                </IdeaContent>
+                <!-- 項目：提供価値 -->
+                <IdeaContent title="提供価値">
+                    <template #content>
+                        <p>{{ideaDetail.value}}</p>
+                    </template>
+                </IdeaContent>
+                <!-- 項目：情熱 -->
+                <IdeaContent title="情熱">
+                    <template #content>
+                        <p>{{ideaDetail.passion}}</p>
+                    </template>
+                </IdeaContent>
                 <!-- 項目：評価 -->
                 <!-- <IdeaReputationSection
                     :ideaId="ideaId"
@@ -105,7 +128,6 @@
 
 <script>
 import asyncProcessing from '@/services/asyncProcessing.js';
-import IdeaOverviewSection from '@/components/Idea/Detail/IdeaOverviewSection.vue';
 // import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
 import IdeaContent from '@/components/Idea/Detail/IdeaContent.vue';
 import FeedbackQuestionElement from '@/components/Idea/Detail/FeedbackQuestionElement.vue';
@@ -116,7 +138,6 @@ import IdeaDeleteModal from '@/components/Idea/Detail/IdeaDeleteModal.vue';
 export default {
     components: {
         // InputTag,
-        IdeaOverviewSection,
         // IdeaReputationSection,
         IdeaContent,
         FeedbackQuestionElement,
