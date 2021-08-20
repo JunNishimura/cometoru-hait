@@ -62,6 +62,11 @@ body {
     font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
     margin: 0;
     padding: 0;
+
+    button, input, select, textarea {
+        font-family: inherit;
+        font-size: 100%;
+    }
 }
 
 h1, h2, h3, h4, h5 {
