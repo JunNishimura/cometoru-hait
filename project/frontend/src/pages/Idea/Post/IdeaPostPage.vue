@@ -27,7 +27,7 @@
                 <div class="form-wrapper">
                     <div class="sentence">
                         <h1>ターゲット</h1>
-                        <h2>誰に届けたいのかを意識しよう</h2>
+                        <h2>価値を届ける先を意識しよう</h2>
                     </div>
                     <ResizableTextarea v-model="target"/>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="image-wrapper" />
                 <div class="form-wrapper">
                     <div class="sentence">
-                        <h1>価値創造</h1>
+                        <h1>提供価値</h1>
                         <h2>生み出す価値を言葉にしよう</h2>
                     </div>
                     <ResizableTextarea v-model="createdValue"/>
