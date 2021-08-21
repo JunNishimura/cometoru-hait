@@ -3,7 +3,6 @@
         <form @submit.prevent="$emit('submitFunc')">
             <div class="form__header-title">
                 <h1>{{ headerTitle }}</h1>
-                <slot name="form-header"></slot>
             </div>
             <div class="form__content">
                 <slot name="form-content"></slot>
@@ -43,10 +42,6 @@ form {
     margin-bottom: 2rem;
 }
 
-.form__content {
-    text-align: left;
-}
-
 .form-control {
     margin-bottom: 1.25rem;
 
@@ -56,6 +51,7 @@ form {
     }
     
     label {
+        text-align: left;
         font-size: 16px;
         font-weight: bold;
         display: block;
