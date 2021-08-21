@@ -2,8 +2,7 @@
     <BaseForm @submitFunc="updateIdea">
         <template #form-content>
             <div class="form-control">
-                <h3 class="input__title">イメージの挿入</h3>
-                <input class="image-input" type="file" @change="uploadImage" accept="image/*">
+                <DragImageUploader :defaultImage="ideaDetail.idea_image" ref="imageUploader" />
             </div>
         </template>
     </BaseForm>
@@ -11,8 +10,12 @@
 
 <script>
 import asyncProcessing from '@/services/asyncProcessing.js';
+import DragImageUploader from '@/components/UI/DragImageUploader.vue';
 
 export default {
+    components: {
+        DragImageUploader
+    },
     props: {
         ideaId: {
             required: true,
@@ -26,19 +29,15 @@ export default {
         }
     },
     methods: {
-        uploadImage(event) {
-            this.uploadedImage = event.target.files[0];
-            if (this.uploadedImage != null) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.previewImage = e.target.result;
-                }
-                reader.readAsDataURL(this.uploadedImage);
-            } else {
-                this.previewImage = null;
-            }
-        },
         updateIdea() {
+            let uploadedImage;
+            if (this.$refs.imageUploader.selectedImage !== null) {
+                // 新しい画像が入力されていたらそれを採用する
+                uploadedImage = this.$refs.imageUploader.selectedImage;
+            } else {
+                uploadedImage = this.userDetail.prof_img;
+            }
+
             const updateData = {
                 user_id: this.userId,
                 title: this.ideaDetail.title,
@@ -49,8 +48,10 @@ export default {
                 passion: this.ideaDetail.passion,
                 state: this.ideaDetail.state,
                 deadline: this.ideaDetail.deadline,
-                idea_image: this.uploadedImage,
+                idea_image: uploadedImage,
             }
+
+            console.log(updateData)
             
             asyncProcessing.putIdea(updateData, this.ideaId)
             .then( () => {
@@ -59,12 +60,6 @@ export default {
                 console.log("error to update image: ", err);
             })
         },
-    },
-    data() {
-        return {
-            uploadedImage: null, // uploadされた画像
-            previewImage: null,  // preview用の画像
-        }
     },
 }
 </script>
