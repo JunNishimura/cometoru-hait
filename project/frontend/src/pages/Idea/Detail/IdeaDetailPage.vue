@@ -2,18 +2,6 @@
     <div id="idea__detail" v-if="loadComplete">
         <section class="idea__header">
             <div class="idea__settings" v-if="isMyIdea">
-                <div class="setting__btn" @click="settingBtnPressed">
-                    <FontAwesomeIcon class="icon" :icon="['fas', 'cog']" size="lg" />
-                    <FontAwesomeIcon class="icon" :icon="['fas', 'caret-down']" size="lg" />
-                </div>
-                <BaseVerticalDropdown v-if="isDropdownOn">
-                    <template #dropdown-item>
-                        <li v-if="ideaDetail.state === 'draft'"><div class="dropdown__btn" @click="publishIdea('post')">公開する</div></li>
-                        <li v-if="ideaDetail.state === 'post'"><div class="dropdown__btn" @click="publishIdea('draft')">非公開にする</div></li>
-                        <li><div class="dropdown__btn" @click="showModal('edit')">編集する</div></li>
-                        <li><div class="dropdown__btn" @click="showModal('delete')">削除する</div></li>
-                    </template>
-                </BaseVerticalDropdown>
                 <!-- setting modal -->
                 <BaseModal v-model="modalState" v-if="modalState">
                     <template #card>
@@ -32,11 +20,18 @@
                     </template>
                 </BaseModal>
             </div>
-
             <div class="idea__title">
                 <h1>{{ ideaDetail.title }}</h1>
             </div>
             <div class="idea__post-user">
+                <EditButton class="edit__button" ref="editButton">
+                    <template #dropdown-item>
+                        <li v-if="ideaDetail.state === 'draft'"><div class="dropdown__btn" @click="publishIdea('post')">公開する</div></li>
+                        <li v-if="ideaDetail.state === 'post'"><div class="dropdown__btn" @click="publishIdea('draft')">非公開にする</div></li>
+                        <li><div class="dropdown__btn" @click="showModal('edit')">編集する</div></li>
+                        <li><div class="dropdown__btn" @click="showModal('delete')">削除する</div></li>
+                    </template>
+                </EditButton>
                 <span class="ideas__by">投稿者</span>
                 <div class="user__profile-box">
                     <img :src="userDetail.prof_img">
@@ -123,13 +118,12 @@
                 </IdeaContent>
             </div>
         </section>
-
-
     </div>
 </template>
 
 <script>
 import asyncProcessing from '@/services/asyncProcessing.js';
+import EditButton from '@/components/UI/EditButton.vue';
 import RecruitmentDisplay from '@/components/Idea/Detail/RecruitmentDisplay.vue';
 import IdeaEditModal from '@/components/Idea/Detail/IdeaEditModal.vue';
 import IdeaDeleteModal from '@/components/Idea/Detail/IdeaDeleteModal.vue';
@@ -138,7 +132,7 @@ import FeedbackQuestionElement from '@/components/Idea/Detail/FeedbackQuestionEl
 // import IdeaReputationSection from '@/components/Idea/Detail/IdeaReputationSection.vue';
 export default {
     components: {
-        // InputTag,
+        EditButton,
         RecruitmentDisplay,
         IdeaEditModal,
         IdeaDeleteModal,
@@ -153,7 +147,6 @@ export default {
             // user
             userDetail: null,
             // idea
-            isDropdownOn: false,
             isMyIdea: false,
             ideaDetail: null,
             ideaId: null,
@@ -180,13 +173,10 @@ export default {
         }
     },
     methods: {
-        settingBtnPressed() {
-            this.isDropdownOn = !this.isDropdownOn;
-        },
         showModal(_modalType) {
             this.modalType = _modalType;
             this.modalState = true;
-            this.isDropdownOn = false;
+            this.$refs.editButton.$emit('closeDropdown'); // ドロップダウンを閉じる
         },
         publishIdea(_state) {
             const updateData = {
@@ -209,7 +199,7 @@ export default {
                 console.log("error to publish idea: ", err);
             })
 
-            this.isDropdownOn = false;
+            this.$refs.editButton.$emit('closeDropdown'); // ドロップダウンを閉じる
         },
         clearModalState() {
             // modalを画面から消す
@@ -277,7 +267,7 @@ export default {
 <style lang="scss" scoped>
 .idea__header {
     max-width: $global-max-width;
-    padding-top: 6.47rem; // $header-height * 1.618
+    padding: 2.47rem 0; // $header-height * 0.618
     margin: 0 auto;
     text-align: left;
     color: #000;
@@ -292,29 +282,6 @@ export default {
         position: relative; // dropdown's position is relative to this setting
     }
 
-    .setting__btn {
-        margin-left: auto;
-        cursor: pointer;
-    }
-
-    .vertical__dropdown {
-        padding: 0;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        z-index: 90;
-    }
-
-    .dropdown__btn {
-        line-height: 3rem;
-        color: #000;
-        cursor: pointer;
-
-        &:hover {
-            background-color: $color-secondary;
-        }
-    }
-
     .idea__title {
         border-bottom: 1px solid #ccc;
         font-size: 26px;
@@ -324,10 +291,24 @@ export default {
     .idea__post-user {
         display: flex;
         align-items: center;
+
+        .edit__button {
+            margin-left: auto;
+            margin-right: 1rem;
+
+            .dropdown__btn {
+                line-height: 3rem;
+                color: #000;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-secondary;
+                }
+            }
+        }
     }
 
     .ideas__by {
-        margin-left: auto;
         margin-right: 1rem;
     }
 
