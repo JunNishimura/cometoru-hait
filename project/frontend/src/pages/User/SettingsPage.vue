@@ -2,13 +2,11 @@
     <div id="settings">
         <BaseCard v-if="loadComplete">
             <BaseForm @submitFunc="updateProfile" headerTitle="プロフィール編集">
-                <template #form-header>
+                <template #form-content>
                     <div class="form-control profile-image">
                         <img :src="previewImage" alt="profile">
                         <input class="image-input" type="file" @change="imageSelect" accept="image/*">
                     </div>
-                </template>
-                <template #form-content>
                     <div class="form-control">
                         <label for="username">ユーザー名</label>
                         <input type="text" id="username" name="username" v-model.trim="formData.username">
