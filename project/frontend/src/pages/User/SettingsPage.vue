@@ -4,8 +4,7 @@
             <BaseForm @submitFunc="updateProfile" headerTitle="プロフィール編集">
                 <template #form-content>
                     <div class="form-control profile-image">
-                        <img :src="previewImage" alt="profile">
-                        <input class="image-input" type="file" @change="imageSelect" accept="image/*">
+                        <DragImageUploader :defaultImage="userDetail.prof_img" ref="imageUploader" />
                     </div>
                     <div class="form-control">
                         <label for="username">ユーザー名</label>
@@ -45,17 +44,17 @@ import utils from '@/services/utils.js';
 import asyncProcessing from '@/services/asyncProcessing.js';
 import InputTag from '@/components/Tag/InputTag.vue';
 import ResizableTextarea from '@/components/UI/ResizableTextarea.vue';
+import DragImageUploader from '@/components/UI/DragImageUploader.vue';
 
 export default {
     components: {
         InputTag,
-        ResizableTextarea
+        ResizableTextarea,
+        DragImageUploader
     },
     data() {
         return {
             loadComplete: false,
-            selectedImage: null,
-            previewImage: null,
             formData: {
                 username: '',
                 univ: '',
@@ -101,27 +100,10 @@ export default {
             this.formData.email     = this.userDetail.email     == null ? '' : this.userDetail.email;
             this.formData.intro     = this.userDetail.intro     == null ? '' : this.userDetail.intro;
             this.formData.portfolio = this.userDetail.portfolio == null ? '' : this.userDetail.portfolio;
-
-            if (this.userDetail.prof_img != null) {
-                this.previewImage = this.userDetail.prof_img;
-            }
         }, 
-        imageSelect(event) {
-            this.selectedImage = event.target.files[0];
-
-            if (this.selectedImage != null) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.previewImage = e.target.result;
-                }
-                reader.readAsDataURL(this.selectedImage);
-            } else {
-                this.previewImage = this.userDetail.prof_img;
-            }
-        },
         usernameNullCheck() {
             // usernameは空にできないため、空に書き換えられたら元々の名前を入れる
-            if (this.formData.username == null) {
+            if (this.formData.username === null) {
                 this.formData.username = this.userDetail.username;
             }
         },
@@ -163,12 +145,20 @@ export default {
         updateProfile() {
             this.usernameNullCheck();
 
+            let uploadedImage;
+            if (this.$refs.imageUploader.selectedImage !== null) {
+                // 新しい画像が入力されていたらそれを採用する
+                uploadedImage = this.$refs.imageUploader.selectedImage;
+            } else {
+                uploadedImage = this.userDetail.prof_img;
+            }
+
             // userDetailの更新
             const updateData = {
                 userId: this.userId,
                 username: this.formData.username,
                 email: this.formData.email,
-                prof_img: this.selectedImage,
+                prof_img: uploadedImage,
                 intro: this.formData.intro,
                 univ_name: this.formData.univ,
                 major: this.formData.major,
