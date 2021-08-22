@@ -157,11 +157,10 @@ export default {
         formData.append('passion', ideaData.passion);
         formData.append('state', ideaData.state);
         formData.append('deadline', ideaData.deadline);
-        // formData.append('idea_image', ideaData.idea_image);
 
-        // if(ideaData.idea_image !== null) {
-        //     formData.append('idea_image', ideaData.idea_image);
-        // }
+        if(ideaData.idea_image !== null) {
+            formData.append('idea_image', ideaData.idea_image);
+        }
         const response = await api.put(url, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
