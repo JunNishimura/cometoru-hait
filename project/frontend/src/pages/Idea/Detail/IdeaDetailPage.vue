@@ -21,6 +21,7 @@
                 </BaseModal>
             </div>
             <div class="idea__title">
+                <h5 class="idea__title-draft" v-if="ideaDetail.state==='draft'">下書き</h5>
                 <h1>{{ ideaDetail.title }}</h1>
             </div>
             <div class="idea__post-user">
@@ -178,7 +179,19 @@ export default {
             this.modalState = true;
             this.$refs.editButton.$emit('closeDropdown'); // ドロップダウンを閉じる
         },
-        publishIdea(_state) {
+        publishIdea(newState) {
+            let deadline;
+            if (this.ideaDetail.deadline === null) {
+                // deadlineがnullのままだとputに失敗するため値を適当に入力する
+                // deadlineが未指定の場合はデフォルトで1カ月後にする
+                const today = new Date();
+                const nextMonth = new Date(today.setMonth(today.getMonth()+1));
+                deadline = nextMonth.toISOString();
+                console.log(deadline)
+            } else {
+                // ISO extended formatでないとエラーになる
+                deadline = new Date(this.ideaDetail.deadline).toISOString();
+            }
             const updateData = {
                 user_id: this.myUserId,
                 title: this.ideaDetail.title,
@@ -187,10 +200,10 @@ export default {
                 background: this.ideaDetail.background,
                 value: this.ideaDetail.value,
                 passion: this.ideaDetail.passion,
-                state: _state,
-                deadline: this.ideaDetail.deadline,
+                state: newState,
                 idea_image: this.ideaDetail.idea_image,
-            }
+                deadline: deadline
+            };
 
             asyncProcessing.putIdea(updateData, this.ideaId)
             .then(() => {
@@ -286,6 +299,11 @@ export default {
         border-bottom: 1px solid #ccc;
         font-size: 26px;
         letter-spacing: 5px;
+
+        .idea__title-draft {
+            font-size: 16px;
+            color: #f00;
+        }
     }
 
     .idea__post-user {
