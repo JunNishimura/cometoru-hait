@@ -4,24 +4,24 @@
             @setEditPage="setEditPage"
         ></IdeaModalTab>
         <div class="edit__content">
-            <IdeaEditBasic v-if="currentEditPage=='basic'"
+            <IdeaEditBasic v-if="currentEditPage==='basic'"
                 :myUserId="myUserId"
                 :ideaId="ideaId"
                 :ideaDetail="ideaDetail"
                 :currentTags="currentTags"
                 :currentRecruitments="currentRecruitments"
             />
-            <IdeaEditDetail v-if="currentEditPage=='detail'"
+            <IdeaEditDetail v-if="currentEditPage==='detail'"
                 :myUserId="myUserId"
                 :ideaId="ideaId"
                 :ideaDetail="ideaDetail"
             />
-            <IdeaEditImage v-if="currentEditPage=='image'"
+            <IdeaEditImage v-if="currentEditPage==='image'"
                 :userId="myUserId"
                 :ideaId="ideaId"
                 :ideaDetail="ideaDetail"
             />
-            <IdeaEditQuestion v-if="currentEditPage=='question'"
+            <IdeaEditQuestion v-if="currentEditPage==='question'"
                 :ideaId="ideaId"
                 :isMyIdea="isMyIdea"
                 :myUserId="myUserId"
