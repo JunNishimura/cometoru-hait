@@ -187,7 +187,6 @@ export default {
                 const today = new Date();
                 const nextMonth = new Date(today.setMonth(today.getMonth()+1));
                 deadline = nextMonth.toISOString();
-                console.log(deadline)
             } else {
                 // ISO extended formatでないとエラーになる
                 deadline = new Date(this.ideaDetail.deadline).toISOString();

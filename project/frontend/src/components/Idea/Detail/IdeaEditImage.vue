@@ -30,12 +30,24 @@ export default {
     },
     methods: {
         updateIdea() {
-            let uploadedImage;
+            // upload image
+            let uploadedImage = null;
             if (this.$refs.imageUploader.selectedImage !== null) {
                 // 新しい画像が入力されていたらそれを採用する
                 uploadedImage = this.$refs.imageUploader.selectedImage;
+            }
+
+            // deadline
+            let deadline;
+            if (this.ideaDetail.deadline === null) {
+                // deadlineがnullのままだとputに失敗するため値を適当に入力する
+                // deadlineが未指定の場合はデフォルトで1カ月後にする
+                const today = new Date();
+                const nextMonth = new Date(today.setMonth(today.getMonth()+1));
+                deadline = nextMonth.toISOString();
             } else {
-                uploadedImage = this.userDetail.prof_img;
+                // ISO extended formatでないとエラーになる
+                deadline = new Date(this.ideaDetail.deadline).toISOString();
             }
 
             const updateData = {
@@ -47,12 +59,10 @@ export default {
                 value: this.ideaDetail.value,
                 passion: this.ideaDetail.passion,
                 state: this.ideaDetail.state,
-                deadline: this.ideaDetail.deadline,
-                idea_image: uploadedImage,
-            }
+                deadline: deadline,
+                idea_image: uploadedImage
+            };
 
-            console.log(updateData)
-            
             asyncProcessing.putIdea(updateData, this.ideaId)
             .then( () => {
                 this.$router.go({ name: 'ideaDetail', params: { ideaId: this.ideaId }});
