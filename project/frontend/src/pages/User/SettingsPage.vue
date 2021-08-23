@@ -145,12 +145,10 @@ export default {
         updateProfile() {
             this.usernameNullCheck();
 
-            let uploadedImage;
+            let uploadedImage = null;
             if (this.$refs.imageUploader.selectedImage !== null) {
                 // 新しい画像が入力されていたらそれを採用する
                 uploadedImage = this.$refs.imageUploader.selectedImage;
-            } else {
-                uploadedImage = this.userDetail.prof_img;
             }
 
             // userDetailの更新
